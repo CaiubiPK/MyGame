@@ -1,9 +1,9 @@
-// exibir mapa
 #include <vector>
 #include "Caiubi.h"
 const int Envenenamento = 0;
 const int Combustao = 1;
 const int Sangramento = 2;
+const int Menu = 27;
 const int Inventario = 105;
 const int Retornar = 114;
 using namespace std;
@@ -544,7 +544,7 @@ public:
 	//	q = NumeroAleatorio(100);
 	//	if q <= this->chancedeesquva
 	}
-//FunÁıes para modificar (m)
+//Fun√ß√µes para modificar (m)
 	energiaM(int a)
 	{
 		int i;
@@ -638,11 +638,27 @@ public:
 	Atacar(Criatura *inimigo)
 	{
 		system("CLS");
-		inimigo->HPM(-this->atk);
-		energiaM(-30);
+
 		ReceberEfeitos();
-		cout << "\n\n\n\n\n\n\n\n\n\n\t\t\tO inimigo lhe ataca.";
-		Sleep(980);
+		if(this->HP > 0)
+		{
+			cout << "\n\n\n\n\n\n\n\n\n\n\t\t\tO inimigo ataca.";
+			inimigo->HPM(-this->atk);
+			energiaM(-30);
+		}
+		Sleep(280);
+	}
+		AtacarST(Criatura *inimigo)
+	{
+		system("CLS");
+
+		ReceberEfeitos();
+		if(this->HP > 0)
+		{
+			inimigo->HPM(-this->atk);
+			energiaM(-30);
+		}
+		Sleep(280);
 	}
 	PagarCusto(Habilidade H)
 	{
@@ -654,25 +670,25 @@ public:
 	{
 		if (this->getHP() < H.getcustoHP())
 		{
-			cout << "\n\n\n\t\tVocÍ n„o possui HP o suficiente\n";
+			cout << "\n\n\n\t\tVoc√™ n√£o possui HP o suficiente\n";
 			Sleep(800);
 			return false;
 		}
 		if (this->getMP() < H.getcustoMP())
 		{
-			cout << "\n\n\n\t\tVocÍ n„o possui MP o suficiente\n";
+			cout << "\n\n\n\t\tVoc√™ n√£o possui MP o suficiente\n";
 			Sleep(800);
 			return false;
 		}
 		if (this->getenergia() < H.getcustoenergia())
 		{
-			cout << "\n\n\n\t\tVocÍ n„o possui Energia o suficiente\n";
+			cout << "\n\n\n\t\tVoc√™ n√£o possui Energia o suficiente\n";
 			Sleep(800);
 			return false;
 		}
 		if (H.getdisponivel() == false)
 		{
-			cout << "\n\n\n\t\tA Habilidade est· bloqueada\n";
+			cout << "\n\n\n\t\tA Habilidade est√° bloqueada\n";
 			Sleep(800);
 			return false;
 		}
@@ -776,7 +792,7 @@ public:
 		}
 		if(this->efeitos[1].getativo() == true)
 		{
-			AmareloClaro("\n\t\t\tCombust„o ");cout << this->efeitos[1].getcontador()<< " turnos";
+			AmareloClaro("\n\t\t\tCombust√£o ");cout << this->efeitos[1].getcontador()<< " turnos";
 		}
 		if(this->efeitos[2].getativo() == true)
 		{
@@ -870,7 +886,7 @@ public:
 	Criatura()
 	{
 		this->nome = "";
-		this->Nivel = "NÌvel 1";
+		this->Nivel = "N√≠vel 1";
 		this->HP = 0;
 		this->MP = 0;
 		this->atk = 0;
@@ -892,33 +908,33 @@ public:
 		this->NivelDePoder = 0;
 		
 		this->efeitos[0].setativo(false);
-		this->efeitos[0].setnome("Combust„o");
-		this->efeitos[0].setefeito("A vÌtima est· pegando fogo");
+		this->efeitos[0].setnome("Combust√£o");
+		this->efeitos[0].setefeito("A v√≠tima est√° pegando fogo");
 		this->efeitos[0].setdano(7);
 		this->efeitos[0].setcontador(0);
 		
 		this->efeitos[1].setativo(false);
 		this->efeitos[1].setnome("Envenenamento");
-		this->efeitos[1].setefeito("A vÌtima est· envenenada");
+		this->efeitos[1].setefeito("A v√≠tima est√° envenenada");
 		this->efeitos[1].setdano(5);
 		this->efeitos[1].setcontador(0);
 		
 		this->efeitos[2].setativo(false);
 		this->efeitos[2].setnome("Sangramento");
-		this->efeitos[2].setefeito("A vÌtima est· sangrando");
+		this->efeitos[2].setefeito("A v√≠tima est√° sangrando");
 		this->efeitos[2].setdano(6);
 		this->efeitos[2].setcontador(0);
 		
 		this->efeitos[3].setativo(false);
 		this->efeitos[3].setnome("Aumento de Armadura");
-		this->efeitos[3].setefeito("A armadura do usu·rio est· aumentada");
+		this->efeitos[3].setefeito("A armadura do usu√°rio est√° aumentada");
 		this->efeitos[3].setdano(0);
 		this->efeitos[3].setcontador(0);
 		this->efeitos[3].setvalor(4);
 		
 		this->efeitos[4].setativo(false);
 		this->efeitos[4].setnome("Aumento de Ataque");
-		this->efeitos[4].setefeito("A ataque do usu·rio est· aumentado");
+		this->efeitos[4].setefeito("A ataque do usu√°rio est√° aumentado");
 		this->efeitos[4].setdano(0);
 		this->efeitos[4].setcontador(0);
 		this->efeitos[4].setvalor(6);
@@ -945,7 +961,7 @@ public:
 	}
 	Marine()
 	{
-		this->Nivel = "NÌvel 1";
+		this->Nivel = "N√≠vel 1";
 	}
 };
 class MarineMago: public Marine
@@ -958,7 +974,7 @@ public:
 		cout << "\n\n\n\n\n\n\n";
 		if (numero == 0)
 		{
-			ImprimirComDelayNoFim("\t\t\tO Marine dispara raios de suas m„os\n");
+			ImprimirComDelayNoFim("\t\t\tO Marine dispara raios de suas m√£os\n");
 			ImprimirComDelay("\t\t\tEle se prepara e reassume a postura de combate");
 			PontosBrancos();
 			alvo->HPM(-this->atk*3.5);
@@ -966,16 +982,16 @@ public:
 		}
 		if (numero == 1)
 		{
-			ImprimirComDelayNoFim("\t\t\tO Marine se abaixa e comeÁa a entoar c‚nticos esquecidos.\n");
-			ImprimirComDelay("\t\t\tM„os de cad·veres aparecem sob seus pÈs");
+			ImprimirComDelayNoFim("\t\t\tO Marine se abaixa e come√ßa a entoar c√¢nticos esquecidos.\n");
+			ImprimirComDelay("\t\t\tM√£os de cad√°veres aparecem sob seus p√©s");
 			PontosBrancos();
 			alvo->HPM(-6*this->atk);
 			PagarCusto(habilidades[numero]);
 		}
 		if (numero == 2)
 		{
-			ImprimirComDelayNoFim("\t\t\tO Marine saca de suas vestes uma poÁ„o verde escura\n");
-			ImprimirComDelay("\t\t\tEle ingere a poÁ„o borbulhante, e ent„o ri em tom desafiador");
+			ImprimirComDelayNoFim("\t\t\tO Marine saca de suas vestes uma po√ß√£o verde escura\n");
+			ImprimirComDelay("\t\t\tEle ingere a po√ß√£o borbulhante, e ent√£o ri em tom desafiador");
 			PontosBrancos();
 			this->HPM(+this->HPm*0.3);
 			this->HPm += 30;
@@ -984,8 +1000,8 @@ public:
 		}
 		if (numero == 3)
 		{
-			ImprimirComDelayNoFim("\t\t\tUma poÁ„o negra explode sob os pÈs do Marine\n");
-			ImprimirComDelay("\t\t\tEle inala a fumaÁa com apetite");
+			ImprimirComDelayNoFim("\t\t\tUma po√ß√£o negra explode sob os p√©s do Marine\n");
+			ImprimirComDelay("\t\t\tEle inala a fuma√ßa com apetite");
 			PontosBrancos();
 			this->armaduraM(2);
 			this->HPM(15);
@@ -995,8 +1011,8 @@ public:
 		}
 		if (numero == 4)
 		{
-			ImprimirComDelayNoFim("\t\t\tO Marine inicia um ritual apontando suas m„os em sua direÁ„o.\n");
-			ImprimirComDelay("\t\t\tVocÍ sente uma parte de sua alma sendo perdida");
+			ImprimirComDelayNoFim("\t\t\tO Marine inicia um ritual apontando suas m√£os em sua dire√ß√£o.\n");
+			ImprimirComDelay("\t\t\tVoc√™ sente uma parte de sua alma sendo perdida");
 			PontosBrancos();
 			PagarCusto(habilidades[numero]);
 			this->HPm += alvo->getHPm()*0.2;
@@ -1079,39 +1095,39 @@ public:
 	{
 		// Ataque (5/22)
 		this->HabilidadeAux.setnome("Raios do Marine");
-		this->HabilidadeAux.setinfo("(6/22) Dispara uma	 Rajada de raio mortÌferos em seu oponente\n");
+		this->HabilidadeAux.setinfo("(6/22) Dispara uma	 Rajada de raio mort√≠feros em seu oponente\n");
 		this->HabilidadeAux.setcustoMP( 25);
 		this->HabilidadeAux.setcustoHP( 0);
 		this->HabilidadeAux.setcustoenergia(10);
 		this->HabilidadeAux.setdisponivel(true);
 		this->habilidades.push_back(HabilidadeAux);
 		
-		this->HabilidadeAux.setnome("M„os do submundo");
-		this->HabilidadeAux.setinfo("(1/22)Invoca o poder dos mortos conjurando m„os os falecidos aos seus pÈs\n");
+		this->HabilidadeAux.setnome("M√£os do submundo");
+		this->HabilidadeAux.setinfo("(1/22)Invoca o poder dos mortos conjurando m√£os os falecidos aos seus p√©s\n");
 		this->HabilidadeAux.setcustoMP( 40);
 		this->HabilidadeAux.setcustoHP( 0);
 		this->HabilidadeAux.setcustoenergia(15);
 		this->HabilidadeAux.setdisponivel(true);
 		this->habilidades.push_back(HabilidadeAux);
 		
-		this->HabilidadeAux.setnome("PoÁ„o da cura");
-		this->HabilidadeAux.setinfo("(4/22)Ingere uma poÁ„o curando 80% e aumentando limite de vida em 30\n");
+		this->HabilidadeAux.setnome("Po√ß√£o da cura");
+		this->HabilidadeAux.setinfo("(4/22)Ingere uma po√ß√£o curando 80% e aumentando limite de vida em 30\n");
 		this->HabilidadeAux.setcustoMP( 35);
 		this->HabilidadeAux.setcustoHP( 0);
 		this->HabilidadeAux.setcustoenergia( 5);
 		this->HabilidadeAux.setdisponivel(true);
 		this->habilidades.push_back(HabilidadeAux);
 		
-		this->HabilidadeAux.setnome("PoÁ„o AmaldiÁoada");
-		this->HabilidadeAux.setinfo("(4/22)O usu·rio bebe uma poÁ„o, restaurando uma parte de sua vida, concedendo mana m·xima e defesa;\n");
+		this->HabilidadeAux.setnome("Po√ß√£o Amaldi√ßoada");
+		this->HabilidadeAux.setinfo("(4/22)O usu√°rio bebe uma po√ß√£o, restaurando uma parte de sua vida, concedendo mana m√°xima e defesa;\n");
 		this->HabilidadeAux.setcustoMP( 25);
 		this->HabilidadeAux.setcustoHP( 0);
 		this->HabilidadeAux.setcustoenergia( 5);
 		this->HabilidadeAux.setdisponivel(true);
 		this->habilidades.push_back(HabilidadeAux);
 		
-		this->HabilidadeAux.setnome("Transfus„o de alma");
-		this->HabilidadeAux.setinfo("(2/22) Rouba uma parcela da vida do advers·rio\n");
+		this->HabilidadeAux.setnome("Transfus√£o de alma");
+		this->HabilidadeAux.setinfo("(2/22) Rouba uma parcela da vida do advers√°rio\n");
 		this->HabilidadeAux.setcustoMP( 30);
 		this->HabilidadeAux.setcustoHP(  0);
 		this->HabilidadeAux.setcustoenergia(15);
@@ -1119,7 +1135,7 @@ public:
 		this->habilidades.push_back(HabilidadeAux);
 		
 		this->HabilidadePassivaAux.setnome( "Magia dos Marines.");
-		this->HabilidadePassivaAux.setinfo("O mago È um oponente poderoso e astuto, n„o subestime sua magia.");
+		this->HabilidadePassivaAux.setinfo("O mago √© um oponente poderoso e astuto, n√£o subestime sua magia.");
 		this->habilidadespassivas.push_back(HabilidadePassivaAux);
 		
 		this->setDAMOEDAS(500);
@@ -1174,7 +1190,7 @@ public:
 		if (i == 4)
 		{
 			ImprimirComDelayNoFim("O marine desfere um golpe letal na tentativa de lhe executar\n");
-			ImprimirComDelay("(t\t\tSe seu");Verde(" HP ");cout <<"estiver abaixo de ";Vermelho("25%");cout << "vocÍ ser· executado.)";
+			ImprimirComDelay("(t\t\tSe seu");Verde(" HP ");cout <<"estiver abaixo de ";Vermelho("25%");cout << "voc√™ ser√° executado.)";
 			PontosBrancos();
 			this->PagarCusto(habilidades[i]);
 			if (alvo->getHP() < alvo->getHPm()*0.25)
@@ -1266,7 +1282,7 @@ public:
 		this->habilidades.push_back(HabilidadeAux);
 		
 		this->HabilidadeAux.setnome("Ira do Marine");
-		this->HabilidadeAux.setinfo("O marine entra em um estado de f˙ria, Aumentando muito seu ataque e reduzindo sua vida");
+		this->HabilidadeAux.setinfo("O marine entra em um estado de f√∫ria, Aumentando muito seu ataque e reduzindo sua vida");
 		this->HabilidadeAux.setusar1("Os olhos do Marine brilham intensamente em vermelho vivo enquanto sua boca espuma.\n");
 		this->HabilidadeAux.setusar2("Ele parece extremamente furioso");
 		this->HabilidadeAux.setcustoMP(20);
@@ -1290,7 +1306,7 @@ public:
 		this->HabilidadeAux.setnome("Golpe do Executor");
 		this->HabilidadeAux.setinfo("O marine desfere um golpe com o seu machado na tentativa de executar o alvo\n");
 		this->HabilidadeAux.setusar1("O marine desfere um golpe letal na tentativa de lhe executar\n");
-		this->HabilidadeAux.setusar2("(Se sua vida estiver abaixo de 25% vocÍ ser· executado.)");
+		this->HabilidadeAux.setusar2("(Se sua vida estiver abaixo de 25% voc√™ ser√° executado.)");
 		this->HabilidadeAux.setcustoMP(20);
 		this->HabilidadeAux.setcustoHP(0);
 		this->HabilidadeAux.setcustoenergia(15);
@@ -1298,9 +1314,9 @@ public:
 		this->HabilidadeAux.setdisponivel(true);
 		this->habilidades.push_back(HabilidadeAux);
 		
-		this->HabilidadePassivaAux.setnome( "A F˙ria sem fim dos Marines");
-		this->HabilidadePassivaAux.setinfo("O usu·rio È um Marine furioso, possui HP e armadura aumentados,"
-		" alÈm de um instinto assasino que o far· te perseguir atÈ a morte\n"
+		this->HabilidadePassivaAux.setnome( "A F√∫ria sem fim dos Marines");
+		this->HabilidadePassivaAux.setinfo("O usu√°rio √© um Marine furioso, possui HP e armadura aumentados,"
+		" al√©m de um instinto assasino que o far√° te perseguir at√© a morte\n"
 		"8% de HP extra\n ");
 		this->habilidadespassivas.push_back(HabilidadePassivaAux);
 		
@@ -1308,12 +1324,12 @@ public:
 		this->setDAREP(40);
 		this->setDAXP(200);
 		
-		this->loot[1].setnome("CabeÁa de Durotan");
+		this->loot[1].setnome("Cabe√ßa de Durotan");
 		this->loot[1].setcodigo(52);
 		this->loot[1].settamanho(1);
 		this->loot[1].setquantidade(1);
 		this->loot[1].setpreco(1800);
-		this->loot[1].setdescricao("O TrofÈu por derrotar o terrÌvel Marine guerreiro Durotan.");
+		this->loot[1].setdescricao("O Trof√©u por derrotar o terr√≠vel Marine guerreiro Durotan.");
 		this->loot[1].setbatalha(false);
 		this->loot[1].setconsumivel(false);
 	}
@@ -1328,7 +1344,7 @@ public:
 		cout << "\n\n\n\n\n\n\n\n";
 		if (i == 0)
 		{
-			ImprimirComDelay("\t\t\tO Marine se concentra e mira uma flecha mortal na sua direÁ„o.\n");
+			ImprimirComDelay("\t\t\tO Marine se concentra e mira uma flecha mortal na sua dire√ß√£o.\n");
 			ImprimirComDelay("\t\t\tEle sorri maliciosamente obervando a flecha se aproximar de seu peito");
 			PontosBrancos();
 			alvo->armaduraM(-2);
@@ -1348,8 +1364,8 @@ public:
 		}
 		if (i == 2)
 		{
-			ImprimirComDelayNoFim("\t\t\tO Marine solta um grito amedontador e dispara um flecha sob os prÛprios pÈs\n");
-			ImprimirComDelay("\t\t\tFiguras estranhas s„o expelidas pela flecha e entram no corpo do marine");
+			ImprimirComDelayNoFim("\t\t\tO Marine solta um grito amedontador e dispara um flecha sob os pr√≥prios p√©s\n");
+			ImprimirComDelay("\t\t\tFiguras estranhas s√£o expelidas pela flecha e entram no corpo do marine");
 			PontosBrancos();
 			this->HPm += 20;
 			this->HPM(10);
@@ -1364,7 +1380,7 @@ public:
 		if (i == 3)
 		{
 			ImprimirComDelayNoFim("\t\t\tO Marine dispara uma flecha estranha\n");
-			ImprimirComDelay("\t\t\tVocÍ sente o ardor de um veneno paralisante em seu sangue");
+			ImprimirComDelay("\t\t\tVoc√™ sente o ardor de um veneno paralisante em seu sangue");
 			PontosBrancos();
 			alvo->HPM(-this->getatk()- 5);
 			alvo->AdicionarEfeito(Envenenamento,3);
@@ -1463,7 +1479,7 @@ public:
 		this->habilidades.push_back(HabilidadeAux);
 		
 		this->HabilidadeAux.setnome("Flecha Curativa");
-		this->HabilidadeAux.setinfo("(Dispara um flexa em si mesmo, aumentando o HP m·ximo em 10, e recuperando 20% do HP m·ximo.\n");
+		this->HabilidadeAux.setinfo("(Dispara um flexa em si mesmo, aumentando o HP m√°ximo em 10, e recuperando 20% do HP m√°ximo.\n");
 		this->HabilidadeAux.setcustoMP(25);
 		this->HabilidadeAux.setcustoHP(0);
 		this->HabilidadeAux.setcustoenergia(10);
@@ -1471,7 +1487,7 @@ public:
 		this->habilidades.push_back(HabilidadeAux);
 		
 		this->HabilidadeAux.setnome("Flecha do ritual");
-		this->HabilidadeAux.setinfo("Dispara um flexa amaldiÁoada em si mesmo, aumentando o prÛprio ataque, defesa, energia, MP e HP.");
+		this->HabilidadeAux.setinfo("Dispara um flexa amaldi√ßoada em si mesmo, aumentando o pr√≥prio ataque, defesa, energia, MP e HP.");
 		this->HabilidadeAux.setcustoMP(25);
 		this->HabilidadeAux.setcustoHP(0);
 		this->HabilidadeAux.setcustoenergia(20);
@@ -1493,13 +1509,13 @@ public:
 		this->HabilidadeAux.setcustoMP(25);
 		this->HabilidadeAux.setcustoHP(0);
 		this->HabilidadeAux.setdano(5);
-		this->HabilidadeAux.setefeito("Combust„o");
+		this->HabilidadeAux.setefeito("Combust√£o");
 		this->HabilidadeAux.setcustoenergia(15);
 		this->HabilidadeAux.setdisponivel(true);
 		this->habilidades.push_back(HabilidadeAux);
 		
-		this->HabilidadePassivaAux.setnome("A Destreza do CaÁador.");
-		this->HabilidadePassivaAux.setinfo("Um caÁador astuto e cauteloso, possui grande dano, porÈm poucos pontos de vida");
+		this->HabilidadePassivaAux.setnome("A Destreza do Ca√ßador.");
+		this->HabilidadePassivaAux.setinfo("Um ca√ßador astuto e cauteloso, possui grande dano, por√©m poucos pontos de vida");
 		this->habilidadespassivas.push_back(HabilidadePassivaAux);
 	}
 };
@@ -1571,7 +1587,7 @@ protected:
 		{
 			system("cls");
 			cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
-			cout <<  "|                                                     ";Verde("DescriÁ„o de item");cout<<"                                               |";                              
+			cout <<  "|                                                     ";Verde("Descri√ß√£o de item");cout<<"                                               |";                              
 			cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
 			cout << "\n\n\t\tNome: " <<item->getnome();     
 			cout << "\n\n\t\tTamanho  " <<item->gettamanho();
@@ -1579,16 +1595,16 @@ protected:
 			cout << "\n\n\t\tRestaura " <<item->getmp();Azul(" de MP");
 			cout << "\n\n\t\tConcede  " <<item->getxp();AmareloClaro(" de XP");
 			cout << "\n\n\t\tCausa " <<item->getmp();Vermelho(" de dano ao inimigo");
-			cout << "\n\n\t\t… consumÌvel? : ";
+			cout << "\n\n\t\t√â consum√≠vel? : ";
 			if (item->getconsumivel() == true)
 				Vermelho("Sim");
 			if (item->getconsumivel() == false)
-				Verde("N„o");
+				Verde("N√£o");
 			cout << "\n\n\t\tPode ser usado em batalha? : ";
 			if (item->getbatalha() == true)
 				Vermelho("Sim");
 			if (item->getbatalha() == false)
-				Verde("N„o");
+				Verde("N√£o");
 			cout << "\n\n\t\t" <<item->getdescricao()<<endl<<endl;
 			cout << "\n\n\t   (1) Sair        \n";
 			cout << "\n\n\t   (2) Pegar o item \n";
@@ -1613,7 +1629,7 @@ protected:
 				cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
 				cout <<  "|                                                          ";Verde("Pagina ");Verde(tela + 1);cout<<"                                                    |";                              
 				cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
-				cout<<"\t\tSlots disponÌveis: "<<BauDisponivel()<<endl<<endl;
+				cout<<"\t\tSlots dispon√≠veis: "<<BauDisponivel()<<endl<<endl;
 				
 				if (tela == 0)
 				{
@@ -1679,8 +1695,8 @@ protected:
 						}	
 					}
 				}
-				cout <<"\t(i)\tFechar ba˙";
-				AzulClaro("\n\n    <-- P·gina anterior                                                                           Proxima p·gina -->\n");
+				cout <<"\t(i)\tFechar ba√∫";
+				AzulClaro("\n\n    <-- P√°gina anterior                                                                           Proxima p√°gina -->\n");
 				switch(tela)
 				{
 					case 0:
@@ -1739,6 +1755,10 @@ protected:
 							return 0;
 							Pause();
 						break;
+						
+						case Menu:
+				        	jogador->MenuPrincipal();
+				        break;
 					}
 					break;
 					
@@ -1862,7 +1882,7 @@ protected:
 			}
 			if (tamanho == 1)
 			{
-				this->tipo = "Casa mÈdia";
+				this->tipo = "Casa m√©dia";
 				for (i=0;i<50;i++)
 				{
 					this->Bau.push_back(itemvazio);
@@ -1924,9 +1944,9 @@ public:
 	SubirDeNivel()
 	{
 		system("cls");
-		AzulClaro("\n\n\n\n\n\n\t\tVocÍ suiu de nÌvel!\n");
-		ImprimirComDelay("\n\t\tAgora vocÍ È ");VerdeCD(this->Nivel);ImprimirComDelayNoFim(".");
-		ImprimirComDelay("\n\t\tSeus atributos foram Aprimorados.\n\n\t\tVocÍ recebeu:");
+		AzulClaro("\n\n\n\n\n\n\t\tVoc√™ suiu de n√≠vel!\n");
+		ImprimirComDelay("\n\t\tAgora voc√™ √© ");VerdeCD(this->Nivel);ImprimirComDelayNoFim(".");
+		ImprimirComDelay("\n\t\tSeus atributos foram Aprimorados.\n\n\t\tVoc√™ recebeu:");
 	//	AmareloClaro("\t\tHabilidade");
 	//	Azul("\t\tHabilidade Passiva");;cout<< " " <<this->habilidadespassivas[i].getnome()<< endl;
 		this->HPm += 30;
@@ -1948,7 +1968,7 @@ public:
 			AmareloCD("\n\n\t\tEnergia + ");cout <<20 + 0;
 			VermelhoCD("\n\n\t\tAtaque + ");cout <<2 + 0;
 			CinzaCD("\n\n\t\tArmadura + ");cout <<1 + 0;
-			ImprimirComDelay("\n\n\t\tHabilidade ");AmareloClaro(this->Habilidades[1].getnome()); cout << " agora disponÌvel\n\n";
+			ImprimirComDelay("\n\n\t\tHabilidade ");AmareloClaro(this->Habilidades[1].getnome()); cout << " agora dispon√≠vel\n\n";
 			Pause();
 		}
 		if (this->Nivel == "Nivel 3")
@@ -1968,7 +1988,7 @@ public:
 			AmareloCD("\n\n\t\tEnergia + ");cout <<20 + 0;
 			VermelhoCD("\n\n\t\tAtaque + ");cout <<2+ 0;
 			CinzaCD("\n\n\t\tArmadura + ");cout <<1 + 0;
-			ImprimirComDelay("\n\n\t\tHabilidade ");AmareloCD(this->Habilidades[2].getnome()); cout << " agora disponÌvel\n\n";
+			ImprimirComDelay("\n\n\t\tHabilidade ");AmareloCD(this->Habilidades[2].getnome()); cout << " agora dispon√≠vel\n\n";
 			Pause();
 		}
 		if (this->Nivel == "Nivel 5")
@@ -1995,7 +2015,7 @@ public:
 			AmareloCD("\n\n\t\tEnergia + ");cout <<20 + 0;
 			VermelhoCD("\n\n\t\tAtaque + ");cout <<2+ 0;
 			CinzaCD("\n\n\t\tArmadura + ");cout <<1 + 0;
-			ImprimirComDelay("\n\n\t\tHabilidade ");AmareloCD(this->Habilidades[3].getnome()); cout << " agora disponÌvel\n\n";
+			ImprimirComDelay("\n\n\t\tHabilidade ");AmareloCD(this->Habilidades[3].getnome()); cout << " agora dispon√≠vel\n\n";
 			Pause();
 			
 		}
@@ -2134,12 +2154,12 @@ public:
 			cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
 			cout <<  "|                                                           ";Amarelo("Encontro");cout<<"                                                   |";                              
 			cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
-			ImprimirComDelay("\n\n\n\n\n\n\tVocÍ Encontrou : ");VermelhoCD(inimigo.getnome());cout << " "; VerdeCDNoFim(inimigo.getNivel());
-			ImprimirComDelayNoFim("\n\tOque ir· fazer?\n\n\n");
+			ImprimirComDelay("\n\n\n\n\n\n\tVoc√™ Encontrou : ");VermelhoCD(inimigo.getnome());cout << " "; VerdeCDNoFim(inimigo.getNivel());
+			ImprimirComDelayNoFim("\n\tOque ir√° fazer?\n\n\n");
 			
 			
  cout <<"\n\n+----------------------------------------------------------------------------------------------------------------------+\n"
-			"|                  1-LUTAR!                2-FUGIR                3-DETALHAR                4-INVENT¡RIO               |\n"
+			"|                  1-LUTAR!                2-FUGIR                3-DETALHAR                4-INVENT√ÅRIO               |\n"
 			"+----------------------------------------------------------------------------------------------------------------------+\n";
 			
 			switch(Tecla())
@@ -2153,7 +2173,7 @@ public:
 					if(this->NivelDePoder >= inimigo.getNivelDePoder() + 100)
 					{
 						system("CLS");
-						ImprimirComDelay("\n\n\n\n\n\n\t\tVocÍ fugiu da batalha.");
+						ImprimirComDelay("\n\n\n\n\n\n\t\tVoc√™ fugiu da batalha.");
 						return 0;
 					}
 					if(this->NivelDePoder <= inimigo.getNivelDePoder())
@@ -2163,14 +2183,14 @@ public:
 						if(this->chancedeesquiva < q)
 						{
 							system("CLS");
-							ImprimirComDelay("\n\n\n\n\n\n\t\tVocÍ tenta em v„o fugir de seu inimigo, e ele te ataca.");
-							inimigo.Atacar(this);
+							ImprimirComDelay("\n\n\n\n\n\n\t\tVoc√™ tenta em v√£o fugir de seu inimigo, e ele te ataca.");
+							inimigo.AtacarST(this);
 							this->luta(&inimigo);
 						}
 						else 
 						{
 							system("CLS");
-							ImprimirComDelay("\n\n\n\n\n\n\t\tVocÍ fugiu da batalha.");
+							ImprimirComDelay("\n\n\n\n\n\n\t\tVoc√™ fugiu da batalha.");
 							return 0;
 						}
 					}
@@ -2284,17 +2304,17 @@ public:
  		int i;
 	 	if(this->getmoedas() < item->getpreco())
 	 	{
-	 		cout <<"\t VocÍ n„o possui moedas suficientes.\n\n";
+	 		cout <<"\t Voc√™ n√£o possui moedas suficientes.\n\n";
 	 		return false;
 		}
 		if(this->InventarioDisponivel() < item->gettamanho())
 	 	{
-	 		cout <<"\t VocÍ n„o possui espaÁo suficiente.\n\n";
+	 		cout <<"\t Voc√™ n√£o possui espa√ßo suficiente.\n\n";
 			return false;
 		}
 		this->moedasM(-item->getpreco());
         this->AdicionarItemNoInventario(item);
-		cout << "\t VocÍ comprou: \""<<item->getnome()<<" X";Verde(item->getquantidade());cout <<".\n\n";
+		cout << "\t Voc√™ comprou: \""<<item->getnome()<<" X";Verde(item->getquantidade());cout <<".\n\n";
 	}	
 	AbrirInventarioCombate(Criatura * oponente)
 	{
@@ -2322,7 +2342,7 @@ public:
 						contador++;
 					}
 				}
-				cout <<"\t(r)\tFechar Invent·rio";
+				cout <<"\t(r)\tFechar Invent√°rio";
 				if (contador < 9)
 				{
 					i = Tecla();
@@ -2367,7 +2387,7 @@ public:
 				}
 				if (contador == 9 )
 				{
-					Verde("\n\n\n\n\n\n\t\t <-- P·gina anterior                                                      Proxima p·gina -->\n");
+					Verde("\n\n\n\n\n\n\t\t <-- P√°gina anterior                                                      Proxima p√°gina -->\n");
 					Pause();
 					i = Tecla();
 					if (i == 77)
@@ -2388,7 +2408,7 @@ public:
 			/*
 			if (tela == 1)
 			{
-				cout << "P·gina 2\n\n";
+				cout << "P√°gina 2\n\n";
 				for (i = 0; i < 233;i++)
 				{
 					
@@ -2396,7 +2416,7 @@ public:
 						cout << "\t\t\t"<< i + 1<< "- " << this->Inventario[i].getnome() << "\n\n\n";
 					if (i==20)
 					{
-						Verde("\n\n\n\n\n\n\t\t <-- P·gina anterior                                                        Proxima p·gina -->\n");
+						Verde("\n\n\n\n\n\n\t\t <-- P√°gina anterior                                                        Proxima p√°gina -->\n");
 						c = Tecla();
 						if (c == 77)
 						{
@@ -2415,7 +2435,7 @@ public:
 			}
 			if (tela == 2)
 			{
-				cout << "P·gina 3\n\n";
+				cout << "P√°gina 3\n\n";
 				for (i = 0; i < 233;i++)
 				{
 				
@@ -2423,7 +2443,7 @@ public:
 						cout << "\t\t\t"<< i + 1<< "- " << this->Inventario[i].getnome() << "\n\n\n";
 					if (i+=30)
 					{
-						Verde("\n\n\n\n\n\n\t\t <-- P·gina anterior                                                        Proxima p·gina -->\n");
+						Verde("\n\n\n\n\n\n\t\t <-- P√°gina anterior                                                        Proxima p√°gina -->\n");
 						c = Tecla();
 						if (c == 77)
 						{
@@ -2448,7 +2468,7 @@ public:
 		int i;
 		system("cls");
 		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
-		cout <<  "|                                                     ";Verde("DescriÁ„o de item");cout<<"                                               |";                              
+		cout <<  "|                                                     ";Verde("Descri√ß√£o de item");cout<<"                                               |";                              
 		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
 		cout << "\n\n\t\tNome: " <<item->getnome();     
 		cout << "\n\n\t\tTamanho  " <<item->gettamanho();
@@ -2456,16 +2476,16 @@ public:
 		cout << "\n\n\t\tRestaura " <<item->getmp();Azul(" de MP");
 		cout << "\n\n\t\tConcede  " <<item->getxp();AmareloClaro(" de XP");
 		cout << "\n\n\t\tCausa " <<item->getmp();Vermelho(" de dano ao inimigo");
-		cout << "\n\n\t\t… consumÌvel? : ";
+		cout << "\n\n\t\t√â consum√≠vel? : ";
 		if (item->getconsumivel() == true)
 			Vermelho("Sim");
 		if (item->getconsumivel() == false)
-			Verde("N„o");
+			Verde("N√£o");
 		cout << "\n\n\t\tPode ser usado em batalha? : ";
 		if (item->getbatalha() == true)
 			Vermelho("Sim");
 		if (item->getbatalha() == false)
-			Verde("N„o");
+			Verde("N√£o");
 		cout << "\n\n\t\t" <<item->getdescricao()<<endl<<endl;
 		cout << "\n\n\t   (1) Sair        \n";
 		cout << "\n\n\t   (2) Usar o item \n";
@@ -2494,7 +2514,7 @@ public:
 			cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
 			cout <<  "|                                                          ";Verde("Pagina ");Verde(tela + 1);cout<<"                                                    |";                              
 			cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
-			cout<<"\t\tSlots disponÌveis: "<<InventarioDisponivel()<<endl<<endl;
+			cout<<"\t\tSlots dispon√≠veis: "<<InventarioDisponivel()<<endl<<endl;
 			
 			if (tela == 0)
 			{
@@ -2562,8 +2582,8 @@ public:
 					}	
 				}
 			}
-			cout <<"\t(r)\tFechar Invent·rio";
-			AzulClaro("\n\n\n\n    <-- P·gina anterior                                                                           Proxima p·gina -->\n");
+			cout <<"\t(r)\tFechar Invent√°rio";
+			AzulClaro("\n\n\n\n    <-- P√°gina anterior                                                                           Proxima p√°gina -->\n");
 			switch(tela)
 			{
 				case 0:
@@ -2622,6 +2642,10 @@ public:
 						return 0;
 						Pause();
 					break;
+					
+					case Menu:
+					this->MenuPrincipal();
+				    break;
 				}
 				break;
 				
@@ -2825,7 +2849,7 @@ public:
 		}
 		if(this->efeitos[1].getativo() == true)
 		{
-			AmareloClaro("\n\t\t\tCombust„o ");cout << this->efeitos[1].getcontador()<< " turnos";
+			AmareloClaro("\n\t\t\tCombust√£o ");cout << this->efeitos[1].getcontador()<< " turnos";
 		}
 		if(this->efeitos[2].getativo() == true)
 		{
@@ -2857,14 +2881,14 @@ public:
 		cout << "\n\n\n\n\n\n\n\n\t\t\t";
 		if (numero == 0)
 		{
-			ImprimirComDelay("VocÍ canaliza pequenos poderes de cura de seu corpo");
+			ImprimirComDelay("Voc√™ canaliza pequenos poderes de cura de seu corpo");
 			PontosBrancos();
 			this->HPM(+40);
 			this->PagarCusto(Habilidades[0]);
 		}
 		if (numero == 1)
 		{
-			ImprimirComDelay("VocÍ ergue seu escudo se preparando para o confronto");
+			ImprimirComDelay("Voc√™ ergue seu escudo se preparando para o confronto");
 			PontosBrancos();
 			this->HPM(+10);
 			this->AdicionarEfeito(3,2);
@@ -2872,7 +2896,7 @@ public:
 		}
 		if (numero == 2)
 		{
-			ImprimirComDelay("VocÍ desfere um golpe certeiro no peito o oponente, fazendo-o sangrar");
+			ImprimirComDelay("Voc√™ desfere um golpe certeiro no peito o oponente, fazendo-o sangrar");
 			PontosBrancos();
 			this->HPM(+10);
 			alvo->HPM(-this->getatk() - 10);
@@ -2882,7 +2906,7 @@ public:
 		}
 		if (numero == 3)
 		{
-			ImprimirComDelay("VocÍ Entra em estado de f˙ria, se concentrando na batalha");
+			ImprimirComDelay("Voc√™ Entra em estado de f√∫ria, se concentrando na batalha");
 			PontosBrancos();
 			this->HPm += -10;
 			this->atkM(12);
@@ -2920,7 +2944,7 @@ public:
 		cout <<"+----------------------------------------------------------------------------------------------------------------------+\n"
 		       "|                                                          Habilidades:                                                |\n";
 		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
-		Verde("\t\tHabilidades disponÌveis:\n\n\n");
+		Verde("\t\tHabilidades dispon√≠veis:\n\n\n");
 		for (i=0;i < this->Habilidades.size() - 1;i++)
 		{
 			if(this->Habilidades[i].getdisponivel() == true)
@@ -2952,7 +2976,7 @@ public:
 			v = Verifica(this->Habilidades[1]);
 			if (v == false)
 			{
-				cout << "VocÍ n„o possui recursos suficientes\n";
+				cout << "Voc√™ n√£o possui recursos suficientes\n";
 				return false;
 			}
 			this->AtivarHabilidade(1,inimigo);
@@ -2963,7 +2987,7 @@ public:
 		v = Verifica(this->Habilidades[2]);
 			if (v == false)
 			{
-				cout << "VocÍ n„o possui recursos suficientes\n";
+				cout << "Voc√™ n√£o possui recursos suficientes\n";
 				return false;
 			}
 			this->AtivarHabilidade(2,inimigo);
@@ -2974,7 +2998,7 @@ public:
 		v = Verifica(this->Habilidades[3]);
 			if (v == false)
 			{
-				cout << "VocÍ n„o possui recursos suficientes\n";
+				cout << "Voc√™ n√£o possui recursos suficientes\n";
 				return false;
 			}
 			this->AtivarHabilidade(3,inimigo);
@@ -3019,7 +3043,7 @@ public:
 			system("CLS");
 			int i = kbhit();
 			cout <<"+----------------------------------------------------------------------------------------------------------------------+\n"
-			"|\t\t\t\t           VocÍ est· enfrentando ";Vermelho(inimigo->getnome()); cout << " "; Verde(inimigo->getNivel());                               
+			"|\t\t\t\t           Voc√™ est√° enfrentando ";Vermelho(inimigo->getnome()); cout << " "; Verde(inimigo->getNivel());                               
 			cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\t";
 			cout <<"\n\n\t\t\t\tAtributos de ";AzulClaro(this->getnome());cout << "\n\n\n";
 			this->CoutAtributos();
@@ -3035,7 +3059,7 @@ public:
 			{
 				if(this->energia < 25)
 				{
-					cout <<"\t\tVocÍ n„o possui energia o suficiente";
+					cout <<"\t\tVoc√™ n√£o possui energia o suficiente";
 				}
 					if(this->energia >= 25)
 				{
@@ -3051,7 +3075,7 @@ public:
 			if (i == 51)
 				{
 				system("CLS");
-				cout << "\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\tVocÍ passou seu turno";
+				cout << "\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\tVoc√™ passou seu turno";
 				this->PassarTurno();
 				inimigo->Atacar(this);
 				}
@@ -3065,7 +3089,7 @@ public:
 				{
 					/*
 				system("CLS");
-				cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\tVocÍ desistiu da batalha.";
+				cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\tVoc√™ desistiu da batalha.";
 				this->HP = 0;
 				Sleep(1000);
 				inimigo->Atacar(this);
@@ -3077,7 +3101,7 @@ public:
 				
 			if(i != 49 && i !=50 && i !=51 && i != 52 && i !=53 && i !=54)
 			{
-				cout<< "\nInv·lido\n";
+				cout<< "\nInv√°lido\n";
 			}
 			Sleep(700);
 		
@@ -3085,8 +3109,8 @@ public:
 		if (this->HP <= 0 && inimigo->getHP() <=0)
 		{
 		system("CLS");
-		cout << "\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\tVocÍ se sacrificou heroicamente derrotando " << inimigo->getnome();
-		cout << "\n\t\t\t\t\t\tSeu sacrifÌcio nunca ser· esquecido.";
+		cout << "\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\tVoc√™ se sacrificou heroicamente derrotando " << inimigo->getnome();
+		cout << "\n\t\t\t\t\t\tSeu sacrif√≠cio nunca ser√° esquecido.";
 		cout << "\t\t\t\t\tObrigado por jogar!";
 		Sleep(2500);
 		exit(0);
@@ -3094,7 +3118,7 @@ public:
 		else if(this->HP <= 0)
 		{	
 		system("CLS");
-		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\tVocÍ foi assasinado por " << inimigo->getnome();
+		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\tVoc√™ foi assasinado por " << inimigo->getnome();
 		cout << "\t\t\t\t\tObrigado por jogar!";
 		Sleep(2500);
 		exit(0);
@@ -3103,7 +3127,7 @@ public:
 		else if(inimigo->getHP() <= 0)
 		{	
 		system("CLS");
-		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\tVocÍ derrotou " << inimigo->getnome();
+		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\tVoc√™ derrotou " << inimigo->getnome();
 		ReceberRecompensaDoInimigo(inimigo);
 		Sleep(2500);
 		}	
@@ -3127,11 +3151,47 @@ public:
 			return atributo + atributo*0.51;
 		}
 	}
+	Reset()
+	{
+		this->PrimeiraVezEmKyronma = true;
+		this->PrimeiraVezNoMercadorDeAlimentos= true;
+		this->PrimeiraVezNoCentro= true;
+		this->PrimeiraVezNataverna= true;
+		this->PrimeiraVezNoCurandeiro= true;
+		this->PrimeiraVezNoPortao= true;
+		this->PrimeiraVezEmCasa= true;
+		this->PrimeiraVezNoBalcao= true;
+		this->PrimeiraVezNoInstrutor = true;
+		this->PrimeiraVezNosCamposPraianos = true;
+		this->PrimeiraVezNaPraia = true;
+		this->PrimeiraVezNaPraiaSecreta = true;
+		this->PrimeiraVezNoHomemEstranho= true;
+	}
+	MenuPrincipal()
+	{
+		system("cls");
+		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
+		cout <<  "|                                                      ";Verde("MENU PRINCIPAL");cout<<"                                                   |";                              
+		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
+	 	cout << "\n\n\t(1) Reiniciar Anima√ß√µes       \n";
+        cout << "\n\n\t(r) Retornar ao jogo  \n";
+        switch(Tecla())
+        {
+            case 49:
+        	   this->Reset();
+			break;
+			
+			case Retornar:
+				return 0;
+			break;
+				
+		}	
+	}
 	Jogador()
 	{
 		int l;
 		this->nome = "Jogador";//krammus
-		this->Nivel = "NÌvel 1";
+		this->Nivel = "N√≠vel 1";
 		this->HP = 130;
 		this->MP = 150;
 		this->atk = 500;
@@ -3161,8 +3221,8 @@ public:
 		this->HabilidadeAux.setcustoHP(0);
 		this->HabilidadeAux.setcustoMP(40);
 		this->HabilidadeAux.setcustoenergia(15);
-		this->HabilidadeAux.setnome("Cura b·sica");
-		this->HabilidadeAux.setusar1("VocÍ canalisa poderes curativos de suas m„os");
+		this->HabilidadeAux.setnome("Cura b√°sica");
+		this->HabilidadeAux.setusar1("Voc√™ canalisa poderes curativos de suas m√£os");
 		this->HabilidadeAux.setinfo("Cura a si mesmo em alguns pontos de vida");
 		this->HabilidadeAux.setdisponivel(true);
 		this->AdicionarHabilidade(HabilidadeAux);
@@ -3189,14 +3249,14 @@ public:
 		this->HabilidadeAux.setcustoMP(10);
 		this->HabilidadeAux.setcustoHP(35);
 		this->HabilidadeAux.setcustoenergia(50);
-		this->HabilidadeAux.setnome("F˙ria de Batalha");
+		this->HabilidadeAux.setnome("F√∫ria de Batalha");
 		this->HabilidadeAux.setinfo("Desfere um forte golpe, reduzindo a armadura do alvo e fazendo-o sangrar.");
 		this->HabilidadeAux.setdisponivel(false);
 		this->AdicionarHabilidade(HabilidadeAux);
 
 		this->Casas.push_back(Casa(0));
 		
-		
+// RESET ANIMA√á√îES		
 		this->PrimeiraVezEmKyronma = true;
 		this->PrimeiraVezNoMercadorDeAlimentos= true;
 		this->PrimeiraVezNoCentro= true;
@@ -3228,47 +3288,47 @@ class BancoDeItens
 		this->itens[0].sethp(1000);
 		this->itens[0].setdescricao("3RRO N0 J0G00 957C867A6B983C97E9T98YH\n3ST3 IT3M D3V3 S3R D3S7RUID0.");
 		
-		this->itens[1].setnome("Naco de p„o duro");
+		this->itens[1].setnome("Naco de p√£o duro");
 		this->itens[1].setcodigo(0001);
 		this->itens[1].settamanho(-1);
 		this->itens[1].setxp(0);
 		this->itens[1].sethp(3);
-		this->itens[1].setdescricao("PedaÁos simples de um p„o velho.");
+		this->itens[1].setdescricao("Peda√ßos simples de um p√£o velho.");
 		
-		this->itens[2].setnome("¡gua da Fonte");
+		this->itens[2].setnome("√Ågua da Fonte");
 		this->itens[2].setcodigo(0002);
 		this->itens[2].settamanho(-1);
 		this->itens[2].setxp(1);
 		this->itens[2].sethp(2);
-		this->itens[2].setdescricao("¡gua advinda de alguma fonte do reino.");
+		this->itens[2].setdescricao("√Ågua advinda de alguma fonte do reino.");
 		
-		this->itens[3].setnome("PedaÁo de Carne-seca");
+		this->itens[3].setnome("Peda√ßo de Carne-seca");
 		this->itens[3].setcodigo(0003);
 		this->itens[3].settamanho(-1);
 		this->itens[3].setxp(0);
 		this->itens[3].sethp(6);
-		this->itens[3].setdescricao("PedaÁos de uma carne barata, e que um dia ja foram melhores.");
+		this->itens[3].setdescricao("Peda√ßos de uma carne barata, e que um dia ja foram melhores.");
 		
 		this->itens[4].setnome("Peixe-seco");
 		this->itens[4].setcodigo(0004);
 		this->itens[4].settamanho(-1);
 		this->itens[4].setxp(0);
 		this->itens[4].sethp(13);
-		this->itens[4].setdescricao (" Peixes secos vindo de  alguma cidade portu·ria prec·ria");
+		this->itens[4].setdescricao (" Peixes secos vindo de  alguma cidade portu√°ria prec√°ria");
 		
 		this->itens[5].setnome("Carne Salgada");
 		this->itens[5].setcodigo(0005);
 		this->itens[5].settamanho(-1);
 		this->itens[5].setxp(0);
 		this->itens[5].sethp(10);
-		this->itens[5].setdescricao("Um bife de carne que foi salgado ao invÈs de descartado.");
+		this->itens[5].setdescricao("Um bife de carne que foi salgado ao inv√©s de descartado.");
 		
 		this->itens[6].setnome("Vinho caseiro simples");
 		this->itens[6].setcodigo(0006);
 		this->itens[6].settamanho(-1);
 		this->itens[6].setxp(5);
 		this->itens[6].sethp(10);
-		this->itens[6].setdescricao("Vinho feito de forma caseira, com baixo tempo e fermentaÁ„o e origem duvidosa.");
+		this->itens[6].setdescricao("Vinho feito de forma caseira, com baixo tempo e fermenta√ß√£o e origem duvidosa.");
 */
 	}
 };
@@ -3281,8 +3341,7 @@ public:
 		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
 		cout <<  "|                                                        ";Verde("Tutoriais");cout<<"                                                    |";                              
 		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
-	}
-								
+	}								
 	void Tutorial(Jogador *x)
 	{
 		system("cls");
@@ -3291,76 +3350,92 @@ public:
 	}
 	void ExplicacaoGeral()
 	{
-		system("cls");
+		system ("cls");
 		tutoriais();
-		ImprimirComDelayNoFim("\n\n\n\n\t\tSeja bem Vindo as InstruÁıes de Combate\n");
+		VerdeCDNoFim("\n\tEste √© um jogo desenvolvido inteiramente em C++.\n\n");
+		ImprimirComDelay("\tCriar um joigo foi uma ideia que sempre me chamou a aten√ß√£o, eno meu primeiro semestre\n");
+		ImprimirComDelay("\tde faculdade, surgiu uma oportunidade, como√ßei bem humildimente fazendo esse jogo, \n");
+		ImprimirComDelay("\teram apenas menus com npumeros na cidade de greenwitch, come√ßei a usar a fun√ß√£o KBHIT, e fazer menus \n");
+		ImprimirComDelay("\tcom setas, mais elaborados, o trabalho era de refazer um menu 5 vezes, e o jogo continha pelomenos 28 menus, \n");
+		ImprimirComDelay("\tgastei h√≥ras aprendendo a manipular cores pelo terminal, e fiz artes em ASCII usando cores, como a logo do jogo, \n");
+		ImprimirComDelay("\t(por sinal foi bem trabalhoso desenhar 2 drag√µes pixel por pixel em um terminal)\n");
+		ImprimirComDelayNoFim("\tn√£o havia sistema de combate e havia um pequeno sistema prec√°rio de itens.\n\n\n");
+		ImprimirComDelay("\tNo segundo semestre da faculdade aprendi orienta√ß√£o programada a objetos, e criei um sistema de combate usando isso,\n");
+		ImprimirComDelay("\tMuito tempo depois de aprimorar o sistema de combate, resolvi com muito √±imo e disposi√ß√°o unificar meu antigo jogo e esse sistema de combate,\n");
+		ImprimirComDelay("\to tRAbalho seria rid√≠culo de grande, eu deveria transformar +- 2.800 linhas de c√≥digo em orienta√ß√£o programada a objetos\n");
+		
 	}
 	void ExplicacaoItens()
 	{
 			system ("cls");
 			tutoriais();
-			ImprimirComDelayNoFim("\n\tSeja bem Vindo as InstruÁıes de itens\n");
-			ImprimirComDelay("\t\tOs itens em "); VermelhoCD("(TÌtulo)");ImprimirComDelay(" s„o divididos em 6 raridades:\n\n");
-			Branco("\t\tComuns ");cout<<"         -";   Branco( " Branco\n");
-			Verde("\t\tIncomuns ");cout<<"       -";   Verde(" Verde\n");
-			Azul("\t\tRaros ");cout<<"          -";   Azul(" Azul\n");
-			Rosa("\t\tM·gicos ");cout<<"        -";   Rosa(" Rosa\n");
-			Amarelo("\t\tLend·rios ");cout<<"      -";   Amarelo(" Amarelo\n");
-			Vermelho("\t\tItens do Drag„o ");cout<<"-";   Vermelho(" Vermelho\n");
-			Pause();
-			ImprimirComDelay("\t\tCada raridade se diferencia entre atributos e chance de ser encontrada. \n");
-			ImprimirComDelay("\t\tItens podem ser consumiveis ou n„o, e possuir caracterÌsticas especiais,\n");
-			ImprimirComDelay("\t\tCada caracterÌstica pÛder· ser vista na an·lise do invent·rio,\n");
-			ImprimirComDelay("\t\tOs itens de proteÁ„o em "); VermelhoCD("(TÌtulo)");ImprimirComDelay("se dividem em:\n");
+			VerdeCDNoFim("\n\tSeja bem Vindo as Instru√ß√µes de Itens.\n\n\n");
+			ImprimirComDelay("\tOs itens em "); VermelhoCD("(T√≠tulo)");ImprimirComDelay(" s√£o divididos em 6 raridades:\n\n");
+			ImprimirComDelay("\tComuns ");cout<<"         -";   Branco( " Branco\n");
+			VerdeCD("\tIncomuns ");cout<<"       -";   Verde(" Verde\n");
+			AzulCD("\tRaros ");cout<<"          -";   Azul(" Azul\n");
+			RosaCD("\tM√°gicos ");cout<<"        -";   Rosa(" Rosa\n");
+			AmareloCD("\tLend√°rios ");cout<<"      -";   Amarelo(" Amarelo\n");
+			VermelhoCD("\tItens do Drag√£o ");cout<<"-";   Vermelho(" Vermelho\n\n\n");
+			Sleep(2000);
+			ImprimirComDelay("\tCada raridade se diferencia entre atributos e chance de ser encontrada. \n");
+			ImprimirComDelay("\tItens podem ser consumiveis ou n√£o, e possuir caracter√≠sticas especiais,\n");
+			ImprimirComDelay("\tCada caracter√≠stica p√≥der√° ser vista na an√°lise do invent√°rio,\n\n\n\n");
+			/*
+			ImprimirComDelay("\t\tOs itens de prote√ß√£o em "); VermelhoCD("(T√≠tulo)");ImprimirComDelay("se dividem em:\n\n");
 			cout << "- \t\tCapacetes\n";
 			cout << "- \t\tPeitorais\n";
 			cout << "- \t\tOmbreiras\n";
 			cout << "- \t\tJuntas\n";
 			cout << "- \t\tBracadeira\n";
 			cout << "- \t\tLuvas\n";
-			cout << "- \t\tCalÁa\n";
+			cout << "- \t\tCal√ßa\n";
 			cout << "- \t\tBotas\n";
-			Pause();
+			*/
+			VermelhoCD("\t(Este menu, funcionalidades e adi√ß√µes ainda est√£o em desenviolvimento.\n\n\n");
+			VoltarAoMenu();
 	}
 	void ExplicacaoCombate()
 	{
 		system ("cls");
 		tutoriais();
-		ImprimirComDelay("\tSeja bem Vindo as InstruÁıes de "); Azul("Combate");ImprimirComDelayNoFim("\n\n");
-		ImprimirComDelay("\t\tO Combate em "); VermelhoCD("(TÌtulo)");ImprimirComDelayNoFim(" funciona em Turnos.\n");
-		ImprimirComDelay("\t\tO jogador realiza sua aÁ„o, e em seguida ser· o turno do "); Vermelho("oponente");ImprimirComDelayNoFim(",\n");
-		ImprimirComDelay("\t\to qual realizar· seu ataque contra o "); Verde("jogador");ImprimirComDelayNoFim(".\n");
-		ImprimirComDelay("\t\tInimigos possuem atributos, "); Amarelo("habilidades");ImprimirComDelay(", e chance de ativ·-las, diferentes entre si,\n");
-		ImprimirComDelayNoFim("\t\tA descriÁ„o da habilidade pode ser feita em combate.\n");
+		ImprimirComDelay("\tSeja bem Vindo as Instru√ß√µes de "); Azul("Combate");ImprimirComDelayNoFim("\n\n");
+		ImprimirComDelay("\tO Combate em "); VermelhoCD("(T√≠tulo)");ImprimirComDelayNoFim(" funciona em Turnos.\n");
+		ImprimirComDelay("\tO jogador realiza sua a√ß√£o, e em seguida ser√° o turno do "); Vermelho("oponente");ImprimirComDelayNoFim(",\n");
+		ImprimirComDelay("\to qual realizar√° seu ataque contra o "); Verde("jogador");ImprimirComDelayNoFim(".\n");
+		ImprimirComDelay("\tInimigos possuem atributos, "); Amarelo("habilidades");ImprimirComDelay(", e chance de ativ√°-las, diferentes entre si,\n");
+		ImprimirComDelayNoFim("\tA descri√ß√£o da habilidade pode ser feita em combate.\n");
 		Pause();
-		VerdeCD("\n\n\t\tDescriÁ„o das opÁıes em combate:\n\n");
-		VermelhoCD("\t\tAtacar:\n");
-		cout <<"\t\t\tAo atacar o Jogador golpeia o inimigo com sua arma, e em seguida ser· o turno do oponetne\n";
-		VerdeCD("\n\t\tMochila:\n");
-		cout <<"\t\t\tO jogador abre sua mochila, e caso escolha, utiliza sua aÁ„o para utilizar algum item consumÌvel\n";
-		cout <<"\t\t\tO efeito dos itens consumÌveis È variado e È descrito no invent·rio.\n";
-		AzulCD("\n\t\tPassar:\n");
-		cout <<"\t\t\tO Jogador gasta seu turno, e recupera alguns atributos, como mana e energia\n";
-		AmareloCD("\n\t\tHabilidades:\n");
-		cout <<"\t\t\tO Jogador exibe sua lista de habilidades, caso escolha usar alguma, e possa pagar seu custo,\n";
-		VermelhoCD("\n\t\tDesistir\n");
-		cout <<"\t\t\tO Jogador desiste da luta e tem seus pontos de vidas reduzidos a 0.\n";
-		AzulCD("\n\t\tDetalhar\n");
-		cout <<"\t\t\tExibe informaÁıes sobre seu inimigo e suas habilidades\n";
+		tutoriais();
+		VerdeCD("\n\tDescri√ß√£o das op√ß√µes em combate:\n\n\n");
+		VermelhoCD("\tAtacar:\n");
+		cout <<"\t\tAo atacar o Jogador golpeia o inimigo com sua arma, e em seguida ser√° o turno do oponetne\n";
+		VerdeCD("\n\tMochila:\n");
+		cout <<"\t\tO jogador abre sua mochila, e caso escolha, utiliza sua a√ß√£o para utilizar algum item consum√≠vel\n";
+		cout <<"\t\tO efeito dos itens consum√≠veis √© variado e √© descrito no invent√°rio.\n";
+		AzulCD("\n\tPassar:\n");
+		cout <<"\t\tO Jogador gasta seu turno, e recupera alguns atributos, como mana e energia\n";
+		AmareloCD("\n\tHabilidades:\n");
+		cout <<"\t\tO Jogador exibe sua lista de habilidades, caso escolha usar alguma, e possa pagar seu custo,\n";
+		VermelhoCD("\n\tDesistir\n");
+		cout <<"\t\tO Jogador desiste da luta e tem seus pontos de vidas reduzidos a 0.\n";
+		AzulCD("\n\tDetalhar\n");
+		cout <<"\t\tExibe informa√ß√µes sobre seu inimigo e suas habilidades\n";
 		Pause();
 		system ("cls");
 		tutoriais();
-		VerdeCD("\tDescriÁ„o dos atributos:\n\n");
-		Verde("\t\t\tHP (Health Points)"); cout <<" È a quantidade de vida do seu personagem,\n\t\t\tse chegar a 0 vocÍ È derrotado.";
-		Azul("\n\n\t\t\tMP (Mana Points)");cout <<" È a mana do seu personagem, utilizada para magias e habilidades";
-		Amarelo("\n\n\t\t\tEnergia ");cout <<" Energia, fundamentar para atacar e usar habilidades";
-		Vermelho("\n\n\t\t\tAtaque ");cout <<" Seu ataque, valor usado para atacar seu oponente";
-		Cinza("\n\n\t\t\tArmadura ");cout <<" Sua armadura, Usada na defesa e reduÁ„o de dano";
-		AmareloClaro("\n\n\t\t\tHabilidade"); cout <<" S„o as habilidades do seu oponente";
-		Rosa("\n\n\t\t\tEfeitos:");cout <<"Os efeitos aplicados ao personagem est„o logo abaixo desse marcador.\n";
-		Pause();
+		VerdeCD("\tDescri√ß√£o dos atributos:\n\n");
+		VerdeCD("\t\tHP (Health Points)"); cout <<" √© a quantidade de vida do seu personagem,\n\t\t\tse chegar a 0 voc√™ √© derrotado.";
+		AzulCD("\n\n\t\tMP (Mana Points)");cout <<" √© a mana do seu personagem, utilizada para magias e habilidades";
+		AmareloCD("\n\n\t\tEnergia ");cout <<" Energia, fundamentar para atacar e usar habilidades";
+		VermelhoCD("\n\n\t\tAtaque ");cout <<" Seu ataque, valor usado para atacar seu oponente";
+		CinzaCD("\n\n\t\tArmadura ");cout <<" Sua armadura, Usada na defesa e redu√ß√£o de dano";
+		AmareloClaroCD("\n\n\t\tHabilidade"); cout <<" S√£o as habilidades do seu oponente";
+		RosaCD("\n\n\t\tEfeitos:");cout <<"Os efeitos aplicados ao personagem est√£o logo abaixo desse marcador.\n\n\n\n";
+		VerdeCD("\t\tFim das Instru√ß√µes\n");
+		VoltarAoMenu();
 	}
-//CabeÁalhos
+//Cabe√ßalhos
 	void taverna()
 	{
 		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
@@ -3388,7 +3463,7 @@ public:
 	void portao()
 	{
 		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
-		cout <<  "|                                                           ";Verde("Port„o");cout<<"                                                   |";                              
+		cout <<  "|                                                           ";Verde("Port√£o");cout<<"                                                   |";                              
 		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
 	}
 	void instrutor()
@@ -3406,7 +3481,7 @@ public:
 	void artesao()
 	{
 		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
-		cout <<  "|                                                      ";Verde("Artes„o");cout<<"                                                 |";                              
+		cout <<  "|                                                      ";Verde("Artes√£o");cout<<"                                                 |";                              
 		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
 	}
 	void curandeiro()
@@ -3415,7 +3490,7 @@ public:
 		cout <<  "|                                                      ";Verde("Curandeiro");cout<<"                                                |";                              
 		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
 	}
-		void praia()
+	void praia()
 	{
 		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
 		cout <<  "|                                                    ";Verde("Praia");cout<<"                                                 |";                              
@@ -3502,14 +3577,14 @@ public:
 		if(q >= 92 && q < 100)
         {
 		}
-    	if( q >=95&&q<=100)
+    	if( q >=84&&q<=100)
     	{
     		system("CLS");
     		campospraianos();
-    		ImprimirComDelay("Enquanto buscava, por de tr·s de moitas, vocÍ encontrou uma praia anormalmente tranquila\n");
-    		ImprimirComDelay("\tO que ir· fazer ");ImprimirComDelay(jogador->getnome());ImprimirComDelayNoFim("?\n");
+    		ImprimirComDelay("\tEnquanto buscava, por de tr√°s de moitas, voc√™ encontrou uma praia anormalmente tranquila\n");
+    		ImprimirComDelay("\tO que ir√° fazer ");ImprimirComDelay(jogador->getnome());ImprimirComDelayNoFim("?\n");
             cout << "\n\n\t(1) Entrar na Praia          \n";
-            cout << "\n\n\t(r) Retornar aos";Verde("Campos Praianos");cout<<"   \n";
+            cout << "\n\n\t(r) Retornar aos";Verde(" Campos Praianos");cout<<"   \n";
             switch(Tecla())
             {
                 case 49:
@@ -3518,6 +3593,10 @@ public:
 				
 				case Retornar:
 					return 0;
+				break;
+				
+				case Menu:
+					jogador->MenuPrincipal();
 				break;
 					
 			}
@@ -3529,31 +3608,59 @@ public:
     	praia();
     	if(jogador->PrimeiraVezNaPraiaSecreta == true)
         {
-            ImprimirComDelay("\tVocÍ est· em uma ");RosaCD("Praia Secreta");ImprimirComDelayNoFim(".\n");
-            ImprimirComDelay("\t… possÌvel ouvir apenas as ondas do mar, trazendo sensaÁıes relaxantes e serenas.\n"); 
-            ImprimirComDelay("\tH· uma mulher em meio a praia, com sua pele morena brilhando sob o cÈu,\n"); 
-			ImprimirComDelay("e trajando um longo vestido branco.\n"); 
-			ImprimirComDelay("\tO que ir· fazer ");ImprimirComDelay(jogador->getnome());ImprimirComDelayNoFim("?\n");
+            ImprimirComDelay("\tVoc√™ est√° em uma ");RosaCD("Praia Secreta");ImprimirComDelayNoFim(".\n");
+            ImprimirComDelay("\t√â poss√≠vel ouvir apenas as ondas do mar, trazendo sensa√ß√µes relaxantes e serenas.\n"); 
+            ImprimirComDelay("\tH√° uma mulher em meio a praia, com sua pele morena brilhando sob o c√©u,\n"); 
+			ImprimirComDelay("\te trajando um longo vestido branco.\n"); 
+			ImprimirComDelay("\tO que ir√° fazer ");ImprimirComDelay(jogador->getnome());ImprimirComDelayNoFim("?\n");
             cout << "\n\n\t(1) Falar com a mulher       \n";
             cout << "\n\n\t(2) Mergulhar no mar         \n";
             cout << "\n\n\t(r) Retornar aos";Verde("Campos Praianos");cout<<"   \n";
-            cout << "\n\n\t(i) Abrir invent·rio \n";
+            cout << "\n\n\t(i) Abrir invent√°rio \n";
             jogador->PrimeiraVezNaPraia == false;
         }
     	else if(jogador->PrimeiraVezNaPraia == false)
         {
         
-            cout <<"\tVocÍ se localiza nos ";Verde("Campos Praianos");cout<<".\n";
+            cout <<"\tVoc√™ se localiza nos ";Verde("Campos Praianos");cout<<".\n";
             cout <<"\tCampos quentes e abertos, repletos de areia e plantas.\n";
             cout <<"\tCuidado com cobras de areia, Marines e outros inimigos."; 
-            cout <<"\tO que ir· fazer "; cout << jogador->getnome() << "?\n";
+            cout <<"\tO que ir√° fazer "; cout << jogador->getnome() << "?\n";
             cout << "\n\n\t(1) Procurar um Inimigo            \n";
             cout << "\n\n\t(2) Procurar mais localidades      \n";
-            cout << "\n\n\t(3) Andar atÈ a praia mais prÛxima \n";
-            cout << "\n\n\t(4) Andar atÈ o Covil Marine       \n";
+            cout << "\n\n\t(3) Andar at√© a praia mais pr√≥xima \n";
+            cout << "\n\n\t(4) Andar at√© o Covil Marine       \n";
             cout << "\n\n\t(r) Tentar Retornar a ";Verde("Kyronma");cout<<"   \n";
-            cout << "\n\n\t(i) Abrir invent·rio \n";
+            cout << "\n\n\t(i) Abrir invent√°rio \n";
         }
+        switch(Tecla())
+        {
+        	
+                case 49:
+            		while(1)
+					{
+            			ImprimirComDelay("\tA mulher lhe olha com uma fei√ß√£o do√ße e t√™nue, enquanto fala, √≥ ceu se curva perante a sua beleza");RosaCD("Praia Secreta");ImprimirComDelayNoFim(".\n");
+			            ImprimirComDelay("\t√â poss√≠vel ouvir apenas as ondas do mar, trazendo sensa√ß√µes relaxantes e serenas.\n"); 
+			            ImprimirComDelay("\tH√° uma mulher em meio a praia, com sua pele morena brilhando sob o c√©u,\n"); 
+						ImprimirComDelay("e trajando um longo vestido branco.\n"); 
+						ImprimirComDelay("\tO que ir√° fazer ");ImprimirComDelay(jogador->getnome());ImprimirComDelayNoFim("?\n");	
+					}
+				break;
+			
+				
+				case Inventario:
+					jogador->AbrirInventario();
+				break;
+				
+				case Retornar:
+					return 0;
+				break;
+				
+				case Menu:
+					jogador->MenuPrincipal();
+				break;
+				
+		}
 	}
     CovilDosMarines()
     {
@@ -3613,32 +3720,32 @@ public:
                 //Sleep(5000);
                 system("CLS");
                 campospraianos();
-                ImprimirComDelay ("\tVocÍ se localiza nos ");VerdeCD("Campos Praianos");cout<<".\n";
+                ImprimirComDelay ("\tVoc√™ se localiza nos ");VerdeCD("Campos Praianos");cout<<".\n";
                 ImprimirComDelay ("\tCampos quentes e abertos, repletos de areia e plantas.\n");
                 ImprimirComDelayNoFim ("\tCuidado com cobras de areia, Marines e outros inimigos."); 
-                cout <<"\tO que ir· fazer "; cout << jogador->getnome() << "?\n";
+                cout <<"\tO que ir√° fazer "; cout << jogador->getnome() << "?\n";
                 cout << "\n\n\t(1) Procurar um Inimigo            \n";
                 cout << "\n\n\t(2) Procurar mais localidades      \n";
-                cout << "\n\n\t(3) Andar atÈ a praia mais prÛxima \n";
-                cout << "\n\n\t(4) Andar atÈ o Covil Marine       \n";
+                cout << "\n\n\t(3) Andar at√© a praia mais pr√≥xima \n";
+                cout << "\n\n\t(4) Andar at√© o Covil Marine       \n";
                 cout << "\n\n\t(r) Tentar Retornar a ";Verde("Kyronma");cout<<"   \n";
-                cout << "\n\n\t(i) Abrir invent·rio \n";
+                cout << "\n\n\t(i) Abrir invent√°rio \n";
                 jogador->PrimeiraVezNosCamposPraianos = false;
             }
             else if(jogador->PrimeiraVezNoPortao == false)
             {
             	system ("CLS");
             	campospraianos();
-                cout <<"\tVocÍ se localiza nos ";Verde("Campos Praianos");cout<<".\n";
+                cout <<"\tVoc√™ se localiza nos ";Verde("Campos Praianos");cout<<".\n";
                 cout <<"\tCampos quentes e abertos, repletos de areia e plantas.\n";
                 cout <<"\tCuidado com cobras de areia, Marines e outros inimigos."; 
-                cout <<"\tO que ir· fazer "; cout << jogador->getnome() << "?\n";
+                cout <<"\tO que ir√° fazer "; cout << jogador->getnome() << "?\n";
                 cout << "\n\n\t(1) Procurar um Inimigo            \n";
                 cout << "\n\n\t(2) Procurar mais localidades      \n";
-                cout << "\n\n\t(3) Andar atÈ a praia mais prÛxima \n";
-                cout << "\n\n\t(4) Andar atÈ o Covil Marine       \n";
+                cout << "\n\n\t(3) Andar at√© a praia mais pr√≥xima \n";
+                cout << "\n\n\t(4) Andar at√© o Covil Marine       \n";
                 cout << "\n\n\t(r) Tentar Retornar a ";Verde("Kyronma");cout<<"   \n";
-                cout << "\n\n\t(i) Abrir invent·rio \n";
+                cout << "\n\n\t(i) Abrir invent√°rio \n";
             }
             switch(Tecla())
             {
@@ -3665,6 +3772,10 @@ public:
                 case Inventario:
                     jogador->AbrirInventario();
                 break;
+                
+                case Menu:
+					jogador->MenuPrincipal();
+				break;
             }
         }       
 	}
@@ -3674,14 +3785,14 @@ public:
     	{
             instrutor();
             cout << "\tPague algumas ";Verde("moedas");cout <<", e eu te entregarei alvos para treinar sua habilidades. \n\n";
-            cout << "\n\t(1) Boneco de treino nÌvel ";Verde("1");cout <<"  (100 Moedas)     \n";
-            cout << "\n\t(2) Boneco de treino nÌvel ";Verde("2");cout <<"  (200 Moedas)     \n";
-            cout << "\n\t(3) Boneco de treino nÌvel ";Amarelo("3");cout <<"  (400 Moedas)     \n";
-            cout << "\n\t(4) Boneco de treino nÌvel ";Amarelo("4");cout <<"  (700 Moedas)     \n";
-            cout << "\n\t(5) Boneco de treino nÌvel ";Vermelho("5");cout <<"  (1100 Moedas)    \n";
+            cout << "\n\t(1) Boneco de treino n√≠vel ";Verde("1");cout <<"  (100 Moedas)     \n";
+            cout << "\n\t(2) Boneco de treino n√≠vel ";Verde("2");cout <<"  (200 Moedas)     \n";
+            cout << "\n\t(3) Boneco de treino n√≠vel ";Amarelo("3");cout <<"  (400 Moedas)     \n";
+            cout << "\n\t(4) Boneco de treino n√≠vel ";Amarelo("4");cout <<"  (700 Moedas)     \n";
+            cout << "\n\t(5) Boneco de treino n√≠vel ";Vermelho("5");cout <<"  (1100 Moedas)    \n";
             cout << "\n\t(6) Desafiar o instrutor      (Nivel Recomendado: ";Vermelho("6");cout <<") \n";
             cout << "\n\n\t(r) Sair do instrutor              \n";
-            cout << "\n\n\t(i) Abrir invent·rio               \n";
+            cout << "\n\n\t(i) Abrir invent√°rio               \n";
             switch(Tecla())
             {
                 bool q;
@@ -3730,6 +3841,9 @@ public:
             		return;
             	break;
             	
+            	case Menu:
+					jogador->MenuPrincipal();
+				break;
             	
                 case Inventario:
 					jogador->AbrirInventario();
@@ -3744,25 +3858,25 @@ public:
         	instrutor();
             if(jogador->PrimeiraVezNoInstrutor == true)
             {
-                ImprimirComDelay ("\tUma homem com uma longa");VerdeCD(" barba branca ");ImprimirComDelay("est· em pÈ ao lado de alguns bonecos de treino.\n\n\n");
-                ImprimirComDelay ("\tEle olha para vocÍ, e com uma express„o carrancuda pergunta:\n\n");
-                VerdeCD("\t- Oque vocÍ quer?\n");
+                ImprimirComDelay ("\tUma homem com uma longa");VerdeCD(" barba branca ");ImprimirComDelay("est√° em p√© ao lado de alguns bonecos de treino.\n\n\n");
+                ImprimirComDelay ("\tEle olha para voc√™, e com uma express√£o carrancuda pergunta:\n\n");
+                VerdeCD("\t- Oque voc√™ quer?\n");
                 cout << "\n\n\t(1) - Eu gostaria de treinar.      \n";
                 cout << "\n\n\t(2) - Como funciona o treinamento? \n";
-                cout << "\n\n\t(3) - Quem È vocÍ?                 \n";
+                cout << "\n\n\t(3) - Quem √© voc√™?                 \n";
                 cout << "\n\n\t(r) Sair do instrutor              \n";
-                cout << "\n\n\t(i) Abrir invent·rio               \n";
+                cout << "\n\n\t(i) Abrir invent√°rio               \n";
                 jogador->PrimeiraVezNoInstrutor = false;
             }
             else if(jogador->PrimeiraVezNoInstrutor == false)
             {
-                cout << "\tUma homem com uma longa";Verde(" barba branca ");cout <<" barba branca est· em pÈ ao lado de alguns bonecos de treino.\n\n\n";
-                cout << "\tEle continua a te encarar com sua express„o carrancuda no rosto:\n\n";
+                cout << "\tUma homem com uma longa";Verde(" barba branca ");cout <<" barba branca est√° em p√© ao lado de alguns bonecos de treino.\n\n\n";
+                cout << "\tEle continua a te encarar com sua express√£o carrancuda no rosto:\n\n";
                 cout << "\n\n\t(1) - Eu gostaria de treinar.      \n";
                 cout << "\n\n\t(2) - Como funciona o treinamento? \n";
-                cout << "\n\n\t(3) - Quem È vocÍ?                 \n";
+                cout << "\n\n\t(3) - Quem √© voc√™?                 \n";
                 cout << "\n\n\t(r) Sair do instrutor              \n";
-                cout << "\n\n\t(i) Abrir invent·rio               \n";
+                cout << "\n\n\t(i) Abrir invent√°rio               \n";
             }
             Sleep(200);	
             switch(Tecla())
@@ -3772,11 +3886,11 @@ public:
                 break;
                 case 50:
                 	instrutor();
-                    ImprimirComDelay("\t… simples seu ");VerdeCD("Insolente");ImprimirComDelayNoFim(".\n");
-                    ImprimirComDelay("\tVocÍ me paga, e eu te dou um boneco para treinar.\n");
-                    ImprimirComDelay("\tCaso ganhe, vocÍ ser· recompensado.\n");
-                    ImprimirComDelay("\tCaso vocÍ seja muito imprudente e ");Vermelho("Idiota");ImprimirComDelay(", pode me desafiar,\n");
-                    ImprimirComDelay("\tMas j· aviso que vocÍ prov·velmente ir· se ");Rosa("arrepender");ImprimirComDelayNoFim(".\n");
+                    ImprimirComDelay("\t√â simples seu ");VerdeCD("Insolente");ImprimirComDelayNoFim(".\n");
+                    ImprimirComDelay("\tVoc√™ me paga, e eu te dou um boneco para treinar.\n");
+                    ImprimirComDelay("\tCaso ganhe, voc√™ ser√° recompensado.\n");
+                    ImprimirComDelay("\tCaso voc√™ seja muito imprudente e ");Vermelho("Idiota");ImprimirComDelay(", pode me desafiar,\n");
+                    ImprimirComDelay("\tMas j√° aviso que voc√™ prov√°velmente ir√° se ");Rosa("arrepender");ImprimirComDelayNoFim(".\n");
                     cout << "\n\n\t(1) Obrigado!       \n";
                     if (Tecla()==49)
                 break;
@@ -3785,8 +3899,8 @@ public:
                     ImprimirComDelay("\tEu me chamo ");AzulClaro("Ikant"); cout <<".\n";
                     ImprimirComDelayNoFim("\tSou o de Istrutor de ");Verde("Kyronma");cout<<".\n";
                     ImprimirComDelay("\tPosso te ensinar a usar suas armas com maestria.\n\n");
-                    ImprimirComDelay("\tTambÈm posso te ensinar a usar novas armas e te tornar experiente.\n");
-                    ImprimirComDelay("\tVocÍ paga um determinado valor, e eu te entrego bonecos de treinamento para treinar.\n");
+                    ImprimirComDelay("\tTamb√©m posso te ensinar a usar novas armas e te tornar experiente.\n");
+                    ImprimirComDelay("\tVoc√™ paga um determinado valor, e eu te entrego bonecos de treinamento para treinar.\n");
                     cout << "\n\n\t(1) Obrigado!       \n";
                     if (Tecla()==49)
                 break;
@@ -3794,6 +3908,9 @@ public:
                 case Retornar:
                 	return;
                	break;
+               	case Menu:
+					jogador->MenuPrincipal();
+				break;
                 case Inventario:
 					jogador->AbrirInventario();
 				break;
@@ -3805,30 +3922,30 @@ public:
 		comerciante();
 		while(1)
 		{
-			 cout<<"         VocÍ possui ";Amarelo(jogador->getmoedas());Verde(" Moedas"); cout<<", O quÍ gostaria comprar?\n\n"
+			 cout<<"         Voc√™ possui ";Amarelo(jogador->getmoedas());Verde(" Moedas"); cout<<", O qu√™ gostaria comprar?\n\n"
 	         "         +-----------------------------------------------------------------------+\n"
 		     "         |  Naco de     _  _        |                                            |\n"
-		     "  (1)    |  p„o duro    _||_        |   PedaÁos simples de um p„o velho.         |\n"
+		     "  (1)    |  p√£o duro    _||_        |   Peda√ßos simples de um p√£o velho.         |\n"
 		     "         |             |_  _|       |                                            |\n"
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n"
-		     "         |  ¡gua        _  _        |                                            |\n"
-		     "  (2)    |  da Fonte    _||_        |   ¡gua de alguma fonte desconhecida.       |\n"
+		     "         |  √Ågua        _  _        |                                            |\n"
+		     "  (2)    |  da Fonte    _||_        |   √Ågua de alguma fonte desconhecida.       |\n"
 		     "         |             |_  _|       |                                            |\n"
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n"
 		     "         |               _  _       |                                            |\n"
 		     "  (3)    |  Cocos      ||_ | |      |   Deliciosa fruta tropical, mas            |\n"
-		     "         |             ||_||_|      |   vocÍ ter· que quebrar antes de consumir. |\n"
+		     "         |             ||_||_|      |   voc√™ ter√° que quebrar antes de consumir. |\n"
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n"
-		     "         |  PedaÁo de   _  _        |                                            |\n"
-		     "  (4)    |  Carne-      _||_        |   PedaÁos de uma carne barata,             |\n"
+		     "         |  Peda√ßo de   _  _        |                                            |\n"
+		     "  (4)    |  Carne-      _||_        |   Peda√ßos de uma carne barata,             |\n"
 		     "         |  Seca       |_  _|       |   Receba 4 de HP.                          |\n"
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n\n"
 		     "  (r)    Retornar ao centro\n\n"
-		     "  (i)    Abrir o invent·rio  ";
+		     "  (i)    Abrir o invent√°rio  ";
 		     switch(Tecla())
 		     {
 		     	case 49:
@@ -3858,6 +3975,10 @@ public:
 				case Inventario:
 					jogador->AbrirInventario();
 		     	break;
+		     	
+		     	case Menu:
+					jogador->MenuPrincipal();
+				break;
 			 }
 		}
 	}
@@ -3867,16 +3988,16 @@ public:
 		while(1)
 		{
 			
-	   cout<<"         VocÍ possui ";Amarelo(jogador->getmoedas());Verde(" Moedas"); cout<<", O quÍ gostaria comprar?\n\n"
+	   cout<<"         Voc√™ possui ";Amarelo(jogador->getmoedas());Verde(" Moedas"); cout<<", O qu√™ gostaria comprar?\n\n"
 	         "         +-----------------------------------------------------------------------+\n"
 		     "         |  Algas          _        |                                            |\n"
 		     "  (1)    |  Marinhas   |_|| |       |   Algas para vegetarianos,                 |\n"
-		     "         |               ||_|       |   mas se metabolizam r·pido.               |\n"
+		     "         |               ||_|       |   mas se metabolizam r√°pido.               |\n"
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n"
 		     "         |  Carne de      _         |                                            |\n"
-		     "  (2)    |  Enguia      | _|        |   Carne de Enguia. N„o muito agrad·vel,    |\n"
-		     "         |              | _|        |   mas ambundante e comestÌvel.             |\n"
+		     "  (2)    |  Enguia      | _|        |   Carne de Enguia. N√£o muito agrad√°vel,    |\n"
+		     "         |              | _|        |   mas ambundante e comest√≠vel.             |\n"
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n"
 		     "         |  Peixe-      _  _        |                                            |\n"
@@ -3890,7 +4011,7 @@ public:
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n\n"
 		     "  (r)    Retornar ao centro\n\n"
-		     "  (i)    Abrir o invent·rio  ";
+		     "  (i)    Abrir o invent√°rio  ";
 		     switch(Tecla())
 		     {
 		     	case 49:
@@ -3919,6 +4040,10 @@ public:
 		     		return;
 				break;
 				
+				case Menu:
+					jogador->MenuPrincipal();
+				break;
+				
 				case Inventario:
 					jogador->AbrirInventario();
 		     	break;
@@ -3930,16 +4055,16 @@ public:
 		comerciante();
 		while(1)
 		{
-	   cout<<"         VocÍ possui ";Amarelo(jogador->getmoedas());Verde(" Moedas"); cout<<", O quÍ gostaria comprar?\n\n"
+	   cout<<"         Voc√™ possui ";Amarelo(jogador->getmoedas());Verde(" Moedas"); cout<<", O qu√™ gostaria comprar?\n\n"
 	         "         +-----------------------------------------------------------------------+\n"
 		     "         |  Algas          _        |                                            |\n"
 		     "  (1)    |  Marinhas   |_|| |       |   Algas para vegetarianos,                 |\n"
-		     "         |               ||_|       |   mas se metabolizam r·pido.               |\n"
+		     "         |               ||_|       |   mas se metabolizam r√°pido.               |\n"
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n"
 		     "         |  Carne de      _         |                                            |\n"
-		     "  (2)    |  Enguia      | _|        |   Carne de Enguia. N„o muito agrad·vel,    |\n"
-		     "         |              | _|        |   mas ambundante e comestÌvel.             |\n"
+		     "  (2)    |  Enguia      | _|        |   Carne de Enguia. N√£o muito agrad√°vel,    |\n"
+		     "         |              | _|        |   mas ambundante e comest√≠vel.             |\n"
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n"
 		     "         |  Peixe-      _  _        |                                            |\n"
@@ -3953,7 +4078,7 @@ public:
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n\n"
 		     "  (r)    Retornar ao centro\n\n"
-		     "  (i)    Abrir o invent·rio  ";
+		     "  (i)    Abrir o invent√°rio  ";
 		     switch(Tecla())
 		     {
 		     	case 49:
@@ -3980,6 +4105,10 @@ public:
 		     		return;
 				break;
 				
+				case Menu:
+					jogador->MenuPrincipal();
+				break;
+				
 				case Inventario:
 					jogador->AbrirInventario();
 		     	break;
@@ -3995,30 +4124,30 @@ public:
 			if(jogador->PrimeiraVezNoCentro == true)
 			{
 				
-				ImprimirComDelay ("\tVocÍ se encontra no ");AmareloCDNoFim("Centro da cidade...\n\n\n");
+				ImprimirComDelay ("\tVoc√™ se encontra no ");AmareloCDNoFim("Centro da cidade...\n\n\n");
 				ImprimirComDelay ("\tUm pequeno conjunto de poucas estradas de poeira e barro formam o centro da cidade.\n");
-				ImprimirComDelay ("\tV·rios vendedores de ");VerdeCD("produtos marinhos");ImprimirComDelay (" podem ser vistos, e tambÈm algumas construÁıes de madeira e palha,\n");
+				ImprimirComDelay ("\tV√°rios vendedores de ");VerdeCD("produtos marinhos");ImprimirComDelay (" podem ser vistos, e tamb√©m algumas constru√ß√µes de madeira e palha,\n");
 				ImprimirComDelay ("\tusadas como pontos de comercio.\n");
 				cout << "\n\n\t(1) Ir ao Mercador de Alimentos \n";
 				cout << "\n\n\t(2) Ir ao Pescador              \n";
-				cout << "\n\n\t(3) Ir ao Artes„o da aldeia     \n";
+				cout << "\n\n\t(3) Ir ao Artes√£o da aldeia     \n";
 				cout << "\n\n\t(4) Ir ao Instrutor             \n";
 				cout << "\n\n\t(r) Retornar                    \n";
-				cout << "\n\n\t(i) Abrir invent·rio            \n";
+				cout << "\n\n\t(i) Abrir invent√°rio            \n";
 				jogador->PrimeiraVezNoCentro = false;
 			}
 			else if(jogador->PrimeiraVezNoCentro == false)
 			{
-				cout << "\tVocÍ se encontra no ";Amarelo("Centro da cidade...\n\n\n");
+				cout << "\tVoc√™ se encontra no ";Amarelo("Centro da cidade...\n\n\n");
 				cout << "\tUm pequeno conjunto de poucas estradas de poeira e barro formam o centro da cidade.\n";
-				cout << "\tV·rios vendedores de produtos marinhos podem ser vistos, e tambÈm algumas construÁıes de madeira e palha,\n";
+				cout << "\tV√°rios vendedores de produtos marinhos podem ser vistos, e tamb√©m algumas constru√ß√µes de madeira e palha,\n";
 				cout << "\tusadas como pontos de comercio.\n";
 				cout << "\n\n\t(1) Ir ao Mercador de Alimentos \n";
 				cout << "\n\n\t(2) Ir ao Pescador              \n";
-				cout << "\n\n\t(3) Ir ao Artes„o da aldeia     \n";
+				cout << "\n\n\t(3) Ir ao Artes√£o da aldeia     \n";
 				cout << "\n\n\t(4) Ir ao Instrutor             \n";
 				cout << "\n\n\t(r) Retornar                    \n";
-				cout << "\n\n\t(i) Abrir invent·rio            \n";
+				cout << "\n\n\t(i) Abrir invent√°rio            \n";
 			}
 			switch(Tecla())
 			{
@@ -4054,15 +4183,15 @@ public:
 		comerciante();
 		while(1)
 		{
-	   cout<<"         VocÍ possui ";Amarelo(jogador->getmoedas());Verde(" Moedas"); cout<<", O quÍ gostaria comprar?\n\n"
+	   cout<<"         Voc√™ possui ";Amarelo(jogador->getmoedas());Verde(" Moedas"); cout<<", O qu√™ gostaria comprar?\n\n"
 		     "         +-----------------------------------------------------------------------+\n"
 		     "         |  Aguardente              |                                            |\n"
 		     "  (1)    |  de cana       |_|       |   Aguardente de cana,                      |\n"
-		     "         |                  |       |   essa bebida ainda ir· te matar.          |\n"
+		     "         |                  |       |   essa bebida ainda ir√° te matar.          |\n"
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n"
-		     "         |  ¡gua           _        |                                            |\n"
-		     "  (2)    |  limpa         |_|       |   ¡gua filtrada.                           |\n"
+		     "         |  √Ågua           _        |                                            |\n"
+		     "  (2)    |  limpa         |_|       |   √Ågua filtrada.                           |\n"
 		     "         |                  |       |                                            |\n"
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n"
@@ -4073,10 +4202,10 @@ public:
 		     "         +--------------------------+--------------------------------------------+\n"
 		     "         |  Vinho       _  _        |                                            |\n"
 		     "  (4)    |  Simples     _|| |       |   Vinho feito de forma caseira, com baixo  |\n"
-		     "         |             |_ |_|       |   tempo e fermentaÁ„o e origem duvidosa.   |\n"
+		     "         |             |_ |_|       |   tempo e fermenta√ß√£o e origem duvidosa.   |\n"
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n\n"
-		     "  (i)   Abrir o Invent·rio\n\n\n"
+		     "  (i)   Abrir o Invent√°rio\n\n\n"
 		     "  (r)   Retornar a taverna\n";
 		     switch(Tecla())
 		     {
@@ -4112,51 +4241,51 @@ public:
 	}
 	BalcaoDaTaverna(Jogador*jogador,Item item[])
 	{
-//BALC¬O
+//BALC√ÇO
 		while(1)
 		{
 			taverna();
 			if(jogador->PrimeiraVezNoBalcao == true)
 			{
 				ImprimirComDelay ("\tO Barman te olha, e com um sorriso lhe pergunta:\n\n");
-				VerdeCD("\tOl· senhor, o que o tr·s aqui?\n");
-				cout << "\n\n\t(1) Pedir uma miss„o  (Em Breve!)\n";
-				cout << "\n\n\t(2) Pedir informaÁıes \n";
+				VerdeCD("\tOl√° senhor, o que o tr√°s aqui?\n");
+				cout << "\n\n\t(1) Pedir uma miss√£o  (Em Breve!)\n";
+				cout << "\n\n\t(2) Pedir informa√ß√µes \n";
 				cout << "\n\n\t(3) Compar algo       \n";
-				cout << "\n\n\t(r) Sair do balc„o    \n";
-				cout << "\n\n\t(i) Abrir invent·rio  \n";
+				cout << "\n\n\t(r) Sair do balc√£o    \n";
+				cout << "\n\n\t(i) Abrir invent√°rio  \n";
 				jogador->PrimeiraVezNoBalcao = false;
 			}
 			else if(jogador->PrimeiraVezNoBalcao == false)
 			{
 				Branco("\tO Barman te olha, e com um sorriso lhe pergunta:\n\n");
-				Verde("\tOl· senhor, o que o tr·s aqui?\n");
-				cout << "\n\n\t(1) Pedir uma miss„o  (Em Breve!)\n";
-				cout << "\n\n\t(2) Pedir informaÁıes \n";
+				Verde("\tOl√° senhor, o que o tr√°s aqui?\n");
+				cout << "\n\n\t(1) Pedir uma miss√£o  (Em Breve!)\n";
+				cout << "\n\n\t(2) Pedir informa√ß√µes \n";
 				cout << "\n\n\t(3) Compar algo       \n";
-				cout << "\n\n\t(r) Sair do balc„o    \n";
-				cout << "\n\n\t(i) Abrir invent·rio  \n";
+				cout << "\n\n\t(r) Sair do balc√£o    \n";
+				cout << "\n\n\t(i) Abrir invent√°rio  \n";
 			}
 			switch (Tecla())
 			{
-		//ABRIR MISS’ES DA TAVERNA
+		//ABRIR MISS√ïES DA TAVERNA
 				case 49:
 					taverna();
 				break;
 				
-		//INFORMA«’ES	
+		//INFORMA√á√ïES	
 				case 50:
 					while(1)
 					{
 						taverna();
 						int i;
-						ImprimirComDelay ("\tN„o sei ao certo qual È a sua intenÁ„o por aqui,\n");
+						ImprimirComDelay ("\tN√£o sei ao certo qual √© a sua inten√ß√£o por aqui,\n");
 						ImprimirComDelay ("\tmas eu me chamo ");AzulClaro("Barton"); cout <<".\n";
-						ImprimirComDelay ("\tSou o dono dessa taverna, e moro em ");Verde("Kyronma");cout<<" dÍs de garoto.\n";
-						ImprimirComDelayNoFim ("\tTambÈm sou conhecido como um bom contratante para todo tipo de serviÁos...\n\n");
+						ImprimirComDelay ("\tSou o dono dessa taverna, e moro em ");Verde("Kyronma");cout<<" d√™s de garoto.\n";
+						ImprimirComDelayNoFim ("\tTamb√©m sou conhecido como um bom contratante para todo tipo de servi√ßos...\n\n");
 						ImprimirComDelay ("\tVenha a minha taverna quando quiser uma bebida ou algum trabalho.\n");
-						ImprimirComDelay ("\tMeus funcionarios s„o muito bem remunerados com moedas...\n");
-						ImprimirComDelayNoFim ("\tPosso espalhar diversas notÌcias por aqui, e mudar e reputaÁ„o de qualquer um.\n");
+						ImprimirComDelay ("\tMeus funcionarios s√£o muito bem remunerados com moedas...\n");
+						ImprimirComDelayNoFim ("\tPosso espalhar diversas not√≠cias por aqui, e mudar e reputa√ß√£o de qualquer um.\n");
 						cout << "\n\n\t(1) Obrigado! \n";
 						i = Tecla();
 						if(i==49)
@@ -4205,10 +4334,10 @@ public:
 			{
 				system("cls");
 				taverna();
-				ImprimirComDelay ("\tA ");VerdeCD("donzela");ImprimirComDelayNoFim(" lhe olha com uma express„o enojada e lhe d· um tapa.\n\n");
+				ImprimirComDelay ("\tA ");VerdeCD("donzela");ImprimirComDelayNoFim(" lhe olha com uma express√£o enojada e lhe d√° um tapa.\n\n");
 				jogador->HPM(-10);
 				ImprimirComDelay ("\n\n\t(");VerdeCD("HP");ImprimirComDelay("-");VermelhoCD("10");ImprimirComDelayNoFim(")\n");
-				ImprimirComDelay ("\t- Volte a falar comigo quando tiver alguma");AmareloCD(" reputaÁ„o");ImprimirComDelayNoFim(".\n");
+				ImprimirComDelay ("\t- Volte a falar comigo quando tiver alguma");AmareloCD(" reputa√ß√£o");ImprimirComDelayNoFim(".\n");
 				cout << "\n\n\t(1) Continuar.                  \n";
 				int q;
 				do{
@@ -4228,8 +4357,8 @@ public:
 			{
 				system("cls");
 				taverna();
-				VerdeCDNoFim("\t- N„o faÁo a menor idÈia de quem vocÍ seja.\n\n");
-				ImprimirComDelay ("\t- Volte a falar comigo quando tiver alguma");AzulCD(" reputaÁ„o ");ImprimirComDelayNoFim("nesse lugar.\n");
+				VerdeCDNoFim("\t- N√£o fa√ßo a menor id√©ia de quem voc√™ seja.\n\n");
+				ImprimirComDelay ("\t- Volte a falar comigo quando tiver alguma");AzulCD(" reputa√ß√£o ");ImprimirComDelayNoFim("nesse lugar.\n");
 				cout << "\n\n\t(1) Continuar.           \n";
 				int q;
 				do{
@@ -4243,29 +4372,29 @@ public:
 			{
 				system("cls");
 				taverna();
-				ImprimirComDelayNoFim ("\tVocÍ se aproxima da estranha e esguia figura...\n\n");
-				ImprimirComDelay("\tO Homem inclina sua cabeÁa o suficiente para olhar no fundo dos seus olhos.\n");
-				ImprimirComDelay("\tEstudando seu corpo de cima a baixo com seu ˙nico olho saud·vel, ele pergunta com sua voz falha e rouca:\n\n");
+				ImprimirComDelayNoFim ("\tVoc√™ se aproxima da estranha e esguia figura...\n\n");
+				ImprimirComDelay("\tO Homem inclina sua cabe√ßa o suficiente para olhar no fundo dos seus olhos.\n");
+				ImprimirComDelay("\tEstudando seu corpo de cima a baixo com seu √∫nico olho saud√°vel, ele pergunta com sua voz falha e rouca:\n\n");
 				VerdeCD("\t- O que o faz pertubar meu descanso?");
-				cout << "\n\n\t(1) - Quem È vocÍ?                \n";
+				cout << "\n\n\t(1) - Quem √© voc√™?                \n";
 				cout << "\n\n\t(r) Sair do vendedor              \n";
-				cout << "\n\n\t(i) Abrir invent·rio              \n";
+				cout << "\n\n\t(i) Abrir invent√°rio              \n";
 				jogador->PrimeiraVezNoHomemEstranho = false;
 			}
 			else if(jogador->PrimeiraVezNoHomemEstranho == false)
 			{
 				system("cls");
 				taverna();
-				Branco("\tVocÍ se aproxima da estranha e esguia figura...\n\n");
-				Branco("\tO Homem inclina sua cabeÁa o suficiente para olhar no fundo dos seus olhos.\n");
-				Branco("\tEstudando seu corpo de cima a baixo com seu ˙nico olho saud·vel, ele pergunta com sua voz falha e rouca:\n\n");
+				Branco("\tVoc√™ se aproxima da estranha e esguia figura...\n\n");
+				Branco("\tO Homem inclina sua cabe√ßa o suficiente para olhar no fundo dos seus olhos.\n");
+				Branco("\tEstudando seu corpo de cima a baixo com seu √∫nico olho saud√°vel, ele pergunta com sua voz falha e rouca:\n\n");
 				Verde("\t- O que o faz pertubar meu descanso?");
-				cout << "\n\n\t(1) - Quem È vocÍ?                 \n";
-				cout << "\n\n\t(1) - Quem È vocÍ?                 \n";
-				cout << "\n\n\t(1) - Quem È vocÍ?                 \n";
-				cout << "\n\n\t(1) - Quem È vocÍ?                 \n";
+				cout << "\n\n\t(1) - Quem √© voc√™?                 \n";
+				cout << "\n\n\t(1) - Quem √© voc√™?                 \n";
+				cout << "\n\n\t(1) - Quem √© voc√™?                 \n";
+				cout << "\n\n\t(1) - Quem √© voc√™?                 \n";
 				cout << "\n\n\t(r) Sair do vendedor               \n";
-				cout << "\n\n\t(i) Abrir invent·rio               \n";
+				cout << "\n\n\t(i) Abrir invent√°rio               \n";
 			}
 			switch(Tecla())
 			{
@@ -4290,30 +4419,30 @@ public:
 			taverna();
 			if(jogador->PrimeiraVezNataverna == true)
 			{
-				ImprimirComDelay ("\tVocÍ entra em uma pequenina ");VerdeCD("taverna");ImprimirComDelayNoFim(" com poucas pessoas, e um barmen de meia idade\n\n\n");
-				ImprimirComDelay ("\tH· alguns homens no balc„o, uma donzela em pÈ, e um estranho homem\n");
+				ImprimirComDelay ("\tVoc√™ entra em uma pequenina ");VerdeCD("taverna");ImprimirComDelayNoFim(" com poucas pessoas, e um barmen de meia idade\n\n\n");
+				ImprimirComDelay ("\tH√° alguns homens no balc√£o, uma donzela em p√©, e um estranho homem\n");
 				ImprimirComDelay ("\tportando uma enorme cicatriz no rosto, sentado em uma das mesas.\n");
-				ImprimirComDelay ("\tOque ir· fazer "); cout << jogador->getnome() << "?\n";
-				cout << "\n\n\t(1) Ir ao balc„o                  \n";
-				cout << "\n\n\t(2) Ir atÈ a donzela              \n";
-				cout << "\n\n\t(3) Ir atÈ o homem estranho       \n";
-				cout << "\n\n\t(4) Desafiar alguÈm para uma luta \n";
+				ImprimirComDelay ("\tOque ir√° fazer "); cout << jogador->getnome() << "?\n";
+				cout << "\n\n\t(1) Ir ao balc√£o                  \n";
+				cout << "\n\n\t(2) Ir at√© a donzela              \n";
+				cout << "\n\n\t(3) Ir at√© o homem estranho       \n";
+				cout << "\n\n\t(4) Desafiar algu√©m para uma luta \n";
 				cout << "\n\n\t(r) Sair da tavernaa              \n";
-				cout << "\n\n\t(i) Abrir invent·rio              \n";
+				cout << "\n\n\t(i) Abrir invent√°rio              \n";
 				jogador->PrimeiraVezNataverna = false;
 			}
 			else if(jogador->PrimeiraVezNataverna == false)
 			{
-				cout <<"\tVocÍ entra em uma pequenina ";Verde("taverna");cout <<" com poucas pessoas, e um barmen de meia idade\n\n\n";
-				cout <<"\tH· alguns homens no balc„o, uma donzela em pÈ, e um estranho homem\n";
+				cout <<"\tVoc√™ entra em uma pequenina ";Verde("taverna");cout <<" com poucas pessoas, e um barmen de meia idade\n\n\n";
+				cout <<"\tH√° alguns homens no balc√£o, uma donzela em p√©, e um estranho homem\n";
 				cout <<"\tportando uma enorme cicatriz no rosto, sentado em uma das mesas.\n";
-				cout <<"\tOque ir· fazer "; cout << jogador->getnome() << "?\n";
-				cout << "\n\n\t(1) Ir ao balc„o                  \n";
-				cout << "\n\n\t(2) Ir atÈ a donzela              \n";
-				cout << "\n\n\t(3) Ir atÈ o homem estranho       \n";
-				cout << "\n\n\t(4) Desafiar alguÈm para uma luta \n";
+				cout <<"\tOque ir√° fazer "; cout << jogador->getnome() << "?\n";
+				cout << "\n\n\t(1) Ir ao balc√£o                  \n";
+				cout << "\n\n\t(2) Ir at√© a donzela              \n";
+				cout << "\n\n\t(3) Ir at√© o homem estranho       \n";
+				cout << "\n\n\t(4) Desafiar algu√©m para uma luta \n";
 				cout << "\n\n\t(r) Sair da taverna               \n";
-				cout << "\n\n\t(i) Abrir invent·rio              \n";
+				cout << "\n\n\t(i) Abrir invent√°rio              \n";
 			}
 			switch(Tecla())
 			{
@@ -4353,35 +4482,35 @@ public:
 			curandeiro();
 			if(jogador->PrimeiraVezNoCurandeiro == true)
 			{
-				VerdeCD("\tDugh'Ju");ImprimirComDelayNoFim(" È o curandeiro da aldeia.\n\n");
-				ImprimirComDelay ("\tUm homem velho, de estatura baixa, e que impıe um grande respeito.\n");
-				ImprimirComDelay ("\tUm s·bio anci„o, que teve muitos dias de glÛria.\n");
-				ImprimirComDelayNoFim ("\tOque ir· fazer?\n");
-				cout << "\n\tPontos de ReputaÁ„o :\n";
-				cout << "\n\n\t(1) - Quem È vocÍ?                        \n";
-                cout << "\n\n\t(2) - Qual È a Origem do mundo?           \n";
-                cout << "\n\n\t(3) - Qual È a diferenÁa entre bem e mal? \n";
-                cout << "\n\n\t(r) - Qual È meu objetivo?                \n";
+				VerdeCD("\tDugh'Ju");ImprimirComDelayNoFim(" √© o curandeiro da aldeia.\n\n");
+				ImprimirComDelay ("\tUm homem velho, de estatura baixa, e que imp√µe um grande respeito.\n");
+				ImprimirComDelay ("\tUm s√°bio anci√£o, que teve muitos dias de gl√≥ria.\n");
+				ImprimirComDelayNoFim ("\tOque ir√° fazer?\n");
+				cout << "\n\tPontos de Reputa√ß√£o :\n";
+				cout << "\n\n\t(1) - Quem √© voc√™?                        \n";
+                cout << "\n\n\t(2) - Qual √© a Origem do mundo?           \n";
+                cout << "\n\n\t(3) - Qual √© a diferen√ßa entre bem e mal? \n";
+                cout << "\n\n\t(r) - Qual √© meu objetivo?                \n";
                 cout << "\n\n\t(5) - O que me aguarda?                   \n";
 				cout << "\n\n\t(6) - Me conte uma lenda .                \n";
-                cout << "\n\n\t(i) Abrir invent·rio                      \n";
+                cout << "\n\n\t(i) Abrir invent√°rio                      \n";
                 cout << "\n\n\t(r) Retornar a ";Verde("Kyronma                    \n");
 				jogador->PrimeiraVezNoCurandeiro = false;
 			}
 			else if(jogador->PrimeiraVezNoCurandeiro == false)
 			{
-				Verde("\tDugh'Ju");cout<<" È o curandeiro da aldeia.\n\n";
-				cout <<"\tUm homem velho, de estatura baixa, e que impıe um grande respeito.\n";
-				cout <<"\tUm s·bio anci„o, que teve muitos dias de glÛria.\n";
-				cout <<"\tOque ir· fazer?\n";
-				cout << "\n\tPontos de ReputaÁ„o :\n";
-				cout << "\n\n\t(1) - Quem È vocÍ?                        \n";
-                cout << "\n\n\t(2) - Qual È a Origem do mundo?           \n";
-                cout << "\n\n\t(3) - Qual È a diferenÁa entre bem e mal? \n";
-                cout << "\n\n\t(4) - Qual È meu objetivo?                \n";
+				Verde("\tDugh'Ju");cout<<" √© o curandeiro da aldeia.\n\n";
+				cout <<"\tUm homem velho, de estatura baixa, e que imp√µe um grande respeito.\n";
+				cout <<"\tUm s√°bio anci√£o, que teve muitos dias de gl√≥ria.\n";
+				cout <<"\tOque ir√° fazer?\n";
+				cout << "\n\tPontos de Reputa√ß√£o :\n";
+				cout << "\n\n\t(1) - Quem √© voc√™?                        \n";
+                cout << "\n\n\t(2) - Qual √© a Origem do mundo?           \n";
+                cout << "\n\n\t(3) - Qual √© a diferen√ßa entre bem e mal? \n";
+                cout << "\n\n\t(4) - Qual √© meu objetivo?                \n";
                 cout << "\n\n\t(5) - O que me aguarda?                   \n";
 				cout << "\n\n\t(6) - Me conte uma lenda.                 \n";
-                cout << "\n\n\t(i) Abrir invent·rio                      \n";
+                cout << "\n\n\t(i) Abrir invent√°rio                      \n";
                 cout << "\n\n\t(r) Retornar a ";Verde("Kyronma                    \n");
 			}
 			switch(Tecla())
@@ -4391,13 +4520,13 @@ public:
 					{
 
 						curandeiro();
-						ImprimirComDelay("\tEu me chamo ");Verde("Dugh'Ju"); ImprimirComDelay(" e isso È tudo que importa.\n");
-						ImprimirComDelayNoFim("\tJ· vivi e ouvi muito nessa vida, e em outras.\n");
-						ImprimirComDelay("\tQuem somos, ou para onde vamos, s„o perguntas geralmente feitas por");Vermelho(" tolos ");ImprimirComDelay("sem propÛsito.\n");
-						ImprimirComDelay("\tEscolha bem, e eu responderei uma pergunta ou farei algo por vocÍ.\n");
+						ImprimirComDelay("\tEu me chamo ");Verde("Dugh'Ju"); ImprimirComDelay(" e isso √© tudo que importa.\n");
+						ImprimirComDelayNoFim("\tJ√° vivi e ouvi muito nessa vida, e em outras.\n");
+						ImprimirComDelay("\tQuem somos, ou para onde vamos, s√£o perguntas geralmente feitas por");Vermelho(" tolos ");ImprimirComDelay("sem prop√≥sito.\n");
+						ImprimirComDelay("\tEscolha bem, e eu responderei uma pergunta ou farei algo por voc√™.\n");
 						ImprimirComDelay("\tTorne-se uma ");AmareloCD("lenda");ImprimirComDelayNoFim(".\n");
-						ImprimirComDelay("\tE a cada vez que eu ouvir seu nome em meio aos dÈbeis sussuros dessa cidade,\n");
-						ImprimirComDelay("\tEu o recompesarei com o ");Azul("conhecimento");ImprimirComDelayNoFim(" h· muito perdido.\n");
+						ImprimirComDelay("\tE a cada vez que eu ouvir seu nome em meio aos d√©beis sussuros dessa cidade,\n");
+						ImprimirComDelay("\tEu o recompesarei com o ");Azul("conhecimento");ImprimirComDelayNoFim(" h√° muito perdido.\n");
 						cout << "\n\n\t(1) Continuar \n";
 						int q; 
 						(q = Tecla());
@@ -4427,22 +4556,22 @@ public:
 			portao();
 			if(jogador->PrimeiraVezNoPortao == true)
 			{
-				ImprimirComDelay ("\tVocÍ se aproxima de uma pequena porteira de madeira,\n");
+				ImprimirComDelay ("\tVoc√™ se aproxima de uma pequena porteira de madeira,\n");
 				ImprimirComDelay ("\tEla representa os limites da aldeia.\n");
-				ImprimirComDelay ("\tO que ir· fazer "); cout << jogador->getnome() << "?\n";
+				ImprimirComDelay ("\tO que ir√° fazer "); cout << jogador->getnome() << "?\n";
 				cout << "\n\n\t(1) Sair da aldeia   \n";
 				cout << "\n\n\t(r) Retornar a ";Verde("Kyronma");cout<<"   \n";
-				cout << "\n\n\t(i) Abrir invent·rio \n";
+				cout << "\n\n\t(i) Abrir invent√°rio \n";
 				jogador->PrimeiraVezNoPortao = false;
 			}
 			else if(jogador->PrimeiraVezNoPortao == false)
 			{
-				cout <<"\tVocÍ se aproxima de uma pequena porteira de madeira,\n";
+				cout <<"\tVoc√™ se aproxima de uma pequena porteira de madeira,\n";
 				cout <<"\tEla representa os limites da aldeia.\n";
-				cout <<"\tO que ir· fazer "; cout << jogador->getnome() << "?\n";
+				cout <<"\tO que ir√° fazer "; cout << jogador->getnome() << "?\n";
 				cout << "\n\n\t(1) Sair da aldeia     \n";
 				cout << "\n\n\t(r) Retornar a ";Verde("Kyronma");cout<<"   \n";
-				cout << "\n\n\t(i) Abrir invent·rio \n";
+				cout << "\n\n\t(i) Abrir invent√°rio \n";
 			}
 			switch(Tecla())
 			{
@@ -4472,22 +4601,22 @@ public:
 			{
 				ImprimirComDelayNoFim ("\tLar doce lar.\n");
 				ImprimirComDelay ("\tSua pequena casa feita de palha e barro.\n");
-				VerdeCD("\tKyronma");ImprimirComDelayNoFim(" colabora com sua atmosfera serena e pacÌfica.\n");
-				cout << "\n\n\t(1) Abrir o Ba˙      \n";
+				VerdeCD("\tKyronma");ImprimirComDelayNoFim(" colabora com sua atmosfera serena e pac√≠fica.\n");
+				cout << "\n\n\t(1) Abrir o Ba√∫      \n";
 				cout << "\n\n\t(2) Descansar        \n";
 				cout << "\n\n\t(r) Retornar a ";Verde("Kyronma");cout<<"\n";
-				cout << "\n\n\t(i) Abrir invent·rio \n";
+				cout << "\n\n\t(i) Abrir invent√°rio \n";
 				jogador->PrimeiraVezEmCasa = false;
 			}
 			else if(jogador->PrimeiraVezEmCasa == false)
 			{
 				cout <<"\tLar doce lar.\n";
 				cout <<"\tSua pequena casa feita de palha e barro.\n";
-				Verde("\tKyronma");cout <<" colabora com sua atmosfera serena e pacÌfica.\n";
-				cout << "\n\n\t(1) Abrir o Ba˙      \n";
+				Verde("\tKyronma");cout <<" colabora com sua atmosfera serena e pac√≠fica.\n";
+				cout << "\n\n\t(1) Abrir o Ba√∫      \n";
 				cout << "\n\n\t(2) Descansar        \n";
 				cout << "\n\n\t(r) Retornar a ";Verde("Kyronma");cout<<"\n";
-				cout << "\n\n\t(i) Abrir invent·rio \n";
+				cout << "\n\n\t(i) Abrir invent√°rio \n";
 			}
 			switch(Tecla())
 			{
@@ -4497,7 +4626,7 @@ public:
 				
 				
 				case 50:
-					cout <<"\n\n\n\n\n\n\n\t\t\tVocÍ se deita e se concentra em pensamentos relaxantes";PontosBrancos();
+					cout <<"\n\n\n\n\n\n\n\t\t\tVoc√™ se deita e se concentra em pensamentos relaxantes";PontosBrancos();
 					jogador->energiaM(jogador->getenergiam());
 				break;
 				
@@ -4569,16 +4698,16 @@ public:
 				cout <<  "|                                                      A Aldeia de ";Verde("Kyronma");cout<<"                                             |";                              
 				cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
 			    Sleep(200);
-				Verde("\tKyronma");ImprimirComDelay (" È uma pequena aldeia, localizada no continente de "); Azul("Kronnomar\n");
-				ImprimirComDelay ("\tSeu nome significa ");AzulClaro("\"A ForÁa das ¡guas\""); cout <<".\n";
+				Verde("\tKyronma");ImprimirComDelay (" √© uma pequena aldeia, localizada no continente de "); Azul("Kronnomar\n");
+				ImprimirComDelay ("\tSeu nome significa ");AzulClaro("\"A For√ßa das √Åguas\""); cout <<".\n";
 				ImprimirComDelay ("\tSua terra natal.\n");
 				ImprimirComDelay ("\tOnde gostaria de ir "); cout << jogador->getnome();ImprimirComDelay("?\n");
 				cout << "\n\n\t(1) Ir ao Centro da cidade            \n";
 				cout << "\n\n\t(2) Ir a Taverna                      \n";
 				cout << "\n\n\t(3) Ir ao Curandeiro                  \n";
-				cout << "\n\n\t(4) Ir para a saÌda da cidade         \n";
+				cout << "\n\n\t(4) Ir para a sa√≠da da cidade         \n";
 				cout << "\n\n\t(5) Ir a sua casa                     \n";
-				cout << "\n\n\t(i) Abrir invent·rio                  \n";
+				cout << "\n\n\t(i) Abrir invent√°rio                  \n";
 				jogador->PrimeiraVezEmKyronma = false;
 			}
 			else if(jogador->PrimeiraVezEmKyronma == false)
@@ -4586,16 +4715,16 @@ public:
 				cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
 				cout <<  "|                                                      A Aldeia de ";Verde("Kyronma");cout<<"                                             |";                              
 				cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
-			   	Verde("\tKyronma");cout <<" È uma pequena aldeia, localizada no continente de "; Azul("Kronnomar\n");
-				cout <<"\tSeu nome significa ";AzulClaro("\"A ForÁa das ¡guas\""); cout <<".\n";
+			   	Verde("\tKyronma");cout <<" √© uma pequena aldeia, localizada no continente de "; Azul("Kronnomar\n");
+				cout <<"\tSeu nome significa ";AzulClaro("\"A For√ßa das √Åguas\""); cout <<".\n";
 				cout <<"\tSua terra natal.\n";
 				cout <<"\tOnde gostaria de ir "; cout << jogador->getnome() << "?\n";
 				cout << "\n\n\t(1) Ir ao Centro da cidade            \n";
 				cout << "\n\n\t(2) Ir a Taverna                      \n";
 				cout << "\n\n\t(3) Ir ao Curandeiro                  \n";
-				cout << "\n\n\t(4) Ir para a saÌda da cidade         \n";
+				cout << "\n\n\t(4) Ir para a sa√≠da da cidade         \n";
 				cout << "\n\n\t(5) Ir a sua casa                     \n";
-				cout << "\n\n\t(i) Abrir invent·rio                  \n";
+				cout << "\n\n\t(i) Abrir invent√°rio                  \n";
 			}
 			if (controle == 2)
 				return controle;
@@ -4613,7 +4742,7 @@ public:
 				case 51:
 					CurandeiroDeKyronma(jogador);
 				break;
-		//PORT√O DA CIDADE
+		//PORT√ÉO DA CIDADE
 				case 52:
 					controle = PortaoDeKyronma(jogador);
 				break;		
@@ -4623,6 +4752,10 @@ public:
 				break;	
 		//INVENTARIO
 		
+				case Menu:
+					jogador->MenuPrincipal();
+				break;
+				
 				case Retornar:
 				break;
 				
@@ -4661,12 +4794,12 @@ int main ()
 	itens[0].setenergia(0);
 	itens[0].setpreco(25);
 	itens[0].setquantidade(1);
-	itens[0].setdescricao("Um p„o velho quem restauram 6 de HP");
+	itens[0].setdescricao("Um p√£o velho quem restauram 6 de HP");
 	itens[0].setbatalha(true);
 	itens[0].setconsumivel(true);
 	
 	
-	itens[1].setnome("Naco de p„o duro");
+	itens[1].setnome("Naco de p√£o duro");
 	itens[1].setcodigo(1);
 	itens[1].settamanho(1);
 	itens[1].setxp(2);
@@ -4675,7 +4808,7 @@ int main ()
 	itens[1].setenergia(0);
 	itens[1].setpreco(25);
 	itens[1].setquantidade(1);
-	itens[1].setdescricao("Um p„o velho quem restauram 16 de HP");
+	itens[1].setdescricao("Um p√£o velho quem restauram 16 de HP");
 	itens[1].setbatalha(true);
 	itens[1].setconsumivel(true);
 	
@@ -4688,11 +4821,11 @@ int main ()
 	itens[3].setenergia(-20);
 	itens[3].setquantidade(3);
 	itens[3].setpreco(160);
-	itens[3].setdescricao("Deliciosa fruta tropical, vocÍ ter· que quebrar antes de consumir");
+	itens[3].setdescricao("Deliciosa fruta tropical, voc√™ ter√° que quebrar antes de consumir");
 	itens[3].setbatalha(true);
 	itens[3].setconsumivel(true);
 
-	itens[2].setnome("¡gua da Fonte");
+	itens[2].setnome("√Ågua da Fonte");
 	itens[2].setcodigo(2);
 	itens[2].settamanho(1);
 	itens[2].setxp(1);
@@ -4701,11 +4834,11 @@ int main ()
 	itens[2].setenergia(5);
 	itens[2].setquantidade(1);
 	itens[2].setpreco(25);
-	itens[2].setdescricao("¡gua filtrada.");
+	itens[2].setdescricao("√Ågua filtrada.");
 	itens[2].setbatalha(true);
 	itens[2].setconsumivel(true);
 	
-	itens[4].setnome("PedaÁo de Carne-seca");
+	itens[4].setnome("Peda√ßo de Carne-seca");
 	itens[4].setcodigo(4);
 	itens[4].settamanho(1);
 	itens[4].setxp(0);
@@ -4714,7 +4847,7 @@ int main ()
 	itens[4].setenergia(1);
 	itens[4].setquantidade(4);
 	itens[4].setpreco(18);
-	itens[4].setdescricao("PedaÁos de uma carne barata, e que um dia ja foram melhores, Receba 4 de HP.");
+	itens[4].setdescricao("Peda√ßos de uma carne barata, e que um dia ja foram melhores, Receba 4 de HP.");
 	itens[4].setbatalha(true);
 	itens[4].setconsumivel(true);
 	
@@ -4740,7 +4873,7 @@ int main ()
 	itens[6].setenergia(-10);
 	itens[6].setpreco(13);
 	itens[6].setquantidade(1);
-	itens[6].setdescricao("Carne de Enguia. N„o muito agrad·vel, mas ambundante e comestÌvel");
+	itens[6].setdescricao("Carne de Enguia. N√£o muito agrad√°vel, mas ambundante e comest√≠vel");
 	itens[6].setbatalha(true);
 	itens[6].setconsumivel(true);
 	
@@ -4753,7 +4886,7 @@ int main ()
 	itens[7].setenergia(14);
 	itens[7].setpreco(40);
 	itens[7].setquantidade(3);
-	itens[7].setdescricao("Algas pas os vegetarianos, mas se metabolizam r·pido");
+	itens[7].setdescricao("Algas pas os vegetarianos, mas se metabolizam r√°pido");
 	itens[7].setbatalha(true);
 	itens[7].setconsumivel(true);
 	
@@ -4782,7 +4915,7 @@ int main ()
 	itens[10].setenergia(0);
 	itens[10].setquantidade(1);
 	itens[10].setpreco(180);
-	itens[10].setdescricao("Essa bebida ainda ir· te matar, causa dano ao usu·rio e restaura energia.");
+	itens[10].setdescricao("Essa bebida ainda ir√° te matar, causa dano ao usu√°rio e restaura energia.");
 	itens[10].setbatalha(true);
 	itens[10].setconsumivel(true);
 	
@@ -4807,13 +4940,13 @@ int main ()
 	itens[12].setenergia(0);
 	itens[12].setpreco(25);
 	itens[12].setquantidade(1);
-	itens[12].setdescricao("Vinho, baixo preÁo e baixa qualidade");
+	itens[12].setdescricao("Vinho, baixo pre√ßo e baixa qualidade");
 	itens[12].setbatalha(true);
 	itens[12].setconsumivel(true);
 
-//M¿GICOS
+//M√ÄGICOS
 
-	itens[23].setnome("PoÁ„o de Cura Grande");
+	itens[23].setnome("Po√ß√£o de Cura Grande");
 	itens[23].setcodigo(23);
 	itens[23].settamanho(1);
 	itens[23].setxp(0);
@@ -4822,11 +4955,11 @@ int main ()
 	itens[23].setenergia(0);
 	itens[23].setquantidade(1);
 	itens[23].setpreco(350);
-	itens[23].setdescricao("Uma poÁ„o curativa feita por magos dedicados.");
+	itens[23].setdescricao("Uma po√ß√£o curativa feita por magos dedicados.");
 	itens[23].setbatalha(true);
 	itens[23].setconsumivel(true);
 	
-	itens[24].setnome("PoÁ„o de Cura MÈdia");
+	itens[24].setnome("Po√ß√£o de Cura M√©dia");
 	itens[24].setcodigo(24);
 	itens[24].settamanho(1);
 	itens[24].setxp(0);
@@ -4835,11 +4968,11 @@ int main ()
 	itens[24].setenergia(0);
 	itens[24].setquantidade(1);
 	itens[24].setpreco(180);
-	itens[24].setdescricao("Uma poÁ„o curativa mediana, que restaura pontos de HP.");
+	itens[24].setdescricao("Uma po√ß√£o curativa mediana, que restaura pontos de HP.");
 	itens[24].setbatalha(true);
 	itens[24].setconsumivel(true);
 	
-	itens[25].setnome("PoÁ„o de Cura Pequena");
+	itens[25].setnome("Po√ß√£o de Cura Pequena");
 	itens[25].setcodigo(25);
 	itens[25].settamanho(1);
 	itens[25].setxp(0);
@@ -4848,11 +4981,11 @@ int main ()
 	itens[25].setenergia(0);
 	itens[25].setquantidade(1);
 	itens[25].setpreco(80);
-	itens[25].setdescricao("Uma pequena poÁ„o curativa verde que restaura pontos de HP.");
+	itens[25].setdescricao("Uma pequena po√ß√£o curativa verde que restaura pontos de HP.");
 	itens[25].setbatalha(true);
 	itens[25].setconsumivel(true);
 	
-	itens[26].setnome("PoÁ„o de Mana Pequena");
+	itens[26].setnome("Po√ß√£o de Mana Pequena");
 	itens[26].setcodigo(26);
 	itens[26].settamanho(1);
 	itens[26].setxp(0);
@@ -4861,11 +4994,11 @@ int main ()
 	itens[26].setenergia(0);
 	itens[26].setquantidade(1);
 	itens[26].setpreco(100);
-	itens[26].setdescricao("Uma pequena poÁ„o brilhando em azul intenso, restaura MP.");
+	itens[26].setdescricao("Uma pequena po√ß√£o brilhando em azul intenso, restaura MP.");
 	itens[26].setbatalha(true);
 	itens[26].setconsumivel(true);
 	
-	itens[27].setnome("PoÁ„o de Mana MÈdia");
+	itens[27].setnome("Po√ß√£o de Mana M√©dia");
 	itens[27].setcodigo(27);
 	itens[27].settamanho(1);
 	itens[27].setxp(0);
@@ -4874,11 +5007,11 @@ int main ()
 	itens[27].setenergia(0);
 	itens[27].setquantidade(1);
 	itens[27].setpreco(190);
-	itens[27].setdescricao("Uma consÌder·vel poÁ„o M·gica.");
+	itens[27].setdescricao("Uma cons√≠der√°vel po√ß√£o M√°gica.");
 	itens[27].setbatalha(true);
 	itens[27].setconsumivel(true);
 	
-	itens[28].setnome("PoÁ„o de Mana Grande");
+	itens[28].setnome("Po√ß√£o de Mana Grande");
 	itens[28].setcodigo(26);
 	itens[28].settamanho(1);
 	itens[28].setxp(0);
@@ -4887,11 +5020,11 @@ int main ()
 	itens[28].setenergia(0);
 	itens[28].setquantidade(1);
 	itens[28].setpreco(100);
-	itens[28].setdescricao("Uma grande poÁ„o, Pura magia engarrafada.");
+	itens[28].setdescricao("Uma grande po√ß√£o, Pura magia engarrafada.");
 	itens[28].setbatalha(true);
 	itens[28].setconsumivel(true);
 	
-	itens[29].setnome("PoÁ„o Envenedada I");
+	itens[29].setnome("Po√ß√£o Envenedada I");
 	itens[29].setcodigo(29);
 	itens[29].settamanho(1);
 	itens[29].setxp(00);
@@ -4900,7 +5033,7 @@ int main ()
 	itens[29].setenergia(0);
 	itens[29].setquantidade(1);
 	itens[29].setpreco(100);
-	itens[29].setdescricao("Uma poÁ„o tÛxica, seus inimigos n„o ir„o gostar...");
+	itens[29].setdescricao("Uma po√ß√£o t√≥xica, seus inimigos n√£o ir√£o gostar...");
 	itens[29].setbatalha(true);
 	itens[29].setconsumivel(true);
 	
@@ -4916,11 +5049,11 @@ int main ()
 	itens[50].setenergia(0);
 	itens[50].setquantidade(1);
 	itens[50].setpreco(500);
-	itens[50].setdescricao("Um para parcialmente rasgado, mas ainda È possÌve ler.");
+	itens[50].setdescricao("Um para parcialmente rasgado, mas ainda √© poss√≠ve ler.");
 	itens[50].setbatalha(false);
 	itens[50].setconsumivel(false);
 	
-	itens[51].setnome("Runa M·gica");
+	itens[51].setnome("Runa M√°gica");
 	itens[51].setcodigo(51);
 	itens[51].settamanho(1);
 	itens[51].setxp(25);
@@ -4929,23 +5062,23 @@ int main ()
 	itens[51].setenergia(-20);
 	itens[51].setquantidade(1);
 	itens[51].setpreco(1000);
-	itens[51].setdescricao("Uma runa arcana, que aumentar· seu HP e MP m·ximos.");
+	itens[51].setdescricao("Uma runa arcana, que aumentar√° seu HP e MP m√°ximos.");
 	itens[51].setbatalha(true);
 	itens[51].setconsumivel(true);
 	
-	itens[52].setnome("CabeÁa de Durotan");
+	itens[52].setnome("Cabe√ßa de Durotan");
 	itens[52].setcodigo(52);
 	itens[52].settamanho(1);
 	itens[52].setquantidade(1);
 	itens[52].setpreco(1800);
-	itens[52].setdescricao("O TrofÈu por derrotar o terrÌvel Marine guerreiro Durotan.");
+	itens[52].setdescricao("O Trof√©u por derrotar o terr√≠vel Marine guerreiro Durotan.");
 	itens[52].setbatalha(false);
 	itens[52].setconsumivel(false);
 	
 	
 //LOOTS
 
-	itens[65].setnome("Cr‚nio de Cobra da areia");
+	itens[65].setnome("Cr√¢nio de Cobra da areia");
 	itens[65].setcodigo(65);
 	itens[65].settamanho(1);
 	itens[65].setquantidade(1);
@@ -4954,7 +5087,7 @@ int main ()
 	itens[65].setbatalha(false);
 	itens[65].setconsumivel(false);
 	
-	itens[66].setnome("Cr‚nio de Javali Selvagem");
+	itens[66].setnome("Cr√¢nio de Javali Selvagem");
 	itens[66].setcodigo(66);
 	itens[66].settamanho(1);
 	itens[66].setquantidade(1);
@@ -4970,7 +5103,7 @@ int main ()
 	itens[78].settamanho(1);
 	itens[78].setquantidade(1);
 	itens[78].setpreco(15);
-	itens[78].setdescricao("PedaÁos de madeira, eficietes para uma fogueira.");
+	itens[78].setdescricao("Peda√ßos de madeira, eficietes para uma fogueira.");
 	itens[78].setbatalha(false);
 	itens[78].setconsumivel(false);
 	
@@ -5006,7 +5139,7 @@ int main ()
 	itens[10].sethp(-12);
 	itens[10].setmp(0);
 	itens[10].setquantidade(1);
-	itens[10].setdescricao ("Essa bebida ainda ir· te matar, causa dano ao usu·rio e restaura energia.");
+	itens[10].setdescricao ("Essa bebida ainda ir√° te matar, causa dano ao usu√°rio e restaura energia.");
 	itens[10].setbatalha(true);
 	itens[10].setconsumivel(true);
 	
@@ -5033,7 +5166,7 @@ Humano Bebados[5];
 	//Marines Lutadores
 	{
 		MarinesLutadores[0].setnome("Durotan");
-		MarinesLutadores[0].setNivel("NÌvel 5");
+		MarinesLutadores[0].setNivel("N√≠vel 5");
 		MarinesLutadores[0].setraca("Marine");
 		MarinesLutadores[0].setHP(x.ModDificuldade(x.getDificuldade(),130));
 		MarinesLutadores[0].setMP(x.ModDificuldade(x.getDificuldade(),60));
@@ -5049,10 +5182,10 @@ Humano Bebados[5];
 		MarinesLutadores[0].setDAMOEDAS(0);
 		//Ukundu
 	}
-	//Marines CaÁadores
+	//Marines Ca√ßadores
 	{
 		MarinesCacadores[0].setnome("Igvuld");
-		MarinesCacadores[0].setNivel("NÌvel 5");
+		MarinesCacadores[0].setNivel("N√≠vel 5");
 		MarinesCacadores[0].setraca("Marine");
 		MarinesCacadores[0].setHP(x.ModDificuldade(x.getDificuldade(),130));
 		MarinesCacadores[0].setMP(x.ModDificuldade(x.getDificuldade(),60));
@@ -5071,7 +5204,7 @@ Humano Bebados[5];
 	{
 	//Uk'Zur
 		MarinesMagos[0].setnome("Zirgur");
-		MarinesMagos[0].setNivel("NÌvel 5");
+		MarinesMagos[0].setNivel("N√≠vel 5");
 		MarinesMagos[0].setraca("Marine");
 		MarinesMagos[0].setHP(x.ModDificuldade(x.getDificuldade(),130));
 		MarinesMagos[0].setMP(x.ModDificuldade(x.getDificuldade(),60));
@@ -5089,7 +5222,7 @@ Humano Bebados[5];
 	//Monstros
 	{
 		Monstros[1].setnome("Cobra da Areia");
-		Monstros[1].setNivel("NÌvel 1");
+		Monstros[1].setNivel("N√≠vel 1");
 		Monstros[1].setraca("Cobra");
 		Monstros[1].setHP(x.ModDificuldade(x.getDificuldade(),100));
 		Monstros[1].setMP(x.ModDificuldade(x.getDificuldade(),50));
@@ -5105,7 +5238,7 @@ Humano Bebados[5];
 		Monstros[1].setDAMOEDAS(0);	
 		
 		Monstros[2].setnome("Cobra da Areia");
-		Monstros[2].setNivel("NÌvel 2");
+		Monstros[2].setNivel("N√≠vel 2");
 		Monstros[2].setraca("Cobra");
 		Monstros[2].setHP(x.ModDificuldade(x.getDificuldade(),120));
 		Monstros[2].setMP(x.ModDificuldade(x.getDificuldade(),60));
@@ -5121,7 +5254,7 @@ Humano Bebados[5];
 		Monstros[2].setDAMOEDAS(0);	
 		
 		Monstros[3].setnome("Aranha da Areia");
-		Monstros[3].setNivel("NÌvel 3");
+		Monstros[3].setNivel("N√≠vel 3");
 		Monstros[3].setraca("Cobra");
 		Monstros[3].setHP(x.ModDificuldade(x.getDificuldade(),150));
 		Monstros[3].setMP(x.ModDificuldade(x.getDificuldade(),70));
@@ -5137,7 +5270,7 @@ Humano Bebados[5];
 		Monstros[3].setDAMOEDAS(20);	
 		
 		Monstros[4].setnome("Javali selvagem");
-		Monstros[4].setNivel("NÌvel 3");
+		Monstros[4].setNivel("N√≠vel 3");
 		Monstros[4].setraca("Javali");
 		Monstros[4].setHP(x.ModDificuldade(x.getDificuldade(),160));
 		Monstros[4].setMP(x.ModDificuldade(x.getDificuldade(),60));
@@ -5153,7 +5286,7 @@ Humano Bebados[5];
 		Monstros[4].setDAMOEDAS(35);	
 		
 		Monstros[5].setnome("Javali selvagem");
-		Monstros[5].setNivel("NÌvel 4");
+		Monstros[5].setNivel("N√≠vel 4");
 		Monstros[5].setraca("Javali");
 		Monstros[5].setHP(x.ModDificuldade(x.getDificuldade(),175));
 		Monstros[5].setMP(x.ModDificuldade(x.getDificuldade(),70));
@@ -5169,7 +5302,7 @@ Humano Bebados[5];
 		Monstros[5].setDAMOEDAS(40);	
 		
 		Monstros[6].setnome("Javali selvagem");
-		Monstros[6].setNivel("NÌvel 5");
+		Monstros[6].setNivel("N√≠vel 5");
 		Monstros[6].setraca("Javali");
 		Monstros[6].setHP(x.ModDificuldade(x.getDificuldade(),190));
 		Monstros[6].setMP(x.ModDificuldade(x.getDificuldade(),80));
@@ -5189,7 +5322,7 @@ Humano Bebados[5];
 	{
 		
 		Bonecos[1].setnome("Boneco de Treino");
-		Bonecos[1].setNivel("NÌvel 1");
+		Bonecos[1].setNivel("N√≠vel 1");
 		Bonecos[1].setHP(x.ModDificuldade(x.getDificuldade(),200));
 		Bonecos[1].setMP(x.ModDificuldade(x.getDificuldade(),0));
 		Bonecos[1].setenergia(x.ModDificuldade(x.getDificuldade(),0));
@@ -5204,7 +5337,7 @@ Humano Bebados[5];
 		Bonecos[1].setDAMOEDAS(0);
 		
 		Bonecos[2].setnome("Boneco de Treino");
-		Bonecos[2].setNivel("NÌvel 2");
+		Bonecos[2].setNivel("N√≠vel 2");
 		Bonecos[2].setHP(x.ModDificuldade(x.getDificuldade(),350));
 		Bonecos[2].setMP(x.ModDificuldade(x.getDificuldade(),0));
 		Bonecos[2].setenergia(x.ModDificuldade(x.getDificuldade(),0));
@@ -5219,7 +5352,7 @@ Humano Bebados[5];
 		Bonecos[2].setDAMOEDAS(0);
 		
 		Bonecos[3].setnome("Boneco de Treino");
-		Bonecos[3].setNivel("NÌvel 3");
+		Bonecos[3].setNivel("N√≠vel 3");
 		Bonecos[3].setHP(x.ModDificuldade(x.getDificuldade(),500));
 		Bonecos[3].setMP(x.ModDificuldade(x.getDificuldade(),0));
 		Bonecos[3].setenergia(x.ModDificuldade(x.getDificuldade(),0));
@@ -5233,10 +5366,10 @@ Humano Bebados[5];
 		Bonecos[3].setDAREP(0);
 		Bonecos[3].setDAMOEDAS(0);
 	}
-	//BÍbados
+	//B√™bados
 	{
 		Bebados[1].setnome("Bebado Irritante");
-		Bebados[1].setNivel("NÌvel 2");
+		Bebados[1].setNivel("N√≠vel 2");
 		Bebados[1].setraca("Humano");
 		Bebados[1].setHP(x.ModDificuldade(x.getDificuldade(),120));
 		Bebados[1].setMP(x.ModDificuldade(x.getDificuldade(),0));
@@ -5250,8 +5383,8 @@ Humano Bebados[5];
 		Bebados[1].setDAREP(-20);
 		Bebados[1].setDAMOEDAS(40);
 		
-		Bebados[2].setnome("BÍbado");
-		Bebados[2].setNivel("NÌvel 3");
+		Bebados[2].setnome("B√™bado");
+		Bebados[2].setNivel("N√≠vel 3");
 		Bebados[2].setraca("Humano");
 		Bebados[2].setHP(x.ModDificuldade(x.getDificuldade(),160));
 		Bebados[2].setMP(x.ModDificuldade(x.getDificuldade(),0));
@@ -5265,8 +5398,8 @@ Humano Bebados[5];
 		Bebados[2].setDAREP(-25);
 		Bebados[2].setDAMOEDAS(60);
 		
-		Bebados[3].setnome("BÍbado Forte");
-		Bebados[3].setNivel("NÌvel 5");
+		Bebados[3].setnome("B√™bado Forte");
+		Bebados[3].setNivel("N√≠vel 5");
 		Bebados[3].setraca("Humano");
 		Bebados[3].setHP(x.ModDificuldade(x.getDificuldade(),220));
 		Bebados[3].setMP(x.ModDificuldade(x.getDificuldade(),0));
@@ -5304,13 +5437,13 @@ Humano Bebados[5];
 	  	  "|";Verde("                                               |_|  |_|\\___ |_| |_|\\__,_|                                             ");cout<<"|"
           "|                                                                                                                      |\n"
 	  	  "|                                                                                                                      |\n"
-		  "|                                                       Jogar (1)                                                      |\n"
+		  "|                                                       ";Azul("Jogar");cout<<" (1)                                                      |\n"
 		  "|                                                                                                                      |\n"
-		  "|                                                     Como jogar (2)                                                   |\n"
+		  "|                                                     ";Verde("Como jogar");cout<<" (2)                                                   |\n"
 		  "|                                                                                                                      |\n"
-		  "|                                                      CÛdigos (3)                                                     |\n"         
+		  "|                                                      ";Amarelo("C√≥digos");cout<<" (3)                                                     |\n"         
 		  "|                                                                                                                      |\n"
-		  "|                                                      CrÈditos (4)                                                    |\n"         
+		  "|                                                      ";Rosa("Cr√©ditos");cout<<" (4)                                                    |\n"         
 		  "|                                                                                                                      |\n"
 		  "+----------------------------------------------------------------------------------------------------------------------+\n";
 			
@@ -5328,17 +5461,24 @@ Humano Bebados[5];
 			
 			case 50:
 				int i;
-				cout<<"\n\n+----------------------------------------------------------------------------------------------------------------------+\n"
+				cout<<"+----------------------------------------------------------------------------------------------------------------------+\n"
+			      "|                                                                                                                      |\n"
+				  "|";Verde("                                                _    _                                                                ");cout<<"|"
+				  "|";Verde("                                               | \\  / | ___  _ __  _   _                                              ");cout<<"|"
+			  	  "|";Verde("                                               | |\\/| |/ _ \\| '_ \\| | | |                                             ");cout<<"|"
+				  "|";Verde("                                               | |  | || __/| | | | |_| |                                             ");cout<<"|"
+			  	  "|";Verde("                                               |_|  |_|\\___ |_| |_|\\__,_|                                             ");cout<<"|"
 				"|                                                                                                                      |\n"
-	  		    "|                                                 Oque È este jogo (1)                                            |\n"
 				"|                                                                                                                      |\n"
-				"|                                                 Combate (2)                                                     |\n"
+	  		    "|                                                  ";Amarelo("Oque √© este jogo");cout<<" (1)                                                |\n"
 				"|                                                                                                                      |\n"
-				"|                                                 Itens (3)                                                       |\n"         
+				"|                                                  ";Vermelho("Combate");cout<<" (2)                                                         |\n"
 				"|                                                                                                                      |\n"
-				"|                                                 Tutorial De Combate (4)                                         |\n"         
+				"|                                                  ";Verde("Itens");cout<<" (3)                                                           |\n"         
 				"|                                                                                                                      |\n"
-				"|                                                 Voltar (5)                                                      |\n"         
+				"|                                                  ";Rosa("Tutorial De Combate");cout<<" (4)                                             |\n"         
+				"|                                                                                                                      |\n"
+				"|                                                  ";Azul("Voltar");cout<<" (5)                                                          |\n"         
 				"|                                                                                                                      |\n"
 				"+----------------------------------------------------------------------------------------------------------------------+\n";
 			 	switch (Tecla())
@@ -5359,7 +5499,7 @@ Humano Bebados[5];
 						jogo.Tutorial(&x);
 						system("cls");
 						ImprimirComDelay("\n\n\n\n\t\t\t\t\tEm que dificuldade gostaria de jogar?\n\n\n");
-						cout <<"\t\t\t\t  1-";AzulClaro("F·cil      ");cout << "2-";Verde("MÈdio     ");cout <<"3-";Amarelo("DifÌcil      ");cout<<"4-";Vermelho("Insano");
+						cout <<"\t\t\t\t  1-";AzulClaro("F√°cil      ");cout << "2-";Verde("M√©dio     ");cout <<"3-";Amarelo("Dif√≠cil      ");cout<<"4-";Vermelho("Insano");
 						do{
 							i = Tecla();
 							if(i==49)
@@ -5371,7 +5511,7 @@ Humano Bebados[5];
 							else if (i == 52)
 								x.setDificuldade(4);
 						}while(i != 49 && i != 50 && i != 51 && i != 52);
-						ImprimirComDelayNoFim("\n\n\n\n\t\t\t\t\tA sua jornada comeÁa agora ... ");
+						ImprimirComDelayNoFim("\n\n\n\n\t\t\t\t\tA sua jornada come√ßa agora ... ");
 						MarineLutador Durotan;
 						Durotan.setnome("Durotan");
 						Durotan.setHP(x.ModDificuldade(x.getDificuldade(),130));
@@ -5389,7 +5529,7 @@ Humano Bebados[5];
 			
 				break;
 			case 51:
-				cout << "CÛdigo:";
+				cout << "C√≥digo:";
 				cin >> codigo;
 			break;
 			
@@ -5408,7 +5548,7 @@ void al()
 void CaminhandoAGreenWitch()
 	{
 		system("cls");
-		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando atÈ GreenWitch...\n\n";
+		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando at√© GreenWitch...\n\n";
 		cout << "\t\t\t::::::::::::::::::::::::::::::::::::::::::::\n";
 		cout << "\t\t\t\\:::::::::::::::::::::::::::::::::::::::::::\n";
 		cout << "\t\t\t>>::::::::::::::::::::::::::::::::::::::::::\n";
@@ -5416,7 +5556,7 @@ void CaminhandoAGreenWitch()
 		cout << "\t\t\t::::::::::::::::::::::::::::::::::::::::::::\n";
 		Sleep (50);
 		system("cls");
-		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando atÈ GreenWitch...\n\n";
+		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando at√© GreenWitch...\n\n";
 		cout << "\t\t\t\\\\::::::::::::::::::::::::::::::::::::::::::\n";
 		cout << "\t\t\t:\\\\:::::::::::::::::::::::::::::::::::::::::\n";
 		cout << "\t\t\t::>>::::::::::::::::::::::::::::::::::::::::\n";
@@ -5424,7 +5564,7 @@ void CaminhandoAGreenWitch()
 		cout << "\t\t\t//::::::::::::::::::::::::::::::::::::::::::\n";
 		Sleep (50);
 		system("cls");
-		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando atÈ GreenWitch...\n\n";
+		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando at√© GreenWitch...\n\n";
 		cout << "\t\t\t:::\\\\:::::::::::::::::::::::::::::::::::::::\n";
 		cout << "\t\t\t::::\\\\::::::::::::::::::::::::::::::::::::::\n";
 		cout << "\t\t\t:::::>>:::::::::::::::::::::::::::::::::::::\n";
@@ -5432,7 +5572,7 @@ void CaminhandoAGreenWitch()
 		cout << "\t\t\t::://:::::::::::::::::::::::::::::::::::::::\n";
 		Sleep (50);
 		system("cls");
-		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando atÈ GreenWitch...\n\n";
+		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando at√© GreenWitch...\n\n";
 		cout << "\t\t\t:::::::\\\\:::::::::::::::::::::::::::::::::::\n";
 		cout << "\t\t\t::::::::\\\\::::::::::::::::::::::::::::::::::\n";
 		cout << "\t\t\t:::::::::>>:::::::::::::::::::::::::::::::::\n";
@@ -5440,7 +5580,7 @@ void CaminhandoAGreenWitch()
 		cout << "\t\t\t::::::://:::::::::::::::::::::::::::::::::::\n";
 		Sleep (50);
 		system("cls");
-		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando atÈ GreenWitch...\n\n";
+		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando at√© GreenWitch...\n\n";
 		cout << "\t\t\t:::::::::::\\\\:::::::::::::::::::::::::::::::\n";
 		cout << "\t\t\t::::::::::::\\\\::::::::::::::::::::::::::::::\n";
 		cout << "\t\t\t:::::::::::::>>:::::::::::::::::::::::::::::\n";
@@ -5448,7 +5588,7 @@ void CaminhandoAGreenWitch()
 		cout << "\t\t\t::::::::::://:::::::::::::::::::::::::::::::\n";
 		Sleep (50);
 		system("cls");
-		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando atÈ GreenWitch...\n\n";
+		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando at√© GreenWitch...\n\n";
 		cout << "\t\t\t:::::::::::::::\\\\:::::::::::::::::::::::::::\n";
 		cout << "\t\t\t::::::::::::::::\\\\::::::::::::::::::::::::::\n";
 		cout << "\t\t\t:::::::::::::::::>>:::::::::::::::::::::::::\n";
@@ -5456,7 +5596,7 @@ void CaminhandoAGreenWitch()
 		cout << "\t\t\t::::::::::::::://:::::::::::::::::::::::::::\n";
 		Sleep (50);
 		system("cls");
-		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando atÈ GreenWitch...\n\n";
+		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando at√© GreenWitch...\n\n";
 		cout << "\t\t\t:::::::::::::::::::\\\\:::::::::::::::::::::::\n";
 		cout << "\t\t\t::::::::::::::::::::\\\\::::::::::::::::::::::\n";
 		cout << "\t\t\t:::::::::::::::::::::>>:::::::::::::::::::::\n";
@@ -5464,7 +5604,7 @@ void CaminhandoAGreenWitch()
 		cout << "\t\t\t::::::::::::::::::://:::::::::::::::::::::::\n";
 		Sleep (50);
 		system("cls");
-		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando atÈ GreenWitch...\n\n";
+		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando at√© GreenWitch...\n\n";
 		cout << "\t\t\t:::::::::::::::::::::::\\\\:::::::::::::::::::\n";
 		cout << "\t\t\t::::::::::::::::::::::::\\\\::::::::::::::::::\n";
 		cout << "\t\t\t:::::::::::::::::::::::::>>:::::::::::::::::\n";
@@ -5472,7 +5612,7 @@ void CaminhandoAGreenWitch()
 		cout << "\t\t\t::::::::::::::::::::::://:::::::::::::::::::\n";
 		Sleep (50);
 		system("cls");
-		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando atÈ GreenWitch...\n\n";
+		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando at√© GreenWitch...\n\n";
 		cout << "\t\t\t:::::::::::::::::::::::::::\\\\:::::::::::::::\n";
 		cout << "\t\t\t::::::::::::::::::::::::::::\\\\::::::::::::::\n";
 		cout << "\t\t\t:::::::::::::::::::::::::::::>>:::::::::::::\n";
@@ -5480,7 +5620,7 @@ void CaminhandoAGreenWitch()
 		cout << "\t\t\t::::::::::::::::::::::::::://:::::::::::::::\n";
 		Sleep (50);
 		system("cls");
-		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando atÈ GreenWitch...\n\n";
+		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando at√© GreenWitch...\n\n";
 		cout << "\t\t\t:::::::::::::::::::::::::::::::\\\\:::::::::::\n";
 		cout << "\t\t\t::::::::::::::::::::::::::::::::\\\\::::::::::\n";
 		cout << "\t\t\t:::::::::::::::::::::::::::::::::>>:::::::::\n";
@@ -5488,7 +5628,7 @@ void CaminhandoAGreenWitch()
 		cout << "\t\t\t::::::::::::::::::::::::::::::://:::::::::::\n";
 		Sleep (50);
 		system("cls");
-		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando atÈ GreenWitch...\n\n";
+		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando at√© GreenWitch...\n\n";
 		cout << "\t\t\t:::::::::::::::::::::::::::::::::::\\\\:::::::\n";
 		cout << "\t\t\t::::::::::::::::::::::::::::::::::::\\\\::::::\n";
 		cout << "\t\t\t:::::::::::::::::::::::::::::::::::::>>:::::\n";
@@ -5496,7 +5636,7 @@ void CaminhandoAGreenWitch()
 		cout << "\t\t\t::::::::::::::::::::::::::::::::::://:::::::\n";
 		Sleep (50);
 		system("cls");
-		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando atÈ GreenWitch...\n\n";
+		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando at√© GreenWitch...\n\n";
 		cout << "\t\t\t:::::::::::::::::::::::::::::::::::::::\\\\:::\n";
 		cout << "\t\t\t::::::::::::::::::::::::::::::::::::::::\\\\::\n";
 		cout << "\t\t\t:::::::::::::::::::::::::::::::::::::::::>>:\n";
@@ -5504,7 +5644,7 @@ void CaminhandoAGreenWitch()
 		cout << "\t\t\t::::::::::::::::::::::::::::::::::::::://:::\n";
 		Sleep (50);
 		system("cls");
-		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando atÈ GreenWitch...\n\n";
+		cout << "\n\n\n\n\n\n\t\t\t\tCaminhando at√© GreenWitch...\n\n";
 		cout << "\t\t\t:::::::::::::::::::::::::::::::::::::::::\\\\:\n";
 		cout << "\t\t\t::::::::::::::::::::::::::::::::::::::::::\\\\\n";
 		cout << "\t\t\t:::::::::::::::::::::::::::::::::::::::::::>\n";
@@ -5513,9 +5653,9 @@ void CaminhandoAGreenWitch()
 		Sleep (50);
 		system("cls");
 		cout << "\t\tA Grande cidade de GreenWitch\n\n\n";
-		cout << "\tGreenWitch È a maior capital do continente de ";Verde("ValÛria.\n");
-		cout << "\tUm lugar extenso, barulhento e agitado, com diversos aldeıes nas ruas, Mercadores ambulantes e crianÁas correndo.\n";
-		cout << "\tAo longe È possÌvel ver um extenso e alto castelo std::cinza-musgo, centros comerciais, instalaÁıes comerciais.\n";
+		cout << "\tGreenWitch √© a maior capital do continente de ";Verde("Val√≥ria.\n");
+		cout << "\tUm lugar extenso, barulhento e agitado, com diversos alde√µes nas ruas, Mercadores ambulantes e crian√ßas correndo.\n";
+		cout << "\tAo longe √© poss√≠vel ver um extenso e alto castelo std::cinza-musgo, centros comerciais, instala√ß√µes comerciais.\n";
 	}
 	void CaminhandoAoCentro()
 	{
@@ -5625,26 +5765,26 @@ void CaminhandoAGreenWitch()
 		cout << "\t\t\t::::::::::::::::::::::::::::::::::::::::://:\n";
 		Sleep (50);
 		system("cls");
-		cout <<"\n\t\tVocÍ se encontra no centro da cidade...\n\n\n";
+		cout <<"\n\t\tVoc√™ se encontra no centro da cidade...\n\n\n";
 		ifstream myfile ("CentroDeGreenWitch.txt"); 
 		if (myfile.is_open()){
 		while (! myfile.eof() ) {
 		getline (myfile,line); 
 		cout << line << std::endl;}
 		myfile.close();}
-		cout <<"\tNa rua principal, extremamente movimentada h· pessoas de todos os tipos:\n";
-		cout <<"\tVendedores ambulantes, homens da guarda real, mercadores, crianÁas correndo, e charlatıes\n";
+		cout <<"\tNa rua principal, extremamente movimentada h√° pessoas de todos os tipos:\n";
+		cout <<"\tVendedores ambulantes, homens da guarda real, mercadores, crian√ßas correndo, e charlat√µes\n";
 		cout <<"\tdispostos a extorquir boas quantidades de moedas de ouro...\n";
 	}	
 	
 	
 	
 	ImprimirComDelay ("\n\n\n\n\n\n\n\n\n\n\t\t\t\t\tHave you feel the ");Vermelho("despair? "); ImprimirComDelayNoFim(" ...\n\n\n");
-	ImprimirComDelay ("\tO terrÌvel Lorde do submundo est· acordando de seu sono nas profundezas...\n");
-	ImprimirComDelay ("\tVocÍ È um dos poucos que sente seu maligno poder se expandindo lentamente, cobrindo de medo o coraÁ„o dos homens...\n");
-	ImprimirComDelay ("\tSeu dever È manter a esperanÁa no continente de "); Verde("ValÛria.\n");
-	ImprimirComDelay ("\tQual È o seu nome jovem aventureiro?\n");
-    ImprimirComDelay ("\tMeu nome È: ");std::cin >> atributosp1.nome;
+	ImprimirComDelay ("\tO terr√≠vel Lorde do submundo est√° acordando de seu sono nas profundezas...\n");
+	ImprimirComDelay ("\tVoc√™ √© um dos poucos que sente seu maligno poder se expandindo lentamente, cobrindo de medo o cora√ß√£o dos homens...\n");
+	ImprimirComDelay ("\tSeu dever √© manter a esperan√ßa no continente de "); Verde("Val√≥ria.\n");
+	ImprimirComDelay ("\tQual √© o seu nome jovem aventureiro?\n");
+    ImprimirComDelay ("\tMeu nome √©: ");std::cin >> atributosp1.nome;
  */	
  	/*void greenwitch (Item TodosOsItens[],Jogador *x)
 	{
@@ -5655,35 +5795,35 @@ void CaminhandoAGreenWitch()
 		if(jogador->PrimeiraVezEmGreenwitch == true)
 		{
 		    ImprimirComDelayNoFim("\t\tA Grande cidade de GreenWitch\n\n\n");
-			ImprimirComDelay ("\tGreenWitch È a maior capital do continente de "); Verde("ValÛria.\n");
-			ImprimirComDelay ("\tUm lugar extenso, barulhento e agitado, com diversos aldeıes nas ruas, Mercadores ambulantes e crianÁas correndo.\n");
-			ImprimirComDelay ("\tAo longe È possÌvel ver um extenso e alto castelo cinza-musgo, centros comerciais, instalaÁıes comerciais.\n");
+			ImprimirComDelay ("\tGreenWitch √© a maior capital do continente de "); Verde("Val√≥ria.\n");
+			ImprimirComDelay ("\tUm lugar extenso, barulhento e agitado, com diversos alde√µes nas ruas, Mercadores ambulantes e crian√ßas correndo.\n");
+			ImprimirComDelay ("\tAo longe √© poss√≠vel ver um extenso e alto castelo cinza-musgo, centros comerciais, instala√ß√µes comerciais.\n");
 			ImprimirComDelay ("\tOnde gostaria de ir "); cout << x->getnome() << "?\n";
 			cout << "\n\n\t(1) Ir ao Centro da cidade \n";
 			cout << "\n\n\t(2) Ir a sua casa          \n";
-			cout << "\n\n\t(3) Ir ao Pal·cio real     \n";
+			cout << "\n\n\t(3) Ir ao Pal√°cio real     \n";
 			cout << "\n\n\t(4) Ir ao Ferreiro         \n";
 			cout << "\n\n\t(5) Ir a Catedral          \n";
-			cout << "\n\n\t(6) Ir ao Port„o da Cidade \n";
+			cout << "\n\n\t(6) Ir ao Port√£o da Cidade \n";
 			cout << "\n\n\t(7) Ir a Taverna           \n";
-			cout << "\n\n\t(i) Abrir invent·rio       \n";
+			cout << "\n\n\t(i) Abrir invent√°rio       \n";
 			jogador->PrimeiraVezEmGreenwitch = false;
 		}
 		if(jogador->PrimeiraVezEmGreenwitch == false)
 		{
 		    cout << "\t\tA Grande cidade de GreenWitch\n\n\n";
-			cout << "\tGreenWitch È a maior capital do continente de ";Verde("ValÛria.\n");
-			cout << "\tUm lugar extenso, barulhento e agitado, com diversos aldeıes nas ruas, Mercadores ambulantes e crianÁas correndo.\n";
-			cout << "\tAo longe È possÌvel ver um extenso e alto castelo cinza-musgo, centros comerciais, instalaÁıes comerciais.\n";
+			cout << "\tGreenWitch √© a maior capital do continente de ";Verde("Val√≥ria.\n");
+			cout << "\tUm lugar extenso, barulhento e agitado, com diversos alde√µes nas ruas, Mercadores ambulantes e crian√ßas correndo.\n";
+			cout << "\tAo longe √© poss√≠vel ver um extenso e alto castelo cinza-musgo, centros comerciais, instala√ß√µes comerciais.\n";
 			cout << "\tOnde gostaria de ir "; cout << x->getnome() << "?\n";
 			cout << "\n\n\t(1) Ir ao Centro da cidade \n";
 			cout << "\n\n\t(2) Ir a sua casa          \n";
-			cout << "\n\n\t(3) Ir ao Pal·cio real     \n";
+			cout << "\n\n\t(3) Ir ao Pal√°cio real     \n";
 			cout << "\n\n\t(4) Ir ao Ferreiro         \n";
 			cout << "\n\n\t(5) Ir a Catedral          \n";
-			cout << "\n\n\t(6) Ir ao Port„o da Cidade \n";
+			cout << "\n\n\t(6) Ir ao Port√£o da Cidade \n";
 			cout << "\n\n\t(7) Ir a Taverna           \n";
-			cout << "\n\n\t(i) Abrir invent·rio       \n";
+			cout << "\n\n\t(i) Abrir invent√°rio       \n";
 		}
 		i = Tecla();
 			Case 49:
@@ -5691,42 +5831,42 @@ void CaminhandoAGreenWitch()
 			//Centro da cidade
 				if(jogador->PrimeiraVezNoCentro == true)
 				{
-					ImprimirComDelayNoFim("\n\t\tVocÍ se encontra no centro da cidade...\n\n\n");
-					ImprimirComDelay ("\tNa rua principal, extremamente movimentada h· pessoas de todos os tipos,\n");
-					ImprimirComDelay ("\tVendedores ambulantes, homens da guarda real, mercadores, crianÁas correndo, e charlatıes\n");
+					ImprimirComDelayNoFim("\n\t\tVoc√™ se encontra no centro da cidade...\n\n\n");
+					ImprimirComDelay ("\tNa rua principal, extremamente movimentada h√° pessoas de todos os tipos,\n");
+					ImprimirComDelay ("\tVendedores ambulantes, homens da guarda real, mercadores, crian√ßas correndo, e charlat√µes\n");
 					ImprimirComDelay ("\tdispostos a extorquir boas quantidades de moedas de ouro...\n");
 					cout << "\n\n\t(1) Ir ao Mercador de alimentos \n";
 					cout << "\n\n\t(2) Ir ao Coureiro              \n";
 					cout << "\n\n\t(3) Ir ao Homem da guarda       \n";
-					cout << "\n\n\t(4) Ir ao S·bio                 \n";
+					cout << "\n\n\t(4) Ir ao S√°bio                 \n";
 					cout << "\n\n\t(5) Ir ao Vendedor obscuro      \n";
 					cout << "\n\n\t(r) Retornar a GreenWitch       \n";
-					cout << "\n\n\t(i) Abrir invent·rio            \n";
+					cout << "\n\n\t(i) Abrir invent√°rio            \n";
 				}
 				if(jogador->PrimeiraVezNoCentro == false)
 				{
-					cout <<"\n\t\tVocÍ se encontra no centro da cidade...\n\n\n";
-					cout <<"\tNa rua principal, extremamente movimentada h· pessoas de todos os tipos:\n";
-					cout <<"\tVendedores ambulantes, homens da guarda real, mercadores, crianÁas correndo, e charlatıes\n";
+					cout <<"\n\t\tVoc√™ se encontra no centro da cidade...\n\n\n";
+					cout <<"\tNa rua principal, extremamente movimentada h√° pessoas de todos os tipos:\n";
+					cout <<"\tVendedores ambulantes, homens da guarda real, mercadores, crian√ßas correndo, e charlat√µes\n";
 					cout <<"\tdispostos a extorquir boas quantidades de moedas de ouro...\n";
 					cout << "\n\n\t(1) Ir ao Mercador de alimentos \n";
 					cout << "\n\n\t(2) Ir ao Coureiro              \n";
 					cout << "\n\n\t(3) Ir ao Homem da guarda       \n";
-					cout << "\n\n\t(4) Ir ao S·bio                 \n";
+					cout << "\n\n\t(4) Ir ao S√°bio                 \n";
 					cout << "\n\n\t(5) Ir ao Vendedor obscuro      \n";
 					cout << "\n\n\t(r) Retornar a GreenWitch       \n";
-					cout << "\n\n\t(i) Abrir invent·rio            \n";
+					cout << "\n\n\t(i) Abrir invent√°rio            \n";
 				}
 				Case 49:
 				{
 		//Vendedor de aimentos
 					if(jogador->PrimeiraVezNoMercadorDeAlimentos == true)
 					{
-						ImprimirComDelay ("\n\n\n\t\tVocÍ possui "); cout << x->getmoedas() << " moedas\n";
+						ImprimirComDelay ("\n\n\n\t\tVoc√™ possui "); cout << x->getmoedas() << " moedas\n";
 					}
 					if(jogador->PrimeiraVezNoMercadorDeAlimentos == false)
 					{
-						cout << "\n\n\n\t\tVocÍ possui "<< x->getmoedas() << " moedas\n";
+						cout << "\n\n\n\t\tVoc√™ possui "<< x->getmoedas() << " moedas\n";
 					}
 		//INICIO DAS COMRPAS DE ALIMENTOS
 					Case 49: 
@@ -5734,7 +5874,7 @@ void CaminhandoAGreenWitch()
 		                if(x->getmoedas() >= 4 && x->InventarioDisponivel() >= 1)
 		                {
 		                	x->moedasM(-4);
-		                	cout << "\t\tVocÍ comprou: X1 Naco de p„o duro.\n";
+		                	cout << "\t\tVoc√™ comprou: X1 Naco de p√£o duro.\n";
 		                	for(i=0; i < x->Inventario.size(); i++)
 		                	{
 			                	if (x->Inventario[i].getnome() == "Vazio")
@@ -5744,7 +5884,7 @@ void CaminhandoAGreenWitch()
 							}	
 		                }
 		                else
-		                	cout <<"\n\n\n\t\tVocÍ n„o possui moedas suficientes,\n ou seu invent·rio est· cheio..\n";
+		                	cout <<"\n\n\n\t\tVoc√™ n√£o possui moedas suficientes,\n ou seu invent√°rio est√° cheio..\n";
 		           	} 	
 				}
 				case 50:
@@ -5753,30 +5893,30 @@ void CaminhandoAGreenWitch()
 					if (jogador->PrimeiraVezNoCoureiro = true)
 					{
 		                system("cls");
-						ImprimirComDelayNoFim("\t\tVocÍ entra em uma pequena casa ˙mida e mal cuidada.\n");
+						ImprimirComDelayNoFim("\t\tVoc√™ entra em uma pequena casa √∫mida e mal cuidada.\n");
 						ImprimirComDelay("\tDentre roupas sujas, e um cheiro de mofo de um ambiente mal iluminado,\n");
-						ImprimirComDelay("\tÈ possÌvel avistar um homem de idade sentado no centro do ambiente.\n");
+						ImprimirComDelay("\t√© poss√≠vel avistar um homem de idade sentado no centro do ambiente.\n");
 						ImprimirComDelay("\to homem se levanta escorando-se em sua bengala,e lhe diz:\n");
-						ImprimirComDelay("\t - Ol· jovem viajante, o que o tr·s a meus aposentos?\n");
-						cout << "\n\n\t(1) - Ol· senhor, quem È vocÍ?\n";
-						cout << "\n\n\t(2) - Desculpe o incÙmodo, estou de passsagem\n";
+						ImprimirComDelay("\t - Ol√° jovem viajante, o que o tr√°s a meus aposentos?\n");
+						cout << "\n\n\t(1) - Ol√° senhor, quem √© voc√™?\n";
+						cout << "\n\n\t(2) - Desculpe o inc√¥modo, estou de passsagem\n";
 						cout << "\n\n\t(r) Retornar a GreenWitch       \n";
-						cout << "\n\n\t(i) Abrir invent·rio            \n";
+						cout << "\n\n\t(i) Abrir invent√°rio            \n";
 					}
 					if (jogador->PrimeiraVezNoCoureiro = false)
 					{
 		                system("cls");
-						cout << "\t\tVocÍ entra em uma pequena casa ˙mida e mal cuidada.\n";
+						cout << "\t\tVoc√™ entra em uma pequena casa √∫mida e mal cuidada.\n";
 						cout << "\tDentre roupas sujas, e um cheiro de mofo de um ambiente mal iluminado,\n";
-						cout << "\tÈ possÌvel avistar um homem de idade sentado no centro do ambiente.\n";
+						cout << "\t√© poss√≠vel avistar um homem de idade sentado no centro do ambiente.\n";
 						cout << "\to homem se levanta escorando-se em sua bengala,e lhe diz:\n";
-						cout << "\t - Ol· jovem viajante, o que o tr·s a meus aposentos?\n";
-						cout << "\n\n\t(1) - Ol· senhor, quem È vocÍ?\n";
-						cout << "\n\n\t(2) - Desculpe o incÙmodo, estou de passsagem\n";
+						cout << "\t - Ol√° jovem viajante, o que o tr√°s a meus aposentos?\n";
+						cout << "\n\n\t(1) - Ol√° senhor, quem √© voc√™?\n";
+						cout << "\n\n\t(2) - Desculpe o inc√¥modo, estou de passsagem\n";
 						cout << "\n\n\t(r) Retornar a GreenWitch       \n";
-						cout << "\n\n\t(i) Abrir invent·rio            \n";
+						cout << "\n\n\t(i) Abrir invent√°rio            \n";
 					}
-		//INICIO DO HOMEM S¿BIO
+		//INICIO DO HOMEM S√ÄBIO
 					i = Tecla();
 					Case 49: 
 					{
@@ -5836,7 +5976,7 @@ void CaminhandoAGreenWitch()
 										            if(x->getmoedas() >=5)
 													{
 														x->getmoedas() += -5;
-														cout << "\t\tVocÍ comprou: X1 ¡gua da fonte.\n";
+														cout << "\t\tVoc√™ comprou: X1 √Ågua da fonte.\n";
 														for(i=0; i < x->imax; i++)
 														{
 													    	if (x->mochila.itens[i].codigo == 0)
@@ -5853,14 +5993,14 @@ void CaminhandoAGreenWitch()
 														}	
 													}
 													else
-														cout <<"\n\n\n\t\tVocÍ n„o possui moedas suficientes,\n ou seu invent·rio est· cheio..\n";
+														cout <<"\n\n\n\t\tVoc√™ n√£o possui moedas suficientes,\n ou seu invent√°rio est√° cheio..\n";
 										            }
 													else if (lugar == 2) 
 													{
 										            if(x->getmoedas() >=8)
 														{
 															x->getmoedas() += -8;
-															cout << "\t\tVocÍ comprou: X1 PedaÁo de carne seca.\n";
+															cout << "\t\tVoc√™ comprou: X1 Peda√ßo de carne seca.\n";
 															for(i=0; i < x->imax; i++)
 															{
 														    	if (x->mochila.itens[i].codigo == 0)
@@ -5877,14 +6017,14 @@ void CaminhandoAGreenWitch()
 															}	
 														}
 														else
-															cout <<"\n\n\n\t\tVocÍ n„o possui moedas suficientes,\n ou seu invent·rio est· cheio..\n";
+															cout <<"\n\n\n\t\tVoc√™ n√£o possui moedas suficientes,\n ou seu invent√°rio est√° cheio..\n";
 										            }
 										            else if (lugar == 3) 
 													{
 										             if(x->getmoedas() >=15)
 														{
 															x->getmoedas() += -15;
-															cout << "\t\tVocÍ comprou: X1 Peixe-Seco.\n";
+															cout << "\t\tVoc√™ comprou: X1 Peixe-Seco.\n";
 															for(i=0; i < x->imax; i++)
 															{
 														    	if (x->mochila.itens[i].codigo == 0)
@@ -5901,14 +6041,14 @@ void CaminhandoAGreenWitch()
 															}	
 														}
 														else
-															cout <<"\n\n\n\t\tVocÍ n„o possui moedas suficientes,\n ou seu invent·rio est· cheio..\n";
+															cout <<"\n\n\n\t\tVoc√™ n√£o possui moedas suficientes,\n ou seu invent√°rio est√° cheio..\n";
 										            }     
 													else if (lugar == 4) 
 													{
 										            if(x->getmoedas() >=10)
 														{
 															x->getmoedas() += -10;
-															cout << "\t\tVocÍ comprou: X1 Carne-Salgada.\n";
+															cout << "\t\tVoc√™ comprou: X1 Carne-Salgada.\n";
 															for(i=0; i < x->imax; i++)
 															{
 														    	if (x->mochila.itens[i].codigo == 0)
@@ -5925,14 +6065,14 @@ void CaminhandoAGreenWitch()
 															}	
 														}
 														else
-															cout <<"\n\n\n\t\tVocÍ n„o possui moedas suficientes,\n ou seu invent·rio est· cheio..\n";
+															cout <<"\n\n\n\t\tVoc√™ n√£o possui moedas suficientes,\n ou seu invent√°rio est√° cheio..\n";
 										            }   
 													else if (lugar == 5) 
 													{
 										            if(x->getmoedas() >=20)
 														{
 															x->getmoedas() += -20;
-															cout << "\t\tVocÍ comprou: ";EX("X1 Vinho caseiro simples.\n");
+															cout << "\t\tVoc√™ comprou: ";EX("X1 Vinho caseiro simples.\n");
 															for(i=0; i < x->imax; i++)
 															{
 														    	if (x->mochila.itens[i].codigo == 0)
@@ -5949,7 +6089,7 @@ void CaminhandoAGreenWitch()
 															}	
 														}
 														else
-															cout <<"\n\n\n\t\tVocÍ n„o possui moedas suficientes,\n ou seu invent·rio est· cheio..\n";
+															cout <<"\n\n\n\t\tVoc√™ n√£o possui moedas suficientes,\n ou seu invent√°rio est√° cheio..\n";
 										            }      	
 										            else if (lugar == 6) 
 													{
@@ -5960,7 +6100,7 @@ void CaminhandoAGreenWitch()
 					//FIM DAS COMPRAS DE ALIMENTOS   
 												}
 										        if (lugar == 0) {
-										        	cout << "\n\n\n\t\tVocÍ possui "; cout << x->getmoedas() << " moedas.\n";
+										        	cout << "\n\n\n\t\tVoc√™ possui "; cout << x->getmoedas() << " moedas.\n";
 										            ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\Mercador De Alimentos0.txt"); 
 													if (myfile.is_open()){
 														while (! myfile.eof() ) {
@@ -5968,7 +6108,7 @@ void CaminhandoAGreenWitch()
 															cout << line << std::endl;}
 															myfile.close();}}
 										        if (lugar == 1) {
-										        	cout << "\n\n\n\t\tVocÍ possui "; cout << x->getmoedas() << " moedas.\n";
+										        	cout << "\n\n\n\t\tVoc√™ possui "; cout << x->getmoedas() << " moedas.\n";
 											        ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\Mercador De Alimentos1.txt"); 
 													if (myfile.is_open()){
 														while (! myfile.eof() ) {
@@ -5976,7 +6116,7 @@ void CaminhandoAGreenWitch()
 															cout << line << std::endl;}
 															myfile.close();}}
 												if (lugar == 2) {
-													cout << "\n\n\n\t\tVocÍ possui "; cout << x->getmoedas() << " moedas.\n";
+													cout << "\n\n\n\t\tVoc√™ possui "; cout << x->getmoedas() << " moedas.\n";
 											        ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\Mercador De Alimentos2.txt"); 
 													if (myfile.is_open()){
 														while (! myfile.eof() ) {
@@ -5984,7 +6124,7 @@ void CaminhandoAGreenWitch()
 															cout << line << std::endl;}
 															myfile.close();}}
 												if (lugar == 3) {
-													cout << "\n\n\n\t\tVocÍ possui "; cout << x->getmoedas() << " moedas.\n";
+													cout << "\n\n\n\t\tVoc√™ possui "; cout << x->getmoedas() << " moedas.\n";
 											        ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\Mercador De Alimentos3.txt"); 
 													if (myfile.is_open()){
 														while (! myfile.eof() ) {
@@ -5992,7 +6132,7 @@ void CaminhandoAGreenWitch()
 															cout << line << std::endl;}
 															myfile.close();}}
 												if (lugar == 4) {
-													cout << "\n\n\n\t\tVocÍ possui "; cout << x->getmoedas() << " moedas.\n";
+													cout << "\n\n\n\t\tVoc√™ possui "; cout << x->getmoedas() << " moedas.\n";
 											        ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\Mercador De Alimentos4.txt"); 
 													if (myfile.is_open()){
 														while (! myfile.eof() ) {
@@ -6000,7 +6140,7 @@ void CaminhandoAGreenWitch()
 															cout << line << std::endl;}
 															myfile.close();}}
 												if (lugar == 5) {
-													cout << "\n\n\n\t\tVocÍ possui "; cout << x->getmoedas() << " moedas.\n";
+													cout << "\n\n\n\t\tVoc√™ possui "; cout << x->getmoedas() << " moedas.\n";
 											        ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\Mercador De Alimentos5.txt"); 
 													if (myfile.is_open()){
 														while (! myfile.eof() ) {
@@ -6008,7 +6148,7 @@ void CaminhandoAGreenWitch()
 															cout << line << std::endl;}
 															myfile.close();}}
 												if (lugar == 6) {
-													cout << "\n\n\n\t\tVocÍ possui "; cout << x->getmoedas() << " moedas.\n";
+													cout << "\n\n\n\t\tVoc√™ possui "; cout << x->getmoedas() << " moedas.\n";
 											        ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\Mercador De Alimentos6.txt"); 
 													if (myfile.is_open()){
 														while (! myfile.eof() ) {
@@ -6020,7 +6160,7 @@ void CaminhandoAGreenWitch()
 					               	}
 	//FIM DO IF VENDEDOR DE ALIMENTOS
 	*/
-	//INICIO DO S¡BIO
+	//INICIO DO S√ÅBIO
 					                /*
 									else if (lugar == 3) 
 									{
@@ -6030,11 +6170,11 @@ void CaminhandoAGreenWitch()
 											    if (kbhit()) 
 												{
 													system("cls");
-													cout <<"\t\t\tVocÍ entra em uma pequena casa ˙mida e mal cuidada.\n";
+													cout <<"\t\t\tVoc√™ entra em uma pequena casa √∫mida e mal cuidada.\n";
 													cout <<"\tDentre roupas sujas, e um cheiro de mofo de um ambiente mal iluminado,\n";
-													cout <<"\tÈ possÌvel avistar um homem de idade sentado no centro do ambiente.\n";
+													cout <<"\t√© poss√≠vel avistar um homem de idade sentado no centro do ambiente.\n";
 													cout <<"\to homem se levanta escorando-se em sua bengala,e lhe diz:\n";
-													cout <<"\t - Ol· jovem viajante, o que o tr·s a meus aposentos?\n";
+													cout <<"\t - Ol√° jovem viajante, o que o tr√°s a meus aposentos?\n";
 											        c = Tecla();
 											  		if (c == 80) 
 													{
@@ -6054,7 +6194,7 @@ void CaminhandoAGreenWitch()
 														{
 											                system("cls");
 															ImprimirComDelayNoFim("\t\tEu me chamo Albert, e fui o conselheiro real durante muito tempo\n");
-															ImprimirComDelay("\tGostaria de conhecer minha hÌstÛria jovem?\n");
+															ImprimirComDelay("\tGostaria de conhecer minha h√≠st√≥ria jovem?\n");
 															cout << "\n\n --> - Claro senhor, com certeza\n";											
 															cout << "\n\n     - Desculpe senhor, mas eu tenho que sair,\n";
 															cout << "         O dever me chama.\n";
@@ -6063,7 +6203,7 @@ void CaminhandoAGreenWitch()
 															    if (kbhit()) 
 																{system("cls");
 																	cout <<"\t\tEu me chamo Albert, e fui o conselheiro real durante muito tempo\n";
-																	cout <<"\tGostaria de conhecer minha hÌstÛria jovem?\n";
+																	cout <<"\tGostaria de conhecer minha h√≠st√≥ria jovem?\n";
 																	cout << "\n\n --> - Claro senhor, com certeza\n";											
 																	cout << "\n\n     - Desculpe senhor, mas eu tenho que sair,\n";
 																	cout << "         O dever me chama.\n";
@@ -6087,8 +6227,8 @@ void CaminhandoAGreenWitch()
 															           	}
 																		else if (lugar == 1) 
 																		{
-															        		cout << "O Homem esboÁa uma triste reaÁ„o, e acena com a cabeÁa na direÁ„o da porta...\n";
-															        		cout << "Tudo bem jovem, agora me deixe sÛ.\n";
+															        		cout << "O Homem esbo√ßa uma triste rea√ß√£o, e acena com a cabe√ßa na dire√ß√£o da porta...\n";
+															        		cout << "Tudo bem jovem, agora me deixe s√≥.\n";
 															        		sair = 1;
 															        		break;
 															        		
@@ -6122,17 +6262,17 @@ void CaminhandoAGreenWitch()
 											            }     
 													}
 											        if (lugar == 0) {
-											            cout << "\n\n --> - Ol· senhor, quem È vocÍ?\n";
-														cout << "\n\n     Abrir o invent·rio\n";
-														cout << "\n\n     - Desculpe o incÙmodo, estou de passsagem\n";}
+											            cout << "\n\n --> - Ol√° senhor, quem √© voc√™?\n";
+														cout << "\n\n     Abrir o invent√°rio\n";
+														cout << "\n\n     - Desculpe o inc√¥modo, estou de passsagem\n";}
 											        if (lugar == 1) {
-												        cout << "\n\n     - Ol· senhor, quem È vocÍ?\n";
-														cout << "\n\n --> Abrir o invent·rio\n";
-														cout << "\n\n     - Desculpe o incÙmodo, estou de passsagem\n";}
+												        cout << "\n\n     - Ol√° senhor, quem √© voc√™?\n";
+														cout << "\n\n --> Abrir o invent√°rio\n";
+														cout << "\n\n     - Desculpe o inc√¥modo, estou de passsagem\n";}
 													if (lugar == 2) {
-												        cout << "\n\n     - Ol· senhor, quem È vocÍ?\n";
-														cout << "\n\n     Abrir o invent·rio\n";
-														cout << "\n\n --> - Desculpe o incÙmod0, estou de passsagem\n";}
+												        cout << "\n\n     - Ol√° senhor, quem √© voc√™?\n";
+														cout << "\n\n     Abrir o invent√°rio\n";
+														cout << "\n\n --> - Desculpe o inc√¥mod0, estou de passsagem\n";}
 												}
 											}
 										} 
@@ -6140,7 +6280,7 @@ void CaminhandoAGreenWitch()
 										cout << "deixa o velho";
 							        }
 						            
-		//FIM DO S¡BIO
+		//FIM DO S√ÅBIO
 					  
 		//INICIO DO VENDEDOR OBSCURO              
 									else if (lugar == 4) 
@@ -6163,42 +6303,42 @@ void CaminhandoAGreenWitch()
 					                cout << "\n\n --> Ir ao Mercador de alimentos \n";
 									cout << "\n\n     Ir ao Coureiro              \n";
 									cout << "\n\n     Ir ao Homem da guarda       \n";
-									cout << "\n\n     Ir ao S·bio                 \n";
+									cout << "\n\n     Ir ao S√°bio                 \n";
 									cout << "\n\n     Ir ao Vendedor obscuro      \n";
 									cout << "\n\n     Retornar a GreenWitch       \n";}
 					            if (lugar == 1) {
 					           		cout << "\n\n     Ir ao Mercador de alimentos \n";
 									cout << "\n\n --> Ir ao Coureiro              \n";
 									cout << "\n\n     Ir ao Homem da guarda       \n";
-									cout << "\n\n     Ir ao S·bio                 \n";
+									cout << "\n\n     Ir ao S√°bio                 \n";
 									cout << "\n\n     Ir ao Vendedor obscuro      \n";
 									cout << "\n\n     Retornar a GreenWitch       \n";}
 					            if (lugar == 2) {
 									cout << "\n\n     Ir ao Mercador de alimentos \n";
 									cout << "\n\n     Ir ao Coureiro              \n";
 									cout << "\n\n --> Ir ao Homem da guarda       \n";
-									cout << "\n\n     Ir ao S·bio                 \n";
+									cout << "\n\n     Ir ao S√°bio                 \n";
 									cout << "\n\n     Ir ao Vendedor obscuro      \n";
 									cout << "\n\n     Retornar a GreenWitch       \n";}
 					            if (lugar == 3) {
 									cout << "\n\n     Ir ao Mercador de alimentos \n";
 									cout << "\n\n     Ir ao Coureiro              \n";
 									cout << "\n\n     Ir ao Homem da guarda       \n";
-									cout << "\n\n --> Ir ao S·bio                 \n";
+									cout << "\n\n --> Ir ao S√°bio                 \n";
 									cout << "\n\n     Ir ao Vendedor obscuro      \n";
 									cout << "\n\n     Retornar a GreenWitch       \n";}
 								if (lugar == 4) {
 									cout << "\n\n     Ir ao Mercador de alimentos \n";
 									cout << "\n\n     Ir ao Coureiro              \n";
 									cout << "\n\n     Ir ao Homem da guarda       \n";
-									cout << "\n\n     Ir ao S·bio                 \n";
+									cout << "\n\n     Ir ao S√°bio                 \n";
 									cout << "\n\n --> Ir ao Vendedor obscuro      \n";
 									cout << "\n\n     Retornar a GreenWitch       \n";}
 					            if (lugar == 5) {
 									cout << "\n\n     Ir ao Mercador de alimentos \n";
 									cout << "\n\n     Ir ao Coureiro              \n";
 									cout << "\n\n     Ir ao Homem da guarda       \n";
-									cout << "\n\n     Ir ao S·bio                 \n";
+									cout << "\n\n     Ir ao S√°bio                 \n";
 									cout << "\n\n     Ir ao Vendedor obscuro      \n";
 									cout << "\n\n --> Retornar a GreenWitch       \n";}
 								}
@@ -6212,13 +6352,13 @@ void CaminhandoAGreenWitch()
 						lugar = 0;
 	                    system("cls");
 						ImprimirComDelayNoFim ("\t\t Lar, Doce Lar.\n\n\n");
-						ImprimirComDelay ("\t VocÍ entra em sua simples e aconchegante casa, feita de madeiras, palhas e pedras.\n");
-						ImprimirComDelay ("\t Oque ir· fazer "); cout << x->getnome() << "?\n";
-						cout << "\n\n --> Ir ao Arm·rio       \n";
+						ImprimirComDelay ("\t Voc√™ entra em sua simples e aconchegante casa, feita de madeiras, palhas e pedras.\n");
+						ImprimirComDelay ("\t Oque ir√° fazer "); cout << x->getnome() << "?\n";
+						cout << "\n\n --> Ir ao Arm√°rio       \n";
 						cout << "\n\n     Ir a Dispensa       \n";
 						cout << "\n\n     Sentar-se a Mesa    \n";
 						cout << "\n\n     Dormir              \n";
-						cout << "\n\n     Abrir o Invent·rio  \n";
+						cout << "\n\n     Abrir o Invent√°rio  \n";
 						cout << "\n\n     Sair de Casa        \n";
 						while (1) 
 						{
@@ -6226,8 +6366,8 @@ void CaminhandoAGreenWitch()
 							{
 						        system("cls");
 							    cout << "\t Lar, Doce Lar...\n\n";
-								cout << "\t VocÍ entra em sua simples e aconchegante casa, feita de madeiras, palhas e pedras.\n";
-								cout << "\t Oque ir· fazer "; cout << x->getnome() << "?\n";
+								cout << "\t Voc√™ entra em sua simples e aconchegante casa, feita de madeiras, palhas e pedras.\n";
+								cout << "\t Oque ir√° fazer "; cout << x->getnome() << "?\n";
 						        c = Tecla();
 						  		if (c == 80) 
 								{
@@ -6243,13 +6383,13 @@ void CaminhandoAGreenWitch()
 								}
 						        if (c == 13)  
 								{
-		//INCIO DO ARM¡RIO
+		//INCIO DO ARM√ÅRIO
 						            if (lugar == 0) 
 									{
 						                printf("\n\n\tVoce selecionou a opcao 0!\n\n\n");
 						                system("pause");
 						           	} 
-		//FIM DO ARM¡RIO
+		//FIM DO ARM√ÅRIO
 		
 		//INICIO DA DISPENSA
 						           	
@@ -6277,13 +6417,13 @@ void CaminhandoAGreenWitch()
 						            }
 		//FIM DORMIR
 						            
-		//ABRIR INVENT¡RIO
+		//ABRIR INVENT√ÅRIO
 									else if (lugar == 4) 
 									{
 						                x->mochila.AbrirInventario();
 						                cout << "\t Lar, Doce Lar...\n\n";
-										cout << "\t VocÍ entra em sua simples e aconchegante casa, feita de madeiras, palhas e pedras.\n";
-										cout << "\t Oque ir· fazer "; cout << x->getnome() << "?\n";
+										cout << "\t Voc√™ entra em sua simples e aconchegante casa, feita de madeiras, palhas e pedras.\n";
+										cout << "\t Oque ir√° fazer "; cout << x->getnome() << "?\n";
 						            }
 						            else if (lugar == 5)
 		// VOLTANDO A GREENWITCH 
@@ -6297,57 +6437,57 @@ void CaminhandoAGreenWitch()
 						
 						        }
 						        if (lugar == 0) {
-									cout << "\n\n --> Ir ao Arm·rio       \n";
+									cout << "\n\n --> Ir ao Arm√°rio       \n";
 									cout << "\n\n     Ir a Dispensa       \n";
 									cout << "\n\n     Sentar-se a Mesa    \n";
 									cout << "\n\n     Dormir              \n";
-									cout << "\n\n     Abrir o Invent·rio  \n";
+									cout << "\n\n     Abrir o Invent√°rio  \n";
 									cout << "\n\n     Sair de Casa        \n";}
 						        if (lugar == 1) {
-							        cout << "\n\n     Ir ao Arm·rio       \n";
+							        cout << "\n\n     Ir ao Arm√°rio       \n";
 									cout << "\n\n --> Ir a Dispensa       \n";
 									cout << "\n\n     Sentar-se a Mesa    \n";
 									cout << "\n\n     Dormir              \n";
-									cout << "\n\n     Abrir o Invent·rio  \n";
+									cout << "\n\n     Abrir o Invent√°rio  \n";
 									cout << "\n\n     Sair de Casa        \n";}
 								if (lugar == 2) {
-							        cout << "\n\n     Ir ao Arm·rio       \n";
+							        cout << "\n\n     Ir ao Arm√°rio       \n";
 									cout << "\n\n     Ir a Dispensa       \n";
 									cout << "\n\n --> Sentar-se a Mesa    \n";
 									cout << "\n\n     Dormir              \n";
-									cout << "\n\n     Abrir o Invent·rio  \n";
+									cout << "\n\n     Abrir o Invent√°rio  \n";
 									cout << "\n\n     Sair de Casa        \n";}
 								if (lugar == 3) {
-							        cout << "\n\n     Ir ao Arm·rio       \n";
+							        cout << "\n\n     Ir ao Arm√°rio       \n";
 									cout << "\n\n     Ir a Dispensa       \n";
 									cout << "\n\n     Sentar-se a Mesa    \n";
 									cout << "\n\n --> Dormir              \n";
-									cout << "\n\n     Abrir o Invent·rio  \n";
+									cout << "\n\n     Abrir o Invent√°rio  \n";
 									cout << "\n\n     Sair de Casa        \n";}
 								if (lugar == 4) {
-							       	cout << "\n\n     Ir ao Arm·rio       \n";
+							       	cout << "\n\n     Ir ao Arm√°rio       \n";
 									cout << "\n\n     Ir a Dispensa       \n";
 									cout << "\n\n     Sentar-se a Mesa    \n";
 									cout << "\n\n     Dormir              \n";
-									cout << "\n\n --> Abrir o Invent·rio  \n";
+									cout << "\n\n --> Abrir o Invent√°rio  \n";
 									cout << "\n\n     Sair de Casa        \n";}
 								if (lugar == 5) {
-							  	    cout << "\n\n     Ir ao Arm·rio       \n";
+							  	    cout << "\n\n     Ir ao Arm√°rio       \n";
 									cout << "\n\n     Ir a Dispensa       \n";
 									cout << "\n\n     Sentar-se a Mesa    \n";
 									cout << "\n\n     Dormir              \n";
-									cout << "\n\n     Abrir o Invent·rio  \n";
+									cout << "\n\n     Abrir o Invent√°rio  \n";
 									cout << "\n\n --> Sair de Casa        \n";}
 						}
 						}
 	                }
 	// FIM do if da minha casa
 	                
-	//Inicio do pal·cio
+	//Inicio do pal√°cio
 					else if (lugar == 2) 
 					{
 						system("cls");
-						ImprimirComDelayNoFim ("\n\t\tVocÍ se aproxima de um enorme pal·cio feito em m·rmore branco.\n\n\n");
+						ImprimirComDelayNoFim ("\n\t\tVoc√™ se aproxima de um enorme pal√°cio feito em m√°rmore branco.\n\n\n");
 						ifstream myfile ("PD.txt"); 
 						if (myfile.is_open()){
 						while (! myfile.eof() ) {
@@ -6355,29 +6495,29 @@ void CaminhandoAGreenWitch()
 						cout << line << std::endl;}
 						myfile.close();}
 						else cout << "Unable to open file"; 
-						ImprimirComDelay ("\t… possÌvel observar poucos habitantes aos arredores, e e um clima tenso no ar.\n\n\n");
-						ImprimirComDelay ("\tGuardando a entrada do pal·cio existem 5 guardas armados.\n");
-						cout << "\tOque ir· fazer "; cout << x->getnome() << "?\n";
-						cout << "\n\n --> Se aproximar paÌficamente.\n";
-						cout << "\n\n     Explorar os arredores do pal·cio.\n";
-						cout << "\n\n     - Ol· guardas, gostaria de entrar no pal·cio\n";
+						ImprimirComDelay ("\t√â poss√≠vel observar poucos habitantes aos arredores, e e um clima tenso no ar.\n\n\n");
+						ImprimirComDelay ("\tGuardando a entrada do pal√°cio existem 5 guardas armados.\n");
+						cout << "\tOque ir√° fazer "; cout << x->getnome() << "?\n";
+						cout << "\n\n --> Se aproximar pa√≠ficamente.\n";
+						cout << "\n\n     Explorar os arredores do pal√°cio.\n";
+						cout << "\n\n     - Ol√° guardas, gostaria de entrar no pal√°cio\n";
 						cout << "\n\n     - Abra o caminho\n.";
-						cout << "\n\n     Abrir o Invent·rio\n";
+						cout << "\n\n     Abrir o Invent√°rio\n";
 						cout << "\n\n     Retornar a cidade.\n";
 						while (1) 
 						{
 						    if (kbhit()) 
 							{
 								system("cls");
-						        cout << "\n\t\tVocÍ se aproxima de um enorme port„o guardado por 5 guardas.\n\n\n";
+						        cout << "\n\t\tVoc√™ se aproxima de um enorme port√£o guardado por 5 guardas.\n\n\n";
 						        ifstream myfile ("PD.txt"); 
 								if (myfile.is_open()){
 								while (! myfile.eof() ) {
 								getline (myfile,line); 
 								cout << line << std::endl;}
 								myfile.close();}
-								cout << "\tO Capit„o dos guardas se aproxima de vocÍ e diz:\n";
-								cout << "\t - Ol· viajante, o que o tr·z aqui?\n\n\n";
+								cout << "\tO Capit√£o dos guardas se aproxima de voc√™ e diz:\n";
+								cout << "\t - Ol√° viajante, o que o tr√°z aqui?\n\n\n";
 								cout << "\tOnde gostaria de ir "; cout << x->getnome() << "?\n";
 						        c = Tecla();
 						  		if (c == 80) 
@@ -6418,10 +6558,10 @@ void CaminhandoAGreenWitch()
 						            }     
 									else if (lugar == 4) 
 									
-	//abrir o invent·rio
+	//abrir o invent√°rio
 									{
 									x->mochila.AbrirInventario();
-									cout << "\n\t\tVocÍ se aproxima de um enorme port„o guardado por 5 guardas.\n\n\n";
+									cout << "\n\t\tVoc√™ se aproxima de um enorme port√£o guardado por 5 guardas.\n\n\n";
 							        ifstream myfile ("PD.txt"); 
 									if (myfile.is_open())
 									{
@@ -6432,8 +6572,8 @@ void CaminhandoAGreenWitch()
 										}
 										myfile.close();
 									}
-									cout << "\tO Capit„o dos guardas se aproxima de vocÍ e diz:\n";
-									cout << "\t - Ol· viajante, o que o tr·z aqui?\n\n\n";
+									cout << "\tO Capit√£o dos guardas se aproxima de voc√™ e diz:\n";
+									cout << "\t - Ol√° viajante, o que o tr√°z aqui?\n\n\n";
 									cout << "\tOnde gostaria de ir "; cout << x->getnome() << "?\n";	
 						            }     	
 						            else if (lugar == 5) 
@@ -6445,72 +6585,72 @@ void CaminhandoAGreenWitch()
 						            }     
 								}
 						        if (lugar == 0) {
-						            cout << "\n\n --> Se aproximar paÌficamente.\n";
-									cout << "\n\n     Explorar os arredores do pal·cio.\n";
-									cout << "\n\n     - Ol· guardas, gostaria de entrar no pal·cio\n";
+						            cout << "\n\n --> Se aproximar pa√≠ficamente.\n";
+									cout << "\n\n     Explorar os arredores do pal√°cio.\n";
+									cout << "\n\n     - Ol√° guardas, gostaria de entrar no pal√°cio\n";
 									cout << "\n\n     - Abra o caminho\n.";
-									cout << "\n\n     Abrir o Invent·rio\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
 									cout << "\n\n     Retornar a cidade.\n";}
 						        if (lugar == 1) {
-							        cout << "\n\n     Se aproximar paÌficamente.\n";
-									cout << "\n\n --> Explorar os arredores do pal·cio.\n";
-									cout << "\n\n     - Ol· guardas, gostaria de entrar no pal·cio\n";
+							        cout << "\n\n     Se aproximar pa√≠ficamente.\n";
+									cout << "\n\n --> Explorar os arredores do pal√°cio.\n";
+									cout << "\n\n     - Ol√° guardas, gostaria de entrar no pal√°cio\n";
 									cout << "\n\n     - Abra o caminho\n.";
-									cout << "\n\n     Abrir o Invent·rio\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
 									cout << "\n\n     Retornar a cidade.\n";}
 								if (lugar == 2) {
-							        cout << "\n\n     Se aproximar paÌficamente.\n";
-									cout << "\n\n     Explorar os arredores do pal·cio.\n";
-									cout << "\n\n --> - Ol· guardas, gostaria de entrar no pal·cio\n";
+							        cout << "\n\n     Se aproximar pa√≠ficamente.\n";
+									cout << "\n\n     Explorar os arredores do pal√°cio.\n";
+									cout << "\n\n --> - Ol√° guardas, gostaria de entrar no pal√°cio\n";
 									cout << "\n\n     - Abra o caminho\n.";
-									cout << "\n\n     Abrir o Invent·rio\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
 									cout << "\n\n     Retornar a cidade.\n";}
 								if (lugar == 3) {
-							        cout << "\n\n     Se aproximar paÌficamente.\n";
-									cout << "\n\n     Explorar os arredores do pal·cio.\n";
-									cout << "\n\n     - Ol· guardas, gostaria de entrar no pal·cio\n";
+							        cout << "\n\n     Se aproximar pa√≠ficamente.\n";
+									cout << "\n\n     Explorar os arredores do pal√°cio.\n";
+									cout << "\n\n     - Ol√° guardas, gostaria de entrar no pal√°cio\n";
 									cout << "\n\n --> - Abra o caminho\n.";
-									cout << "\n\n     Abrir o Invent·rio\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
 									cout << "\n\n     Retornar a cidade.\n";}
 								if (lugar == 4) {
-							        cout << "\n\n     Se aproximar paÌficamente.\n";
-									cout << "\n\n     Explorar os arredores do pal·cio.\n";
-									cout << "\n\n     - Ol· guardas, gostaria de entrar no pal·cio\n";
+							        cout << "\n\n     Se aproximar pa√≠ficamente.\n";
+									cout << "\n\n     Explorar os arredores do pal√°cio.\n";
+									cout << "\n\n     - Ol√° guardas, gostaria de entrar no pal√°cio\n";
 									cout << "\n\n     - Abra o caminho\n.";
-									cout << "\n\n --> Abrir o Invent·rio\n";
+									cout << "\n\n --> Abrir o Invent√°rio\n";
 									cout << "\n\n     Retornar a cidade.\n";}
 								if (lugar == 5) {
-							     	cout << "\n\n     Se aproximar paÌficamente.\n";
-									cout << "\n\n     Explorar os arredores do pal·cio.\n";
-									cout << "\n\n     - Ol· guardas, gostaria de entrar no pal·cio\n";
+							     	cout << "\n\n     Se aproximar pa√≠ficamente.\n";
+									cout << "\n\n     Explorar os arredores do pal√°cio.\n";
+									cout << "\n\n     - Ol√° guardas, gostaria de entrar no pal√°cio\n";
 									cout << "\n\n     - Abra o caminho\n.";
-									cout << "\n\n     Abrir o Invent·rio\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
 									cout << "\n\n --> Retornar a cidade.\n";}
 							}
 						}
 	                }
-	// FIM do pal·cio
+	// FIM do pal√°cio
 	
-	// comeÁo do ferreiro
+	// come√ßo do ferreiro
 					else if (lugar == 3) 
 					{
 	                    system("cls");
-						ImprimirComDelay ("\t\tVocÍ se aproxima de uma ferraria simples e antiga feita sob pedras e madeiras.\n\n\n");
-						ImprimirComDelay ("\t Um homem grande e robusto vestindo um avental de couro se aproxima de vocÍ.\n");
+						ImprimirComDelay ("\t\tVoc√™ se aproxima de uma ferraria simples e antiga feita sob pedras e madeiras.\n\n\n");
+						ImprimirComDelay ("\t Um homem grande e robusto vestindo um avental de couro se aproxima de voc√™.\n");
 						ImprimirComDelay ("\t Com sua longa barba e seus olhos cansados ele pergunta :\n");
-						ImprimirComDelay ("\t - Ol· viajante, o que o tr·z aqui?\n\n");
-						cout << "\n\n --> - Ol·, gostaria de convesar sobre equipamentos \n";
+						ImprimirComDelay ("\t - Ol√° viajante, o que o tr√°z aqui?\n\n");
+						cout << "\n\n --> - Ol√°, gostaria de convesar sobre equipamentos \n";
 						cout << "\n\n     - Apenas estou de passagem, obrigado  \n";
-						cout << "\n\n     - Quem È vocÍ?, sou novo por aqui  \n";
+						cout << "\n\n     - Quem √© voc√™?, sou novo por aqui  \n";
 						while (1) 
 						{
 						    if (kbhit()) 
 							{
 						        system("cls");
-							    cout << "\t\tVocÍ se aproxima de uma ferraria simples e antiga feita sob pedras e madeiras.\n\n\n";
-								cout << "\t Um homem grande e robusto vestindo um avental de couro se aproxima de vocÍ.\n";
+							    cout << "\t\tVoc√™ se aproxima de uma ferraria simples e antiga feita sob pedras e madeiras.\n\n\n";
+								cout << "\t Um homem grande e robusto vestindo um avental de couro se aproxima de voc√™.\n";
 								cout << "\t Com sua longa barba e seus olhos cansados ele pergunta :\n";
-								cout << "\t - Ol· viajante, o que o tr·z aqui?\n\n";
+								cout << "\t - Ol√° viajante, o que o tr√°z aqui?\n\n";
 						        c = Tecla();
 						  		if (c == 80) 
 								{
@@ -6529,7 +6669,7 @@ void CaminhandoAGreenWitch()
 						            if (lugar == 0) 
 									{
 						                system("cls");
-										ImprimirComDelay ("VocÍ possui "); cout << x->getmoedas() << "moedas.\n";
+										ImprimirComDelay ("Voc√™ possui "); cout << x->getmoedas() << "moedas.\n";
 										ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\Ferreiro0.txt"); 
 										if (myfile.is_open()){
 										while (! myfile.eof() ) {
@@ -6562,10 +6702,10 @@ void CaminhandoAGreenWitch()
 										                if(x->getmoedas() >=4)
 										                {
 										                	x->getmoedas() += -4;
-										                	cout << "\t\tVocÍ comprou: X1 espada de ferro enferrujada.\n";
+										                	cout << "\t\tVoc√™ comprou: X1 espada de ferro enferrujada.\n";
 										                }
 										                else
-										                	cout <<"\n\n\n\t\tVocÍ n„o possui moedas suficientes,\n ou seu invent·rio est· cheio..\n";
+										                	cout <<"\n\n\n\t\tVoc√™ n√£o possui moedas suficientes,\n ou seu invent√°rio est√° cheio..\n";
 										           	} 
 										           	
 													else if (lugar == 1) 
@@ -6573,11 +6713,11 @@ void CaminhandoAGreenWitch()
 										                if(x->getmoedas() >=5)
 										                {
 										                	x->getmoedas() += -5;
-										                	cout << "\t\tVocÍ comprou: X1 Escudo de lata em farrapos.\n";
+										                	cout << "\t\tVoc√™ comprou: X1 Escudo de lata em farrapos.\n";
 										                }
 										                	
 										                else
-										                	cout <<"\n\n\n\t\tVocÍ n„o possui moedas suficientes,\n ou seu invent·rio est· cheio..\n";
+										                	cout <<"\n\n\n\t\tVoc√™ n√£o possui moedas suficientes,\n ou seu invent√°rio est√° cheio..\n";
 										            }
 										            
 													else if (lugar == 2) 
@@ -6585,40 +6725,40 @@ void CaminhandoAGreenWitch()
 										                if(x->getmoedas() >=8)
 										                {
 										                	x->getmoedas() += -8;
-										                	cout << "\t\tVocÍ comprou: X1 Ferradura simples para cavalos.\n";
+										                	cout << "\t\tVoc√™ comprou: X1 Ferradura simples para cavalos.\n";
 										                }
 										                else
-										                	cout <<"\n\n\n\t\tVocÍ n„o possui moedas suficientes,\n ou seu invent·rio est· cheio..\n";
+										                	cout <<"\n\n\n\t\tVoc√™ n√£o possui moedas suficientes,\n ou seu invent√°rio est√° cheio..\n";
 										            }
 										            else if (lugar == 3) 
 													{
 										                if(x->getmoedas() >=15)
 										                {
 										                	x->getmoedas() += -15;
-										                	cout << "\t\tVocÍ comprou: X1 Machado antigo do aprendiz.\n";
+										                	cout << "\t\tVoc√™ comprou: X1 Machado antigo do aprendiz.\n";
 										                }
 										                else
-										                	cout <<"\n\n\n\t\tVocÍ n„o possui moedas suficientes,\n ou seu invent·rio est· cheio..\n";
+										                	cout <<"\n\n\n\t\tVoc√™ n√£o possui moedas suficientes,\n ou seu invent√°rio est√° cheio..\n";
 										            }     
 													else if (lugar == 4) 
 													{
 										                if(x->getmoedas() >=10)
 										                {
 										                	x->getmoedas() += -10;
-										                	cout << "\t\tVocÍ comprou: X5 Flechas simples.\n";
+										                	cout << "\t\tVoc√™ comprou: X5 Flechas simples.\n";
 										                }
 										                else
-										                	cout <<"\n\n\n\t\tVocÍ n„o possui moedas suficientes,\n ou seu invent·rio est· cheio..\n";
+										                	cout <<"\n\n\n\t\tVoc√™ n√£o possui moedas suficientes,\n ou seu invent√°rio est√° cheio..\n";
 										            }   
 													else if (lugar == 5) 
 													{
 										                if(x->getmoedas() >=20)
 										                {
 										                	x->getmoedas() += -20;
-										                	cout << "\t\tVocÍ comprou: X1 Vinho Ombreiras de ferro de GreenWotch.\n";
+										                	cout << "\t\tVoc√™ comprou: X1 Vinho Ombreiras de ferro de GreenWotch.\n";
 										                }
 										                else
-										                	cout <<"\n\n\n\t\tVocÍ n„o possui moedas suficientes,\n ou seu invent·rio est· cheio..\n";
+										                	cout <<"\n\n\n\t\tVoc√™ n√£o possui moedas suficientes,\n ou seu invent√°rio est√° cheio..\n";
 										            }      	
 										            else if (lugar == 6) 
 													{
@@ -6629,7 +6769,7 @@ void CaminhandoAGreenWitch()
 										            }     
 												}
 										        if (lugar == 0) {
-										        	cout << "\n\t\tVocÍ possui "; cout << x->getmoedas() << "moedas.\n";
+										        	cout << "\n\t\tVoc√™ possui "; cout << x->getmoedas() << "moedas.\n";
 										            ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\Ferreiro0.txt"); 
 													if (myfile.is_open()){
 													while (! myfile.eof() ) {
@@ -6637,7 +6777,7 @@ void CaminhandoAGreenWitch()
 													cout << line << std::endl;}
 													myfile.close();}}
 										        if (lugar == 1) {
-										        	cout << "\n\t\tVocÍ possui "; cout << x->getmoedas() << "moedas.\n";
+										        	cout << "\n\t\tVoc√™ possui "; cout << x->getmoedas() << "moedas.\n";
 											        ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\Ferreiro1.txt"); 
 													if (myfile.is_open()){
 													while (! myfile.eof() ) {
@@ -6645,7 +6785,7 @@ void CaminhandoAGreenWitch()
 													cout << line << std::endl;}
 													myfile.close();}}
 												if (lugar == 2) {
-													cout << "\n\t\tVocÍ possui "; cout << x->getmoedas() << "moedas.\n";
+													cout << "\n\t\tVoc√™ possui "; cout << x->getmoedas() << "moedas.\n";
 											        ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\Ferreiro2.txt"); 
 													if (myfile.is_open()){
 													while (! myfile.eof() ) {
@@ -6653,7 +6793,7 @@ void CaminhandoAGreenWitch()
 													cout << line << std::endl;}
 													myfile.close();}}
 												if (lugar == 3) {
-													cout << "\n\t\tVocÍ possui "; cout << x->getmoedas() << "moedas.\n";
+													cout << "\n\t\tVoc√™ possui "; cout << x->getmoedas() << "moedas.\n";
 											        ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\Ferreiro3.txt"); 
 													if (myfile.is_open()){
 													while (! myfile.eof() ) {
@@ -6661,7 +6801,7 @@ void CaminhandoAGreenWitch()
 													cout << line << std::endl;}
 													myfile.close();}}
 												if (lugar == 4) {
-													cout << "\n\t\tVocÍ possui "; cout << x->getmoedas() << "moedas.\n";
+													cout << "\n\t\tVoc√™ possui "; cout << x->getmoedas() << "moedas.\n";
 											        ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\Ferreiro4.txt"); 
 													if (myfile.is_open()){
 													while (! myfile.eof() ) {
@@ -6669,7 +6809,7 @@ void CaminhandoAGreenWitch()
 													cout << line << std::endl;}
 													myfile.close();}}
 												if (lugar == 5) {
-													cout << "\n\t\tVocÍ possui "; cout << x->getmoedas() << "moedas.\n";
+													cout << "\n\t\tVoc√™ possui "; cout << x->getmoedas() << "moedas.\n";
 											        ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\Ferreiro5.txt"); 
 													if (myfile.is_open()){
 													while (! myfile.eof() ) {
@@ -6677,7 +6817,7 @@ void CaminhandoAGreenWitch()
 													cout << line << std::endl;}
 													myfile.close();}}
 												if (lugar == 6) {
-													cout << "\n\t\tVocÍ possui "; cout << x->getmoedas() << "moedas.\n";
+													cout << "\n\t\tVoc√™ possui "; cout << x->getmoedas() << "moedas.\n";
 											        ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\Ferreiro6.txt"); 
 													if (myfile.is_open()){
 													while (! myfile.eof() ) {
@@ -6704,16 +6844,16 @@ void CaminhandoAGreenWitch()
 						
 						        }
 						        if (lugar == 0) {
-						            cout << "\n\n --> - Ol·, gostaria de convesar sobre equipamentos \n";
-									cout << "\n\n     - Quem È vocÍ?, sou novo por aqui  \n";
+						            cout << "\n\n --> - Ol√°, gostaria de convesar sobre equipamentos \n";
+									cout << "\n\n     - Quem √© voc√™?, sou novo por aqui  \n";
 									cout << "\n\n     - Apenas estou de passagem, obrigado  \n";}
 						        if (lugar == 1) {
-							       	cout << "\n\n     - Ol·, gostaria de convesar sobre equipamentos \n";
-									cout << "\n\n --> - Quem È vocÍ?, sou novo por aqui  \n";
+							       	cout << "\n\n     - Ol√°, gostaria de convesar sobre equipamentos \n";
+									cout << "\n\n --> - Quem √© voc√™?, sou novo por aqui  \n";
 									cout << "\n\n     - Apenas estou de passagem, obrigado  \n";}
 								if (lugar == 2) {
-							       	cout << "\n\n     - Ol·, gostaria de convesar sobre equipamentos \n";
-									cout << "\n\n     - Quem È vocÍ?, sou novo por aqui  \n";
+							       	cout << "\n\n     - Ol√°, gostaria de convesar sobre equipamentos \n";
+									cout << "\n\n     - Quem √© voc√™?, sou novo por aqui  \n";
 									cout << "\n\n --> - Apenas estou de passagem, obrigado  \n";}
 							}
 						}
@@ -6724,26 +6864,26 @@ void CaminhandoAGreenWitch()
 					else if (lugar == 4) 
 					{
 	                    system("cls");
-						ImprimirComDelayNoFim("\t\tVocÍ entra em uma catedral grande e luxuosa...\n\n\n");
-						ImprimirComDelay ("\t… possÌvel notar diversos entalhes e esculturas nas paredes, candelabros acesos e um homem ajoelhado em frente ao altar.\n");
-						ImprimirComDelay ("\tN„o distante, È possÌvel ver uma fonte jorrando ·gua fresca...\n");
-						ImprimirComDelayNoFim("\tE ao fundo È possÌvel ouvir uma doce e suave voz entoando uma canÁ„o...\n");
-						ImprimirComDelay("\tOque ir· fazer "); cout << x->getnome() << "?\n";
+						ImprimirComDelayNoFim("\t\tVoc√™ entra em uma catedral grande e luxuosa...\n\n\n");
+						ImprimirComDelay ("\t√â poss√≠vel notar diversos entalhes e esculturas nas paredes, candelabros acesos e um homem ajoelhado em frente ao altar.\n");
+						ImprimirComDelay ("\tN√£o distante, √© poss√≠vel ver uma fonte jorrando √°gua fresca...\n");
+						ImprimirComDelayNoFim("\tE ao fundo √© poss√≠vel ouvir uma doce e suave voz entoando uma can√ß√£o...\n");
+						ImprimirComDelay("\tOque ir√° fazer "); cout << x->getnome() << "?\n";
 						cout << "\n\n --> Se aproximar do homem\n";
-						cout << "\n\n     Abrir o Invent·rio\n";
-						cout << "\n\n     Ir atÈ a fonte\n";
-						cout << "\n\n     Ir atÈ o canto\n";
+						cout << "\n\n     Abrir o Invent√°rio\n";
+						cout << "\n\n     Ir at√© a fonte\n";
+						cout << "\n\n     Ir at√© o canto\n";
 						cout << "\n\n     Voltar para a cidade \n";
 						while (1) 
 						{
 						    if (kbhit()) 
 							{
 								system("cls");
-						        cout << "\t\tVocÍ entra em uma catedral grande e luxuosa...\n\n\n";
-								cout << "\t… possÌvel notar diversos entalhes e esculturas nas paredes, candelabros acesos e um homem ajoelhado em frente ao altar.\n";
-								cout << "\tN„o distante, È possÌvel ver uma fonte jorrando ·gua fresca...\n";
-								cout << "\tE ao fundo È possÌvel ouvir uma doce e suave voz entoando uma canÁ„o...\n";
-								cout << "\tOque ir· fazer "; cout << x->getnome() << "?\n";
+						        cout << "\t\tVoc√™ entra em uma catedral grande e luxuosa...\n\n\n";
+								cout << "\t√â poss√≠vel notar diversos entalhes e esculturas nas paredes, candelabros acesos e um homem ajoelhado em frente ao altar.\n";
+								cout << "\tN√£o distante, √© poss√≠vel ver uma fonte jorrando √°gua fresca...\n";
+								cout << "\tE ao fundo √© poss√≠vel ouvir uma doce e suave voz entoando uma can√ß√£o...\n";
+								cout << "\tOque ir√° fazer "; cout << x->getnome() << "?\n";
 						        c = Tecla();
 						  		if (c == 80) 
 								{
@@ -6790,44 +6930,44 @@ void CaminhandoAGreenWitch()
 								}
 						        if (lugar == 0) {
 						            cout << "\n\n --> Se aproximar do homem\n";
-									cout << "\n\n     Abrir o Invent·rio\n";
-									cout << "\n\n     Ir atÈ a fonte\n";
-									cout << "\n\n     Ir atÈ o canto\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
+									cout << "\n\n     Ir at√© a fonte\n";
+									cout << "\n\n     Ir at√© o canto\n";
 									cout << "\n\n     Voltar para a cidade \n";}
 						        if (lugar == 1) {
 							        cout << "\n\n     Se aproximar do homem\n";
-									cout << "\n\n --> Abrir o Invent·rio\n";
-									cout << "\n\n     Ir atÈ a fonte\n";
-									cout << "\n\n     Ir atÈ o canto\n";
+									cout << "\n\n --> Abrir o Invent√°rio\n";
+									cout << "\n\n     Ir at√© a fonte\n";
+									cout << "\n\n     Ir at√© o canto\n";
 									cout << "\n\n     Voltar para a cidade \n";}
 								if (lugar == 2) {
 							        cout << "\n\n     Se aproximar do homem\n";
-									cout << "\n\n     Abrir o Invent·rio\n";
-									cout << "\n\n --> Ir atÈ a fonte\n";
-									cout << "\n\n     Ir atÈ o canto\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
+									cout << "\n\n --> Ir at√© a fonte\n";
+									cout << "\n\n     Ir at√© o canto\n";
 									cout << "\n\n     Voltar para a cidade \n";}
 								if (lugar == 3) {
 							     	cout << "\n\n     Se aproximar do homem\n";
-									cout << "\n\n     Abrir o Invent·rio\n";
-									cout << "\n\n     Ir atÈ a fonte\n";
-									cout << "\n\n --> Ir atÈ o canto\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
+									cout << "\n\n     Ir at√© a fonte\n";
+									cout << "\n\n --> Ir at√© o canto\n";
 									cout << "\n\n     Voltar para a cidade \n";}
 								if (lugar == 4) {
 							     	cout << "\n\n     Se aproximar do homem\n";
-									cout << "\n\n     Abrir o Invent·rio\n";
-									cout << "\n\n     Ir atÈ a fonte\n";
-									cout << "\n\n     Ir atÈ o canto\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
+									cout << "\n\n     Ir at√© a fonte\n";
+									cout << "\n\n     Ir at√© o canto\n";
 									cout << "\n\n --> Voltar para a cidade \n";}
 							}
 						}
 	                } 
 	// FIM da catedral     
 	                
-	// Inicio do port„o da cidade
+	// Inicio do port√£o da cidade
 					else if (lugar == 5) 
 					{
 	                    system("cls");
-						ImprimirComDelayNoFim ("\n\t\tVocÍ se aproxima de um enorme port„o guardado por 5 guardas.\n\n\n");
+						ImprimirComDelayNoFim ("\n\t\tVoc√™ se aproxima de um enorme port√£o guardado por 5 guardas.\n\n\n");
 						ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\PortaoDeGreenWitch.txt"); 
 						if (myfile.is_open()){
 						while (! myfile.eof() ) {
@@ -6835,21 +6975,21 @@ void CaminhandoAGreenWitch()
 						cout << line << std::endl;}
 						myfile.close();}
 						else cout << "Unable to open file"; 
-						ImprimirComDelay ("\tO Capit„o dos guardas se aproxima de vocÍ e diz:\n");
-						ImprimirComDelay ("\t - Ol· viajante, o que o tr·z aqui?\n");
-						cout << "\n\n --> - Ol· senhor, poderia me explicar do que se trata este lugar?\n";
-						cout << "\n\n     - Ol· senhor, poderia abrir o port„o da cidade?\n";
-						cout << "\n\n     - Abra o port„o da cidade.?\n";
-						cout << "\n\n     Abrir o Invent·rio\n";
+						ImprimirComDelay ("\tO Capit√£o dos guardas se aproxima de voc√™ e diz:\n");
+						ImprimirComDelay ("\t - Ol√° viajante, o que o tr√°z aqui?\n");
+						cout << "\n\n --> - Ol√° senhor, poderia me explicar do que se trata este lugar?\n";
+						cout << "\n\n     - Ol√° senhor, poderia abrir o port√£o da cidade?\n";
+						cout << "\n\n     - Abra o port√£o da cidade.?\n";
+						cout << "\n\n     Abrir o Invent√°rio\n";
 						cout << "\n\n     - Estou apenas observando.\n";
 						while (1) 
 						{
 						    if (kbhit()) 
 							{
 								system("cls");
-						        cout << "\n\t\tVocÍ se aproxima de um enorme port„o guardado por 5 guardas.\n\n\n";
-								cout << "\tO Capit„o dos guardas se aproxima de vocÍ e diz:\n";
-								cout << "\t - Ol· viajante, o que o tr·z aqui?\n";
+						        cout << "\n\t\tVoc√™ se aproxima de um enorme port√£o guardado por 5 guardas.\n\n\n";
+								cout << "\tO Capit√£o dos guardas se aproxima de voc√™ e diz:\n";
+								cout << "\t - Ol√° viajante, o que o tr√°z aqui?\n";
 								ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\PortaoDeGreenWitch.txt"); 
 								if (myfile.is_open()){
 								while (! myfile.eof() ) {
@@ -6886,15 +7026,15 @@ void CaminhandoAGreenWitch()
 						            
 									else if (lugar == 2) 
 									{
-						                cout << "… um local arriscado...";
+						                cout << "√â um local arriscado...";
 						                pause();
 						            }
 						            else if (lugar == 3) 
 									{
 						                x->mochila.AbrirInventario();
-								        cout << "\n\t\tVocÍ se aproxima de um enorme port„o guardado por 5 guardas.\n\n\n";
-										cout << "\tO Capit„o dos guardas se aproxima de vocÍ e diz:\n";
-										cout << "\t - Ol· viajante, o que o tr·z aqui?\n";
+								        cout << "\n\t\tVoc√™ se aproxima de um enorme port√£o guardado por 5 guardas.\n\n\n";
+										cout << "\tO Capit√£o dos guardas se aproxima de voc√™ e diz:\n";
+										cout << "\t - Ol√° viajante, o que o tr√°z aqui?\n";
 										ifstream myfile ("D:\\Em Dev\\The Caisamgas Game\\TXTS\\PortaoDeGreenWitch.txt"); 
 										if (myfile.is_open()){
 										while (! myfile.eof() ) {
@@ -6911,63 +7051,63 @@ void CaminhandoAGreenWitch()
 						            }     	
 								}
 						        if (lugar == 0) {
-						            cout << "\n\n --> - Ol· senhor, poderia me explicar do que se trata este lugar?\n";
-									cout << "\n\n     - Ol· senhor, poderia abrir o port„o da cidade?\n";
-									cout << "\n\n     - Abra o port„o da cidade.?\n";
-									cout << "\n\n     Abrir o Invent·rio\n";
+						            cout << "\n\n --> - Ol√° senhor, poderia me explicar do que se trata este lugar?\n";
+									cout << "\n\n     - Ol√° senhor, poderia abrir o port√£o da cidade?\n";
+									cout << "\n\n     - Abra o port√£o da cidade.?\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
 									cout << "\n\n     - Estou apenas observando.\n";}
 						        if (lugar == 1) {
-							        cout << "\n\n     - Ol· senhor, poderia me explicar do que se trata este lugar?\n";
-									cout << "\n\n --> - Ol· senhor, poderia abrir o port„o da cidade?\n";
-									cout << "\n\n     - Abra o port„o da cidade.?\n";
-									cout << "\n\n     Abrir o Invent·rio\n";
+							        cout << "\n\n     - Ol√° senhor, poderia me explicar do que se trata este lugar?\n";
+									cout << "\n\n --> - Ol√° senhor, poderia abrir o port√£o da cidade?\n";
+									cout << "\n\n     - Abra o port√£o da cidade.?\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
 									cout << "\n\n     - Estou apenas observando.\n";}
 								if (lugar == 2) {
-							        cout << "\n\n     - Ol· senhor, poderia me explicar do que se trata este lugar?\n";
-									cout << "\n\n     - Ol· senhor, poderia abrir o port„o da cidade?\n";
-									cout << "\n\n --> - Abra o port„o da cidade.?\n";
-									cout << "\n\n     Abrir o Invent·rio\n";
+							        cout << "\n\n     - Ol√° senhor, poderia me explicar do que se trata este lugar?\n";
+									cout << "\n\n     - Ol√° senhor, poderia abrir o port√£o da cidade?\n";
+									cout << "\n\n --> - Abra o port√£o da cidade.?\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
 									cout << "\n\n     - Estou apenas observando.\n";}
 								if (lugar == 3) {
-							     	cout << "\n\n     - Ol· senhor, poderia me explicar do que se trata este lugar?\n";
-									cout << "\n\n     - Ol· senhor, poderia abrir o port„o da cidade?\n";
-									cout << "\n\n     - Abra o port„o da cidade.?\n";
-									cout << "\n\n --> Abrir o Invent·rio\n";
+							     	cout << "\n\n     - Ol√° senhor, poderia me explicar do que se trata este lugar?\n";
+									cout << "\n\n     - Ol√° senhor, poderia abrir o port√£o da cidade?\n";
+									cout << "\n\n     - Abra o port√£o da cidade.?\n";
+									cout << "\n\n --> Abrir o Invent√°rio\n";
 									cout << "\n\n     - Estou apenas observando.\n";}
 								if (lugar == 4) {
-							     	cout << "\n\n     - Ol· senhor, poderia me explicar do que se trata este lugar?\n";
-									cout << "\n\n     - Ol· senhor, poderia abrir o port„o da cidade?\n";
-									cout << "\n\n     - Abra o port„o da cidade.?\n";
-									cout << "\n\n     Abrir o Invent·rio\n";
+							     	cout << "\n\n     - Ol√° senhor, poderia me explicar do que se trata este lugar?\n";
+									cout << "\n\n     - Ol√° senhor, poderia abrir o port√£o da cidade?\n";
+									cout << "\n\n     - Abra o port√£o da cidade.?\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
 									cout << "\n\n --> - Estou apenas observando.\n";}
 							}
 						}
 	                }
-	// FIM do port„o da cidade
+	// FIM do port√£o da cidade
 	
 	// inicio da taverna
 	                else if (lugar == 6) 
 					{
 	                    system("cls");
-						ImprimirComDelay ("\t\tVocÍ entra em uma taverna barulhenta e movimentada...\n\n\n");
-						ImprimirComDelay ("\tH· v·rios homens bebendo e conversando, bardos cantando e nativos se alimentando\n");
-						ImprimirComDelay ("\t… possÌvel ver um grande balc„o, diversas mesas e uma pequena escada ao longe \n");
-						ImprimirComDelay ("\tOque ir· fazer "); cout << x->getnome() << "?\n";
-						cout << "\n\n --> Ir atÈ o balc„o\n";
-						cout << "\n\n     Abrir o Invent·rio\n";
-						cout << "\n\n     Se aproximar de alguns bÍbados\n";
+						ImprimirComDelay ("\t\tVoc√™ entra em uma taverna barulhenta e movimentada...\n\n\n");
+						ImprimirComDelay ("\tH√° v√°rios homens bebendo e conversando, bardos cantando e nativos se alimentando\n");
+						ImprimirComDelay ("\t√â poss√≠vel ver um grande balc√£o, diversas mesas e uma pequena escada ao longe \n");
+						ImprimirComDelay ("\tOque ir√° fazer "); cout << x->getnome() << "?\n";
+						cout << "\n\n --> Ir at√© o balc√£o\n";
+						cout << "\n\n     Abrir o Invent√°rio\n";
+						cout << "\n\n     Se aproximar de alguns b√™bados\n";
 						cout << "\n\n     Se aproximar dos Bardos\n";
-						cout << "\n\n     Se aproximar do balc„o\n";
+						cout << "\n\n     Se aproximar do balc√£o\n";
 						cout << "\n\n     Voltar para a cidade \n";
 						while (1) 
 						{
 						    if (kbhit()) 
 							{
 								system("cls");
-						        cout << "\t\tVocÍ entra em uma taverna barulhenta e movimentada...\n\n\n";
-								cout << "\tH· v·rios homens bebendo e conversando, bardos cantando e nativos se alimentando\n";
-								cout << "\t… possÌvel ver um grande balc„o, diversas mesas e uma pequena escada ao longe \n";
-								cout << "\tOque ir· fazer "; cout << x->getnome() << "?\n";
+						        cout << "\t\tVoc√™ entra em uma taverna barulhenta e movimentada...\n\n\n";
+								cout << "\tH√° v√°rios homens bebendo e conversando, bardos cantando e nativos se alimentando\n";
+								cout << "\t√â poss√≠vel ver um grande balc√£o, diversas mesas e uma pequena escada ao longe \n";
+								cout << "\tOque ir√° fazer "; cout << x->getnome() << "?\n";
 						        c = Tecla();
 						  		if (c == 80) 
 								{
@@ -7019,44 +7159,44 @@ void CaminhandoAGreenWitch()
 						            }    	
 								}
 						        if (lugar == 0) {
-						            cout << "\n\n --> Ir atÈ o balc„o\n";
-									cout << "\n\n     Abrir o Invent·rio\n";
-									cout << "\n\n     Se aproximar de alguns bÍbados\n";
+						            cout << "\n\n --> Ir at√© o balc√£o\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
+									cout << "\n\n     Se aproximar de alguns b√™bados\n";
 									cout << "\n\n     Se aproximar dos Bardos\n";
 									cout << "\n\n     Se aproximar da escada\n";
 									cout << "\n\n     Voltar para a cidade \n";}
 						        if (lugar == 1) {
-							        cout << "\n\n     Ir atÈ o balc„o\n";
-									cout << "\n\n --> Abrir o Invent·rio\n";
-									cout << "\n\n     Se aproximar de alguns bÍbados\n";
+							        cout << "\n\n     Ir at√© o balc√£o\n";
+									cout << "\n\n --> Abrir o Invent√°rio\n";
+									cout << "\n\n     Se aproximar de alguns b√™bados\n";
 									cout << "\n\n     Se aproximar dos Bardos\n";
 									cout << "\n\n     Se aproximar da escada\n";
 									cout << "\n\n     Voltar para a cidade \n";}
 								if (lugar == 2) {
-							        cout << "\n\n     Ir atÈ o balc„o\n";
-									cout << "\n\n     Abrir o Invent·rio\n";
-									cout << "\n\n --> Se aproximar de alguns bÍbados\n";
+							        cout << "\n\n     Ir at√© o balc√£o\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
+									cout << "\n\n --> Se aproximar de alguns b√™bados\n";
 									cout << "\n\n     Se aproximar dos Bardos\n";
 									cout << "\n\n     Se aproximar da escada\n";
 									cout << "\n\n     Voltar para a cidade \n";}
 								if (lugar == 3) {
-							     	cout << "\n\n     Ir atÈ o balc„o\n";
-									cout << "\n\n     Abrir o Invent·rio\n";
-									cout << "\n\n     Se aproximar de alguns bÍbados\n";
+							     	cout << "\n\n     Ir at√© o balc√£o\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
+									cout << "\n\n     Se aproximar de alguns b√™bados\n";
 									cout << "\n\n --> Se aproximar dos Bardos\n";
 									cout << "\n\n     Se aproximar da escada\n";
 									cout << "\n\n     Voltar para a cidade \n";}
 								if (lugar == 4) {
-							     	cout << "\n\n     Ir atÈ o balc„o\n";
-									cout << "\n\n     Abrir o Invent·rio\n";
-									cout << "\n\n     Se aproximar de alguns bÍbados\n";
+							     	cout << "\n\n     Ir at√© o balc√£o\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
+									cout << "\n\n     Se aproximar de alguns b√™bados\n";
 									cout << "\n\n     Se aproximar dos Bardos\n";
 									cout << "\n\n --> Se aproximar da escada\n";
 									cout << "\n\n     Voltar para a cidade \n";}
 								if (lugar == 5) {
-							     	cout << "\n\n     Ir atÈ o balc„o\n";
-									cout << "\n\n     Abrir o Invent·rio\n";
-									cout << "\n\n     Se aproximar de alguns bÍbados\n";
+							     	cout << "\n\n     Ir at√© o balc√£o\n";
+									cout << "\n\n     Abrir o Invent√°rio\n";
+									cout << "\n\n     Se aproximar de alguns b√™bados\n";
 									cout << "\n\n     Se aproximar dos Bardos\n";
 									cout << "\n\n     Se aproximar da escada\n";
 									cout << "\n\n --> Voltar para a cidade \n";}
@@ -7069,58 +7209,58 @@ void CaminhandoAGreenWitch()
 	            if (lugar == 0) {
 	                cout << "\n\n --> Ir ao Centro da cidade \n";
 					cout << "\n\n     Ir a sua casa          \n";
-					cout << "\n\n     Ir ao Pal·cio real     \n";
+					cout << "\n\n     Ir ao Pal√°cio real     \n";
 					cout << "\n\n     Ir ao Ferreiro         \n";
 					cout << "\n\n     Ir a Catedral          \n";
-					cout << "\n\n     Ir ao Port„o da Cidade \n";
+					cout << "\n\n     Ir ao Port√£o da Cidade \n";
 					cout << "\n\n     Ir a Taverna           \n";}
 	            if (lugar == 1) {
 	           		cout << "\n\n     Ir ao Centro da cidade \n";
 					cout << "\n\n --> Ir a sua casa          \n";
-					cout << "\n\n     Ir ao Pal·cio real     \n";
+					cout << "\n\n     Ir ao Pal√°cio real     \n";
 					cout << "\n\n     Ir ao Ferreiro         \n";
 					cout << "\n\n     Ir a Catedral          \n";
-					cout << "\n\n     Ir ao Port„o da Cidade \n";
+					cout << "\n\n     Ir ao Port√£o da Cidade \n";
 					cout << "\n\n     Ir a Taverna           \n";}
 	            if (lugar == 2) {
 					cout << "\n\n     Ir ao Centro da cidade \n";
 					cout << "\n\n     Ir a sua casa          \n";
-					cout << "\n\n --> Ir ao Pal·cio real     \n";
+					cout << "\n\n --> Ir ao Pal√°cio real     \n";
 					cout << "\n\n     Ir ao Ferreiro         \n";
 					cout << "\n\n     Ir a Catedral          \n";
-					cout << "\n\n     Ir ao Port„o da Cidade \n";
+					cout << "\n\n     Ir ao Port√£o da Cidade \n";
 					cout << "\n\n     Ir a Taverna           \n";}
 	            if (lugar == 3) {
 					cout << "\n\n     Ir ao Centro da cidade \n";
 					cout << "\n\n     Ir a sua casa          \n";
-					cout << "\n\n     Ir ao Pal·cio real     \n";
+					cout << "\n\n     Ir ao Pal√°cio real     \n";
 					cout << "\n\n --> Ir ao Ferreiro         \n";
 					cout << "\n\n     Ir a Catedral          \n";
-					cout << "\n\n     Ir ao Port„o da Cidade \n";
+					cout << "\n\n     Ir ao Port√£o da Cidade \n";
 					cout << "\n\n     Ir a Taverna           \n";}
 	            if (lugar == 4) {
 					cout << "\n\n     Ir ao Centro da cidade \n";
 					cout << "\n\n     Ir a sua casa          \n";
-					cout << "\n\n     Ir ao Pal·cio real     \n";
+					cout << "\n\n     Ir ao Pal√°cio real     \n";
 					cout << "\n\n     Ir ao Ferreiro         \n";
 					cout << "\n\n --> Ir a Catedral          \n";
-					cout << "\n\n     Ir ao Port„o da Cidade \n";
+					cout << "\n\n     Ir ao Port√£o da Cidade \n";
 					cout << "\n\n     Ir a Taverna           \n";}
 	            if (lugar == 5) {
 					cout << "\n\n     Ir ao Centro da cidade \n";
 					cout << "\n\n     Ir a sua casa          \n";
-					cout << "\n\n     Ir ao Pal·cio real     \n";
+					cout << "\n\n     Ir ao Pal√°cio real     \n";
 					cout << "\n\n     Ir ao Ferreiro         \n";
 					cout << "\n\n     Ir a Catedral          \n";
-					cout << "\n\n --> Ir ao Port„o da Cidade \n";
+					cout << "\n\n --> Ir ao Port√£o da Cidade \n";
 					cout << "\n\n     Ir a Taverna           \n";}
 				if (lugar == 6) {
 					cout << "\n\n     Ir ao Centro da cidade \n";
 					cout << "\n\n     Ir a sua casa          \n";
-					cout << "\n\n     Ir ao Pal·cio real     \n";
+					cout << "\n\n     Ir ao Pal√°cio real     \n";
 					cout << "\n\n     Ir ao Ferreiro         \n";
 					cout << "\n\n     Ir a Catedral          \n";
-					cout << "\n\n     Ir ao Port„o da Cidade \n";
+					cout << "\n\n     Ir ao Port√£o da Cidade \n";
 					cout << "\n\n --> Ir a Taverna           \n";}
 				}
 	        }
