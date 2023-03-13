@@ -5651,7 +5651,7 @@ Humano Bebados[5];
 		{
 			case 49:
 				int controle;
-				jogo.PraiaSecreta(&x);
+				jogo.Kyronma(&x);
 				jogo.CamposPraianos(&x,MarinesLutadores,MarinesCacadores,MarinesMagos,Monstros);
 				controle = jogo.Kyronma(&x,itens,Bonecos,Bebados);
 				if (controle == 2)
