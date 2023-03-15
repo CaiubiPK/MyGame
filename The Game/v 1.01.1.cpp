@@ -546,6 +546,33 @@ public:
 	{
 		this->DAXP = a;
 	}
+	VerificarMissaoDisponivel()
+	{
+		int i;
+		for(i=0;i<=3;i++)
+		{
+			if(this->missao[i].)
+		}
+	}
+	SelecionarMissao(Missao missao[])
+	{
+		
+		if(this->MissoesDispoiveis = 0)	
+		{
+		}
+		int q;
+		q = NumeroAleatorio(100);
+		
+		if(q >=0)
+		{	
+			this->MissoesDisponiveis--;
+			for(i=1;i<=3;i++)
+			{
+				this->Missao[i].nome=="";
+				Atribuir(missao[1],this->Missao[i)
+			};
+		}
+	}
 	bool Esquiva()
 	{
 	//	int q;
@@ -656,7 +683,7 @@ public:
 		}
 		Sleep(280);
 	}
-		AtacarST(Criatura *inimigo)
+	AtacarST(Criatura *inimigo)
 	{
 		system("CLS");
 
@@ -1910,6 +1937,7 @@ public:
 	bool PrimeiraVezEmKyronma, PrimeiraVezNoMercadorDeAlimentos, PrimeiraVezNoCentro, PrimeiraVezNataverna;
 	bool PrimeiraVezNoCurandeiro,PrimeiraVezNoPortao, PrimeiraVezEmCasa, PrimeiraVezNoBalcao,PrimeiraVezNoInstrutor,PrimeiraVezNoHomemEstranho;
 	bool PrimeiraVezNosCamposPraianos, PrimeiraVezNaPraia, PrimeiraVezNaPraiaSecreta;
+	int MissoesDisponiveis;
 	vector<Casa> Casas;
 	vector<Item> Inventario;
 	
@@ -1922,6 +1950,7 @@ public:
 	{
 		return this->Dificuldade;
 	}
+	
 	int getmoedas()
 	{
 		return this->moedas;
@@ -1937,6 +1966,10 @@ public:
 	moedasM(int a)
 	{
 		this->moedas += a;
+	}
+	ReputacaoM(int a)
+	{
+		this->Reputacao += a;
 	}
 	bool VerificarMoedas(int a)
 	{
@@ -2241,7 +2274,50 @@ public:
 				return 0;
 			}
 		}
-	}   
+	}
+	AdicionarItemNoInventario(Item a)
+	{
+		int i;
+		for(i=0; i < this->Inventario.size(); i++)
+		{
+
+			if(a.getnome() == this->Inventario[i].getnome())
+			{
+				this->Inventario[i].setquantidade(this->Inventario[i].getquantidade() + a.getquantidade());
+				return 0;
+			}
+		}
+	
+		if (this->InventarioDisponivel() <= 0)
+		{
+			return 0;
+		}
+		
+		for(i=0; i < this->Inventario.size(); i++)
+		{
+			if (Inventario[i].getnome() == "Vazio.")
+			{
+				Atribuir(&Inventario[i],a);
+			 	
+			 	
+				return 0;
+			}
+		}
+	} 
+	Atribuir(Item *a,Item b)
+	{
+		a->setcodigo(b.getcodigo());
+		a->sethp(b.gethp());
+		a->setxp(b.getxp());
+		a->setmp(b.getmp());
+		a->setenergia(b.getenergia());
+		a->setpreco(b.getpreco());
+		a->setquantidade(b.getquantidade());
+		a->setnome(b.getnome());
+		a->settamanho(b.gettamanho());
+		a->setdescricao(b.getdescricao());
+		a->setbatalha(b.getbatalha());
+	}
 	Atribuir(Item *a,Item*b)
 	{
 		a->setcodigo(b->getcodigo());
@@ -3172,265 +3248,7 @@ public:
 		this->PrimeiraVezNaPraiaSecreta = true;
 		this->PrimeiraVezNoHomemEstranho= true;
 	}
-	void tutoriais()
-	{
-		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
-		cout <<  "|                                                        ";Verde("Tutoriais");cout<<"                                                     |";                              
-		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
-	}	
-		void ExplicacaoGeral()
-	{
-		system ("cls");
-		tutoriais();
-		ImprimirComDelay("\tEste é um jogo desenvolvido inteiramente em C++, por mim.\n\n");
-	
-		ImprimirComDelay("\tMeu nome é Caiubi Aguiar, e eu sou um estudante de ADS do IFSP, atualmente no 3º semestre.\n\n");
-	
-		ImprimirComDelay("\tCriar um jogo foi uma ideia que me chamou a atenção assim que descobri minha primeira\n");
-		ImprimirComDelay("\tlinguagem de programação: C.\n\n");
-	
-		ImprimirComDelay("\tNo meu primeiro semestre de faculdade, surgiu uma oportunidade, \n");
-		ImprimirComDelay("\te então comecei bem humildemente fazendo esse jogo.\n\n");
-	
-		ImprimirComDelay("\tO jogo era feito apenas de menus com números, e se passava na cidade de Greenwitch, \n");
-		ImprimirComDelay("\tcomecei a usar a função KBHIT, e fazer menus mais elaborados com setas, porém era trabalhoso,\n");
-		ImprimirComDelay("\te não eficiente, chegando a ter que produzir 5 variações da mesma opção,.\n");
-		ImprimirComDelay("\t(o jogo continha no mínimo 28 opções) \n\n");
-	
-		ImprimirComDelay("\tGastei horas aprendendo a manipular cores pelo terminal, e fiz artes em ASCII usando cores,\n");
-		ImprimirComDelay("\tcomo a logo do jogo, \n");
-		ImprimirComDelay("\t(2 dragões se entrelaçando em um letreiro escrito o antigo nome do jogo: \"Dragon Heart\"),\n");
-		ImprimirComDelay("\tPor sinal foi bem trabalhoso colorir pixel por pixel diretamente no terminal.\n\n");
-	
-		ImprimirComDelay("\tAinda não havia sistema de combate, e havia um pequeno sistema precário de itens.\n\n");
-	
-		ImprimirComDelay("\tNo segundo semestre da faculdade aprendi orientação programada a objetos,\n");
-		ImprimirComDelay("\te então criei um sistema de combate.\n");
-		ImprimirComDelay("\tMuito tempo depois, aprimorei o sistema de combate e resolvi com muito ânimo e disposição\n");
-		ImprimirComDelay("\tunificar meu antigo jogo e esse novo sistema de combate.\n");
-		ImprimirComDelay("\tO trabalho seria enorme, eu deveria transformar +- 3.800 linhas de código \n");
-		ImprimirComDelay("\tEm orientação programada a objetos, além de limpar o código \n");
-		ImprimirComDelay("\t(foi um choque bem grande trabalhar com um código do início da miha carreira,\n");
-		ImprimirComDelay("\tpor ser muito diferente com o meu conhecimento atual)\n");
-		ImprimirComDelay("\tdepois de relutar um pouco, eu comecei esse trabalho.\n");
-	
-		cout << "\n\t(ENTER) "; Verde("Contininuar ");cout<<"            \n";
-		cout << "\n\n\t(r) "; Vermelho("Retornar");cout<<"                  \n";
-		while(1)
-		{
-			switch(TeclaA())
-			{
-				case 13:
-					system("CLS");
-					tutoriais();
-					ImprimirComDelay("\tNo fim de 2022, desenvolvi a história e mitologia do jogo, \n");
-					ImprimirComDelay("\té uma lore incrível e rica em detalhes, ela está escrita em outro lugar,\n");
-					ImprimirComDelay("\te eu ainda não incorporei grande parte ao jogo.\n");
-					ImprimirComDelay("\tPossui raças, continentes, um mapa-mundi, histórias do mundo, histórias de itens, \n");
-					ImprimirComDelay("\tpersonagens marcantes, régua histórica e etc,\n");
-					ImprimirComDelay("\tusei tempo especialmente contando a história sobre um mago negro chamado Ksar’Uk,\n");
-					ImprimirComDelay("\tque foi responsável por muitas coisas dentro do jogo,\n");
-					ImprimirComDelay("\tEscrevi 3 capítulos de um livro contando a história dele, e agora, terei que terminar.\n\n");
-				
-					ImprimirComDelay("\tDesenvolvi poucas linhas de código durante as férias de 2022,\n");
-					ImprimirComDelay("\tporém no começo de 2023 voltei a desenvolver algumas coisas e aqui estamos.\n\n");
-				
-					ImprimirComDelay("\tEssa é uma versão em C++ sem bibliotecas, e em \"2D\", é possível no futuro desenvolver \n");
-					ImprimirComDelay("\tum RPG ou MMORPG em terceira pessoa bem completo,\n");
-					ImprimirComDelay("\tmas por enquanto esse projeto é bom para estudo e me ajuda a estruturar o jogo para o futuro, \n");
-					ImprimirComDelay("\talém de servir como portfólio, trabalho para a faculdade, e possivelmente um TCC.\n\n");
-				
-					ImprimirComDelay("\tAs versões mais antigas desse jogo estão comigo, porém as mais recentes eu venho tentado colocar no GitHub.\n\n");
-				
-					ImprimirComDelay("\tÉ bom estar progredindo na criação desse jogo, e caso você esteja testando, \n");
-					ImprimirComDelay("\tPor favor entre em contato para sugestões e melhorias:\n\n");
-				
-					ImprimirComDelay("\tO próximo passo será a incorporação de Banco de Dados.\n\n");
-					
-					ImprimirComDelay("\tContato:\n\n");
-				
-					ImprimirComDelay("\tTelefone: 12 98162-3073\n");
-					ImprimirComDelay("\tEmail caiubiaguair@gmail.com\n\n");
-					Pause();
-					return;
-					break;
-				
-			case Retornar:
-				return;
-			break;
-			}
-		}
-
-		system("cls");
-	}
-	void ExplicacaoItens()
-	{
-			system ("cls");
-			tutoriais();
-			VerdeCDNoFim("\n\tSeja bem Vindo as Instruções de Itens.\n\n\n");
-			ImprimirComDelay("\tOs itens em "); VermelhoCD("(Título)");ImprimirComDelay(" são divididos em 6 raridades:\n\n");
-			ImprimirComDelay("\tComuns ");cout<<"         -";   Branco( " Branco\n");
-			VerdeCD("\tIncomuns ");cout<<"       -";   Verde(" Verde\n");
-			AzulCD("\tRaros ");cout<<"          -";   Azul(" Azul\n");
-			RosaCD("\tMágicos ");cout<<"        -";   Rosa(" Rosa\n");
-			AmareloCD("\tLendários ");cout<<"      -";   Amarelo(" Amarelo\n");
-			VermelhoCD("\tItens do Dragão ");cout<<"-";   Vermelho(" Vermelho\n\n\n");
-			Sleep(2000);
-			ImprimirComDelay("\tCada raridade se diferencia entre atributos e chance de ser encontrada. \n");
-			ImprimirComDelay("\tItens podem ser consumiveis ou não, e possuir características especiais,\n");
-			ImprimirComDelay("\tCada característica póderá ser vista na análise do inventário,\n\n\n\n");
-			/*
-			ImprimirComDelay("\t\tOs itens de proteção em "); VermelhoCD("(Título)");ImprimirComDelay("se dividem em:\n\n");
-			cout << "- \t\tCapacetes\n";
-			cout << "- \t\tPeitorais\n";
-			cout << "- \t\tOmbreiras\n";
-			cout << "- \t\tJuntas\n";
-			cout << "- \t\tBracadeira\n";
-			cout << "- \t\tLuvas\n";
-			cout << "- \t\tCalça\n";
-			cout << "- \t\tBotas\n";
-			*/
-			VermelhoCD("\t(Este menu, funcionalidades e adições ainda estão em desenviolvimento.\n\n\n");
-			VoltarAoMenu();
-	}
-	void ExplicacaoCombate()
-	{
-		system ("cls");
-		tutoriais();
-		ImprimirComDelay("\tSeja bem Vindo as Instruções de "); Azul("Combate");ImprimirComDelayNoFim("\n\n");
-		ImprimirComDelay("\tO Combate em "); VermelhoCD("(Título)");ImprimirComDelayNoFim(" funciona em Turnos.\n");
-		ImprimirComDelay("\tO jogador realiza sua ação, e em seguida será o turno do "); Vermelho("oponente");ImprimirComDelayNoFim(",\n");
-		ImprimirComDelay("\to qual realizará seu ataque contra o "); Verde("jogador");ImprimirComDelayNoFim(".\n");
-		ImprimirComDelay("\tInimigos possuem atributos, "); Amarelo("habilidades");ImprimirComDelay(", e chance de ativá-las, diferentes entre si,\n");
-		ImprimirComDelayNoFim("\tA descrição da habilidade pode ser feita em combate.\n");
-	}	
-	void ComoJogar()
-	{
-		while(1)
-		{
-			
-			tutoriais();
-			cout << "\n\n\t(1) "; Vermelho("Combate");cout<< "\n";
-			cout << "\n\n\t(2) "; Verde("Mundo");cout<<"\n";
-			cout << "\n\n\t(3) "; Amarelo("Itens");cout<< "\n";
-			cout << "\n\n\t(r) "; Cinza("Retornar");cout<< "\n";
-			switch(Tecla())
-			{
-				case 49:
-					while(1)
-					{
-						tutoriais();
-						cout << "\n\n\t(1) Turnos              \n";
-						cout << "\n\n\t(2) Atributos           \n";
-						cout << "\n\n\t(3) Efeitos             \n";
-						cout << "\n\n\t(4) Opções em combate   \n";
-						cout << "\n\n\t(r) "; Cinza(" Retornar ao jogo");cout<< "   \n";
-						switch(Tecla())
-						{
-							case 49:
-							tutoriais();
-							ImprimirComDelay("\tO Combate em "); VermelhoCD("Secrecy");ImprimirComDelayNoFim(" funciona em Turnos.\n");
-							ImprimirComDelay("\tO jogador realiza sua ação, e em seguida será o turno do "); Vermelho("oponente");ImprimirComDelayNoFim(",\n");
-							ImprimirComDelay("\to qual realizará seu ataque contra o "); Verde("jogador");ImprimirComDelayNoFim(".\n");
-							EnterParaRetornar();
-							break;
-							
-							case 50:
-								tutoriais();
-								VerdeCD("\tAtributos:\n\n");
-								VerdeCD("\t\tHP (Health Points)"); cout <<" é a quantidade de vida do seu personagem,\n\t\t\tcaso chegue a 0 você será derrotado.";
-								AzulCD("\n\n\t\tMP (Mana Points)");cout <<" é a mana do seu personagem, utilizada para magias e habilidades";
-								AmareloCD("\n\n\t\tEnergia ");cout <<" Energia, fundamentar para atacar e usar habilidades";
-								VermelhoCD("\n\n\t\tAtaque ");cout <<" Seu ataque, valor usado para atacar seu oponente";
-								CinzaCD("\n\n\t\tArmadura ");cout <<" Sua armadura, Usada na defesa e redução de dano";
-								AmareloClaroCD("\n\n\t\tHabilidade"); cout <<" São as habilidades do seu oponente";
-								RosaCD("\n\n\t\tEfeitos:");cout <<"Os efeitos aplicados ao personagem estão logo abaixo desse marcador.\n\n\n\n";
-								VerdeCD("\t\tFim das Instruções\n");
-								EnterParaRetornar();
-							break;
-							
-							case 51:
-								tutoriais();
-								AzulCD("\tEfeitos:\n\n");
-								AmareloClaroCD("\tCombustão:\n");
-								Branco("\t\tA criatura está pegando fogo, recebendo 7 de dano por turno, não sujeito a reduções por armadura.\n\n");
-								VerdeApagadoCD("\tEnvenenamento:\n");
-								Branco("\t\tA criatura está  envenenada, recebendo 5 de dano por turno, não sujeito a reduções por armadura.\n\n");
-								VermelhoCD("\tSangramento:\n");
-								Branco("\t\tA criatura está sangrando, recebendo 6 de dano por turno, não sujeito a reduções por armadura.\n\n");
-								CinzaCD("\tAumento de Armadura:\n");
-								Branco("\t\tA criatura está com a armadura aumentada, com o valor sendo variado por cada habilidade.\n\n");
-								VerdeCD("\tAumento de Ataque:\n");
-								Branco("\t\tA criatura está com a ataque aumentada, com o valor sendo variado por cada habildiade.\n\n");
-								EnterParaRetornar();
-							break;
-							
-							case 52:
-								tutoriais();
-								VerdeCD("\n\tDescrição das opções em combate:\n\n\n");
-								VermelhoCD("\tAtacar:\n");
-								cout <<"\t\tAo atacar o Jogador golpeia o inimigo com sua arma, e em seguida será o turno do oponetne\n";
-								VerdeCD("\n\tMochila:\n");
-								cout <<"\t\tO jogador abre sua mochila, e caso escolha, utiliza sua ação para utilizar algum item consumível\n";
-								cout <<"\t\tO efeito dos itens consumíveis é variado e é descrito no inventário.\n";
-								AzulCD("\n\tPassar:\n");
-								cout <<"\t\tO Jogador gasta seu turno, e recupera alguns atributos, como mana e energia\n";
-								AmareloCD("\n\tHabilidades:\n");
-								cout <<"\t\tO Jogador exibe sua lista de habilidades, caso escolha usar alguma, e possa pagar seu custo,\n";
-								VermelhoCD("\n\tDesistir\n");
-								cout <<"\t\tO Jogador desiste da luta e tem seus pontos de vidas reduzidos a 0.\n";
-								AzulCD("\n\tDetalhar\n");
-								cout <<"\t\tExibe informações sobre seu inimigo e suas habilidades\n";
-								EnterParaRetornar();
-							break;
-							case Retornar:
-								return;
-							break;
-						}
-					}
-				break;
-				case 50:
-					while(1)
-					{
-						tutoriais();
-						cout << "\n\n\t(1) Turnos              \n";
-						cout << "\n\n\t(2) Atributos           \n";
-						cout << "\n\n\t(3) Efeitos             \n";
-						cout << "\n\n\t(4) Opções em combate   \n";
-						cout << "\n\n\t(r) "; Cinza(" Retornar ao jogo");cout<< "   \n";
-						switch(Tecla())
-						{
-						}
-					
-					
-					
-					
-					
-					
-					
-					}
-				break;
-					case 52:
-					while(1)
-					{
-					
-					
-					
-					
-					
-					
-					
-					
-					}
-				break;
-				case Retornar:
-					return;
-				break;
-			}
-		}
-	}
-	
-	void MenuPrincipal()
+	MenuPrincipal()
 	{
 		while(1)
 		{
@@ -3438,21 +3256,42 @@ public:
 			cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
 			cout <<  "|                                                      ";Verde("MENU PRINCIPAL");cout<<"                                                  |";                              
 			cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
-			cout << "\n\n\t(1) "; Verde("Como Jogar");cout<< "          \n";
-		 	cout << "\n\n\t(2) "; Azul("Reiniciar Animações");cout<< " \n";
-	        cout << "\n\n\t(r) "; Cinza("Retornar ao jogo");cout<< "    \n";
+		 	cout << "\n\n\t(1) Reiniciar Animações \n";
+		 	cout << "\n\n\t(2) Como Jogar          \n";
+	        cout << "\n\n\t(r) Retornar ao jogo    \n";
 	        switch(Tecla())
 	        {
 	            case 49:
-	        	   ComoJogar();
+	        	   this->Reset();
 				break;
 				
 				case 50:
-					this->Reset();
+	        	   	cout << "\n\n\t(1) Combate \n";
+				 	cout << "\n\n\t(2) Como Jogar          \n";
+			        cout << "\n\n\t(r) Retornar ao jogo    \n";
+			        switch(Tecla())
+			        {
+			        	case 49:
+				        cout << "\n\n\t(1) Turnos          \n";
+					 	cout << "\n\n\t(2) Atributos          \n";
+				        cout << "\n\n\t(r) Efeitos    \n";
+				        cout << "\n\n\t(1) Opções em combate \n";
+					 	cout << "\n\n\t(2) Como Jogar          \n";
+				        cout << "\n\n\t(r) Retornar ao jogo    \n";
+				        switch(Tecla())
+			        	{
+			        			ImprimirComDelay("\tO Combate em "); VermelhoCD("(Título)");ImprimirComDelayNoFim(" funciona em Turnos.\n");
+								ImprimirComDelay("\tO jogador realiza sua ação, e em seguida será o turno do "); Vermelho("oponente");ImprimirComDelayNoFim(",\n");
+								ImprimirComDelay("\to qual realizará seu ataque contra o "); Verde("jogador");ImprimirComDelayNoFim(".\n");
+			        		
+			        		
+			        		
+						}
+					}
 				break;
-				
+	
 				case Retornar:
-					return;
+					return 0;
 				break;
 			}	
 		}
@@ -3477,6 +3316,7 @@ public:
 		this->energiahistorico = 0;
 		this->atkhistorico = 0;
 		this->armadurahistorico = 0;
+		this->MissoesDisponiveis = 3;
 		for(l=0;l<50;l++)
 		{
 			this->Inventario.push_back(itemvazio);
@@ -3602,18 +3442,210 @@ class BancoDeItens
 */
 	}
 };
+class Missao
+{
+	public:
+		
+	string Titulo,Objetivo,ID,Texto;
+	int XP,Moedas,REP;
+	vector<Item> item;
+	Item vazio;
+	Habilidade habilidade;
+	
+	int getMoedas()
+	{
+		return this->Moedas;
+	}
+	int getXP()
+	{
+		return this->XP;
+	}
+	int getREP()
+	{
+		return this->REP;
+	}
+	
+	
+	void setXP(int a)
+	{
+		this->XP=a;
+	}
+	void setMoedas(int a)
+	{
+		this->Moedas=a;
+	}
+	void setTitulo(string A)
+	{
+		this->Titulo = A;
+	}
+	void setObjetivo(string A)
+	{
+		this->Objetivo = A;
+	}
+	void setID(string A)
+	{
+		this->ID = A;
+	}
+	void setTexto(string A)
+	{
+		this->Texto = A;
+	}
+	
+	
+	ReceberRecompensas(Jogador*jogador)
+	{
+		jogador->XPM(this->XP);
+		jogador->moedasM(this->Moedas);
+		jogador->ReputacaoM(this->REP);
+		if(this->item[0].getnome() != "Vazio")
+		{
+			jogador->AdicionarItemNoInventario(vazio);
+		}
+	}
+	Missao()
+	{
+		this->XP=0;
+		this->REP=0;
+		this->Moedas=0;
+		this->Titulo ="";
+		this->Objetivo="";
+		this->ID="";
+		this->Texto="";
+	}
+};
 class MeuJogo
 {	
 public:
-						
+	void tutoriais()
+	{
+		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
+		cout <<  "|                                                        ";Verde("Tutoriais");cout<<"                                                    |";                              
+		cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n\n\n";
+	}								
 	void Tutorial(Jogador *x)
 	{
 		system("cls");
-
+		tutoriais();
 		
 	}
-
-	
+	void ExplicacaoGeral()
+	{
+		system ("cls");
+		tutoriais();
+		ImprimirComDelay("\n\tEste é um jogo desenvolvido inteiramente em C++, por mim.\n\n");
+		
+		ImprimirComDelay("\tMeu nome é Caiubi Aguiar, e eu sou um estudante de ADS do IFSP, atualmente no 3º semestre.\n\n");
+		
+		ImprimirComDelay("\tCriar um jogo foi uma ideia que me chamou a atenção assim que descobri a linguagem C,\n");
+		ImprimirComDelay("\tNo meu primeiro semestre de faculdade, surgiu uma oportunidade, então comecei bem humildemente fazendo esse jogo, \n\n");
+		
+		ImprimirComDelay("\tO jogo era feito apenas de menus com números na cidade de Greenwitch, comecei a usar a função KBHIT, e fazer menus \n");
+		ImprimirComDelay("\tmais elaborados com setas, tendo o trabalho de refazer cada menu 5 vezes para dar certo, \n");
+		ImprimirComDelay("\t(o jogo continha no mínimo 28 menus) \n");
+		ImprimirComDelay("\tGastei horas aprendendo a manipular cores pelo terminal, e fiz artes em ASCII usando cores, como a logo do jogo. \n");
+		ImprimirComDelay("\t(por sinal foi bem trabalhoso desenhar 2 dragões pixel por pixel em um terminal)\n");
+		ImprimirComDelay("\tnão havia sistema de combate, e havia um pequeno sistema precário de itens.\n\n");
+		
+		ImprimirComDelay("\tNo segundo semestre da faculdade aprendi orientação programada a objetos, e então criei um sistema de combate,\n");
+		ImprimirComDelay("\tMuito tempo depois de aprimorar o sistema de combate, resolvi com muito ânimo e disposição unificar meu antigo jogo e esse sistema de combate,\n");
+		ImprimirComDelay("\to trabalho seria enorme, eu deveria transformar +- 3.800 linhas de código em orientação programada a objetos e limpar o código \n");
+		ImprimirComDelay("\t(por sinal é um choque bem grande trabalhar com um código do início da sua carreira, por ser muito diferente com o seu conhecimento atual)\n");
+		ImprimirComDelay("\tdepois de relutar um pouco, eu comecei esse trabalho,\n");
+		ImprimirComDelay("\t(lembrando que eu nunca tive contato com programação antes, Eu não sabia o que era uma linguagem de programação até o primeiro dia de aula)\n\n");
+		
+		ImprimirComDelay("\tNo fim de 2022, desenvolvi a história e mitologia do jogo, \n");
+		ImprimirComDelay("\té uma lore incrível e rica em detalhes, ela está escrita em outro lugar, e eu ainda não incorporei grande parte ao jogo,\n");
+		ImprimirComDelay("\tpossui raças, continentes, um mapa-mundi, histórias do mundo, histórias de itens, personagens marcantes e etc,\n");
+		ImprimirComDelay("\tusei tempo especialmente contando a história sobre um mago negro chamado Ksar’Uk, que foi responsável por muitas coisas dentro do jogo,\n");
+		ImprimirComDelay("\tEscrevi 3 capítulos de um livro contando a história dele, e agora, terei que terminar\n\n");
+		
+		ImprimirComDelay("\tDesenvolvi poucas linhas de código durante as férias de 2022,\n");
+		ImprimirComDelay("\tPorém no começo de 2023 voltei a desenvolver algumas coisas e aqui estamos.\n\n");
+		
+		ImprimirComDelay("\tEssa é uma versão em C++ sem bibliotecas, e em \"2D\", é possível no futuro desenvolver um RPG ou MMORPG em terceira pessoa bem completo,\n");
+		ImprimirComDelay("\tmas por enquanto esse projeto é bom para estudo e me ajuda a estruturar o jogo para o futuro, além de servir como portfólio, e trabalho para a faculdade.\n");
+		
+		ImprimirComDelay("\tAs versões mais antigas desse jogo estão comigo, porém as mais recentes eu venho tentado colocar no GitHub.\n\n");
+		
+		ImprimirComDelay("\tÉ bom estar progredindo na criação desse jogo, e caso você esteja testando, por favor entre em contato para sugestões e melhorias:\n\n");
+		
+		ImprimirComDelay("\tO próximo passo será a incorporação de Banco de Dados.\n\n");
+		
+		ImprimirComDelay("\tContato:\n\n");
+		
+		ImprimirComDelay("\tTelefone: 12 98162-3073\n");
+		ImprimirComDelay("\tEmail caiubiaguair@gmail.com\n");
+	}
+	void ExplicacaoItens()
+	{
+			system ("cls");
+			tutoriais();
+			VerdeCDNoFim("\n\tSeja bem Vindo as Instruções de Itens.\n\n\n");
+			ImprimirComDelay("\tOs itens em "); VermelhoCD("(Título)");ImprimirComDelay(" são divididos em 6 raridades:\n\n");
+			ImprimirComDelay("\tComuns ");cout<<"         -";   Branco( " Branco\n");
+			VerdeCD("\tIncomuns ");cout<<"       -";   Verde(" Verde\n");
+			AzulCD("\tRaros ");cout<<"          -";   Azul(" Azul\n");
+			RosaCD("\tMágicos ");cout<<"        -";   Rosa(" Rosa\n");
+			AmareloCD("\tLendários ");cout<<"      -";   Amarelo(" Amarelo\n");
+			VermelhoCD("\tItens do Dragão ");cout<<"-";   Vermelho(" Vermelho\n\n\n");
+			Sleep(2000);
+			ImprimirComDelay("\tCada raridade se diferencia entre atributos e chance de ser encontrada. \n");
+			ImprimirComDelay("\tItens podem ser consumiveis ou não, e possuir características especiais,\n");
+			ImprimirComDelay("\tCada característica póderá ser vista na análise do inventário,\n\n\n\n");
+			/*
+			ImprimirComDelay("\t\tOs itens de proteção em "); VermelhoCD("(Título)");ImprimirComDelay("se dividem em:\n\n");
+			cout << "- \t\tCapacetes\n";
+			cout << "- \t\tPeitorais\n";
+			cout << "- \t\tOmbreiras\n";
+			cout << "- \t\tJuntas\n";
+			cout << "- \t\tBracadeira\n";
+			cout << "- \t\tLuvas\n";
+			cout << "- \t\tCalça\n";
+			cout << "- \t\tBotas\n";
+			*/
+			VermelhoCD("\t(Este menu, funcionalidades e adições ainda estão em desenviolvimento.\n\n\n");
+			VoltarAoMenu();
+	}
+	void ExplicacaoCombate()
+	{
+		system ("cls");
+		tutoriais();
+		ImprimirComDelay("\tSeja bem Vindo as Instruções de "); Azul("Combate");ImprimirComDelayNoFim("\n\n");
+		ImprimirComDelay("\tO Combate em "); VermelhoCD("(Título)");ImprimirComDelayNoFim(" funciona em Turnos.\n");
+		ImprimirComDelay("\tO jogador realiza sua ação, e em seguida será o turno do "); Vermelho("oponente");ImprimirComDelayNoFim(",\n");
+		ImprimirComDelay("\to qual realizará seu ataque contra o "); Verde("jogador");ImprimirComDelayNoFim(".\n");
+		ImprimirComDelay("\tInimigos possuem atributos, "); Amarelo("habilidades");ImprimirComDelay(", e chance de ativá-las, diferentes entre si,\n");
+		ImprimirComDelayNoFim("\tA descrição da habilidade pode ser feita em combate.\n");
+		Pause();
+		tutoriais();
+		VerdeCD("\n\tDescrição das opções em combate:\n\n\n");
+		VermelhoCD("\tAtacar:\n");
+		cout <<"\t\tAo atacar o Jogador golpeia o inimigo com sua arma, e em seguida será o turno do oponetne\n";
+		VerdeCD("\n\tMochila:\n");
+		cout <<"\t\tO jogador abre sua mochila, e caso escolha, utiliza sua ação para utilizar algum item consumível\n";
+		cout <<"\t\tO efeito dos itens consumíveis é variado e é descrito no inventário.\n";
+		AzulCD("\n\tPassar:\n");
+		cout <<"\t\tO Jogador gasta seu turno, e recupera alguns atributos, como mana e energia\n";
+		AmareloCD("\n\tHabilidades:\n");
+		cout <<"\t\tO Jogador exibe sua lista de habilidades, caso escolha usar alguma, e possa pagar seu custo,\n";
+		VermelhoCD("\n\tDesistir\n");
+		cout <<"\t\tO Jogador desiste da luta e tem seus pontos de vidas reduzidos a 0.\n";
+		AzulCD("\n\tDetalhar\n");
+		cout <<"\t\tExibe informações sobre seu inimigo e suas habilidades\n";
+		Pause();
+		system ("cls");
+		tutoriais();
+		VerdeCD("\tDescrição dos atributos:\n\n");
+		VerdeCD("\t\tHP (Health Points)"); cout <<" é a quantidade de vida do seu personagem,\n\t\t\tse chegar a 0 você é derrotado.";
+		AzulCD("\n\n\t\tMP (Mana Points)");cout <<" é a mana do seu personagem, utilizada para magias e habilidades";
+		AmareloCD("\n\n\t\tEnergia ");cout <<" Energia, fundamentar para atacar e usar habilidades";
+		VermelhoCD("\n\n\t\tAtaque ");cout <<" Seu ataque, valor usado para atacar seu oponente";
+		CinzaCD("\n\n\t\tArmadura ");cout <<" Sua armadura, Usada na defesa e redução de dano";
+		AmareloClaroCD("\n\n\t\tHabilidade"); cout <<" São as habilidades do seu oponente";
+		RosaCD("\n\n\t\tEfeitos:");cout <<"Os efeitos aplicados ao personagem estão logo abaixo desse marcador.\n\n\n\n";
+		VerdeCD("\t\tFim das Instruções\n");
+		VoltarAoMenu();
+	}
 //Cabeçalhos
 	void taverna()
 	{
@@ -3763,7 +3795,7 @@ public:
     		ImprimirComDelay("\tEnquanto buscava, por de trás de moitas, você encontrou uma praia anormalmente tranquila\n");
     		ImprimirComDelay("\tO que irá fazer ");ImprimirComDelay(jogador->getnome());ImprimirComDelayNoFim("?\n");
             cout << "\n\n\t(1) Entrar na Praia          \n";
-            cout << "\n\n\t(r) "; Cinza("Retornar");cout<< " aos";Verde(" Campos Praianos");cout<<"   \n";
+            cout << "\n\n\t(r) Retornar aos";Verde(" Campos Praianos");cout<<"   \n";
             switch(Tecla())
             {
                 case 49:
@@ -3794,7 +3826,7 @@ public:
 			ImprimirComDelay("\tO que irá fazer ");ImprimirComDelay(jogador->getnome());ImprimirComDelayNoFim("?\n");
             cout << "\n\n\t(1) Falar com a mulher       \n";
             cout << "\n\n\t(2) Mergulhar no mar         \n";
-            cout << "\n\n\t(r) "; Cinza("Retornar");cout<< " aos";Verde("Campos Praianos");cout<<"   \n";
+            cout << "\n\n\t(r) Retornar aos";Verde("Campos Praianos");cout<<"   \n";
             cout << "\n\n\t(i) Abrir inventário \n";
             jogador->PrimeiraVezNaPraia == false;
         }
@@ -3809,7 +3841,7 @@ public:
             cout << "\n\n\t(2) Procurar mais localidades      \n";
             cout << "\n\n\t(3) Andar até a praia mais próxima \n";
             cout << "\n\n\t(4) Andar até o Covil Marine       \n";
-            cout << "\n\n\t(r) Tentar "; Cinza("Retornar");cout<< " a ";Verde("Kyronma");cout<<"   \n";
+            cout << "\n\n\t(r) Tentar Retornar a ";Verde("Kyronma");cout<<"   \n";
             cout << "\n\n\t(i) Abrir inventário \n";
         }
         switch(Tecla())
@@ -3925,7 +3957,7 @@ public:
                 cout << "\n\n\t(2) Procurar mais localidades      \n";
                 cout << "\n\n\t(3) Andar até a praia mais próxima \n";
                 cout << "\n\n\t(4) Andar até o Covil Marine       \n";
-                cout << "\n\n\t(r) Tentar "; Cinza("Retornar");cout<< " a ";Verde("Kyronma");cout<<"   \n";
+                cout << "\n\n\t(r) Tentar Retornar a ";Verde("Kyronma");cout<<"   \n";
                 cout << "\n\n\t(i) Abrir inventário \n";
                 jogador->PrimeiraVezNosCamposPraianos = false;
             }
@@ -3941,7 +3973,7 @@ public:
                 cout << "\n\n\t(2) Procurar mais localidades      \n";
                 cout << "\n\n\t(3) Andar até a praia mais próxima \n";
                 cout << "\n\n\t(4) Andar até o Covil Marine       \n";
-                cout << "\n\n\t(r) Tentar "; Cinza("Retornar");cout<< " a ";Verde("Kyronma");cout<<"   \n";
+                cout << "\n\n\t(r) Tentar Retornar a ";Verde("Kyronma");cout<<"   \n";
                 cout << "\n\n\t(i) Abrir inventário \n";
             }
             switch(Tecla())
@@ -4142,7 +4174,7 @@ public:
 		     "         |  Seca       |_  _|       |   Receba 4 de HP.                          |\n"
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n\n"
-		     "  (r)    "; Cinza("Retornar");cout<< " ao centro\n\n"
+		     "  (r)    Retornar ao centro\n\n"
 		     "  (i)    Abrir o inventário  ";
 		     switch(Tecla())
 		     {
@@ -4208,7 +4240,7 @@ public:
 		     "         |  Imperador  _||_ |_|     |  obtido apenas na ilha de Kronnomar.      |\n"
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n\n"
-		     "  (r)    "; Cinza("Retornar");cout<< " ao centro\n\n"
+		     "  (r)    Retornar ao centro\n\n"
 		     "  (i)    Abrir o inventário  ";
 		     switch(Tecla())
 		     {
@@ -4275,7 +4307,7 @@ public:
 		     "         |  Imperador  _||_ |_|     |  obtido apenas na ilha de Kronnomar.      |\n"
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n\n"
-		     "  (r)    "; Cinza("Retornar");cout<< " ao centro\n\n"
+		     "  (r)    Retornar ao centro\n\n"
 		     "  (i)    Abrir o inventário  ";
 		     switch(Tecla())
 		     {
@@ -4330,7 +4362,7 @@ public:
 				cout << "\n\n\t(2) Ir ao Pescador              \n";
 				cout << "\n\n\t(3) Ir ao Artesão da aldeia     \n";
 				cout << "\n\n\t(4) Ir ao Instrutor             \n";
-				cout << "\n\n\t(r) "; Cinza("Retornar");cout<< "                    \n";
+				cout << "\n\n\t(r) Retornar                    \n";
 				cout << "\n\n\t(i) Abrir inventário            \n";
 				jogador->PrimeiraVezNoCentro = false;
 			}
@@ -4344,7 +4376,7 @@ public:
 				cout << "\n\n\t(2) Ir ao Pescador              \n";
 				cout << "\n\n\t(3) Ir ao Artesão da aldeia     \n";
 				cout << "\n\n\t(4) Ir ao Instrutor             \n";
-				cout << "\n\n\t(r) "; Cinza("Retornar");cout<< "                    \n";
+				cout << "\n\n\t(r) Retornar                    \n";
 				cout << "\n\n\t(i) Abrir inventário            \n";
 			}
 			switch(Tecla())
@@ -4404,7 +4436,7 @@ public:
 		     "         |                          |                                            |\n"
 		     "         +--------------------------+--------------------------------------------+\n\n"
 		     "  (i)   Abrir o Inventário\n\n\n"
-		     "  (r)   "; Cinza("Retornar");cout<< " a taverna\n";
+		     "  (r)   Retornar a taverna\n";
 		     switch(Tecla())
 		     {
 		     	case 49:
@@ -4437,6 +4469,28 @@ public:
 			 }
 		 }
 	}
+	void MissoesDaTaverna()
+	{
+		while(1)
+		{
+			taverna();
+			Branco("\tEscolha seu tipo de missão:\n\n");
+			cout << "\n\n\t(1) Missão ";Verde("Simples");cout <<" \n";
+			cout << "\n\n\t(2) Missão ";Vermelho("Difícil");cout <<" \n";
+			cout << "\n\n\t(3) Modo história \n";
+			cout << "\n\n\t(4) - Como funcionan as missões? \n";
+			cout << "\n\n\t(i) Abrir inventário \n";
+			cout << "\n\n\t(r) Retornar \n";
+			
+			switch(Tecla())
+			{
+				case 49:
+					NumeroAleatorio(100);
+				break;
+				
+			}
+		}
+	}
 	void BalcaoDaTaverna(Jogador*jogador,Item item[])
 	{
 //BALCÂO
@@ -4468,7 +4522,7 @@ public:
 			{
 		//ABRIR MISSÕES DA TAVERNA
 				case 49:
-					taverna();
+					MissoesDaTaverna();
 				break;
 				
 		//INFORMAÇÕES	
@@ -4692,7 +4746,7 @@ public:
                 cout << "\n\n\t(5) - O que me aguarda?                   \n";
 				cout << "\n\n\t(6) - Me conte uma lenda .                \n";
                 cout << "\n\n\t(i) Abrir inventário                      \n";
-                cout << "\n\n\t(r) "; Cinza("Retornar");cout<< " a ";Verde("Kyronma                    \n");
+                cout << "\n\n\t(r) Retornar a ";Verde("Kyronma                    \n");
 				jogador->PrimeiraVezNoCurandeiro = false;
 			}
 			else if(jogador->PrimeiraVezNoCurandeiro == false)
@@ -4709,7 +4763,7 @@ public:
                 cout << "\n\n\t(5) - O que me aguarda?                   \n";
 				cout << "\n\n\t(6) - Me conte uma lenda.                 \n";
                 cout << "\n\n\t(i) Abrir inventário                      \n";
-                cout << "\n\n\t(r) "; Cinza("Retornar");cout<< " a ";Verde("Kyronma                    \n");
+                cout << "\n\n\t(r) Retornar a ";Verde("Kyronma                    \n");
 			}
 			switch(Tecla())
 			{
@@ -4758,7 +4812,7 @@ public:
 				ImprimirComDelay ("\tEla representa os limites da aldeia.\n");
 				ImprimirComDelay ("\tO que irá fazer "); cout << jogador->getnome() << "?\n";
 				cout << "\n\n\t(1) Sair da aldeia   \n";
-				cout << "\n\n\t(r) "; Cinza("Retornar");cout<< " a ";Verde("Kyronma");cout<<"   \n";
+				cout << "\n\n\t(r) Retornar a ";Verde("Kyronma");cout<<"   \n";
 				cout << "\n\n\t(i) Abrir inventário \n";
 				jogador->PrimeiraVezNoPortao = false;
 			}
@@ -4768,7 +4822,7 @@ public:
 				cout <<"\tEla representa os limites da aldeia.\n";
 				cout <<"\tO que irá fazer "; cout << jogador->getnome() << "?\n";
 				cout << "\n\n\t(1) Sair da aldeia     \n";
-				cout << "\n\n\t(r)"; Cinza("Retornar");cout<< " a ";Verde("Kyronma");cout<<"   \n";
+				cout << "\n\n\t(r) Retornar a ";Verde("Kyronma");cout<<"   \n";
 				cout << "\n\n\t(i) Abrir inventário \n";
 			}
 			switch(Tecla())
@@ -4802,7 +4856,7 @@ public:
 				VerdeCD("\tKyronma");ImprimirComDelayNoFim(" colabora com sua atmosfera serena e pacífica.\n");
 				cout << "\n\n\t(1) Abrir o Baú      \n";
 				cout << "\n\n\t(2) Descansar        \n";
-				cout << "\n\n\t(r) "; Cinza("Retornar");cout<< " a ";Verde("Kyronma");cout<<"\n";
+				cout << "\n\n\t(r) Retornar a ";Verde("Kyronma");cout<<"\n";
 				cout << "\n\n\t(i) Abrir inventário \n";
 				jogador->PrimeiraVezEmCasa = false;
 			}
@@ -4813,7 +4867,7 @@ public:
 				Verde("\tKyronma");cout <<" colabora com sua atmosfera serena e pacífica.\n";
 				cout << "\n\n\t(1) Abrir o Baú      \n";
 				cout << "\n\n\t(2) Descansar        \n";
-				cout << "\n\n\t(r) "; Cinza("Retornar");cout<< " a ";Verde("Kyronma");cout<<"\n";
+				cout << "\n\n\t(r) Retornar a ";Verde("Kyronma");cout<<"\n";
 				cout << "\n\n\t(i) Abrir inventário \n";
 			}
 			switch(Tecla())
@@ -4890,7 +4944,7 @@ public:
 				"XXXXXXXXXXXXXXXXXKKK0KXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXKK00OO0KKKKXXXXXXXXXXXXXKOxdl::lollccc;:coddlcokO0OOkkkxxddoolcccccc\n"
 				"XXXXXXXXXXXXXXXK0000KKKXXXXXXXXXXXXXXXXXXXXXXXXXKXXXXXXXKKXXXXXXXXXXXXXXXKOdoc:::clooolccc::cc:;;;;coOXXXXXXXXXKKK000OOk\n"
 				"KKKKKKKKKKKKKK0OO00KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK0OOOOxdkkxxkkxkOkxxxxxkkkkk0KKKKKKKKKKKKKKKKKK\n";
-			    Sleep(5000);
+			   // Sleep(5000);
 			    system("cls");
 			    cout <<"\n+----------------------------------------------------------------------------------------------------------------------+\n";
 				cout <<  "|                                                      A Aldeia de ";Verde("Kyronma");cout<<"                                             |";                              
@@ -4964,10 +5018,6 @@ public:
 			}
 		}
 	}
-	void conteudoparausar()
-	{
-	
-	}  
 };
 int main ()
 {
@@ -5356,8 +5406,50 @@ MarineLutador MarinesLutadores[5];
 MarineCacador MarinesCacadores[3];
 MarineMago MarinesMagos[3];
 Monstro Monstros[10];
-BonecoDeTreino Bonecos[4];
+BonecoDeTreino Bonecos[4];;
+Missao Missoes[7];
+x.Casas[0].ColocarItem(itens[3]);
+x.Casas[0].ColocarItem(itens[2]);
+x.Casas[0].ColocarItem(itens[3]);
+x.Casas[0].ColocarItem(itens[3]);
+x.Casas[0].ColocarItem(itens[1]);
+x.Casas[0].ColocarItem(itens[1]);
+x.Casas[0].ColocarItem(itens[1]);
+x.Casas[0].ColocarItem(itens[1]);
+x.Casas[0].ColocarItem(itens[3]);
 Humano Bebados[5];
+//Missões
+	{	
+	Missoes[0].setTitulo("Luta por Kyronma!");
+	Missoes[0].REP=8000;
+	Missoes[0].Moedas=10000;
+	Missoes[0].setObjetivo("");
+	Missoes[0].setID("");
+	Missoes[0].setTexto("");
+	
+	Missoes[1].setTitulo("Aranhas?");
+	Missoes[1].REP=20;
+	Missoes[1].Moedas=200;
+	Missoes[1].setObjetivo("Abata 3 Aranhas de areia");
+	Missoes[1].setID("");
+	Missoes[1].setTexto("Acaba com algumas aranhas, isso melhora suas habilidades de combate, além de limpar os arredores da aldeia... ");
+	
+	Missoes[2].setTitulo("Carne de Javali");
+	Missoes[2].REP=40;
+	Missoes[2].Moedas=500;
+	Missoes[2].setObjetivo("Abata 2 Javalis Selvagens");
+	Missoes[2].setID("");
+	Missoes[2].setTexto("Hoje a janta deverá ser boa... ");
+
+	
+	Missoes[3].setTitulo("A morte de Durotan?");
+	Missoes[3].REP=300;
+	Missoes[3].Moedas=9000;
+	Missoes[3].setObjetivo("Derrote o temíver Marine: Durotan");
+	Missoes[3].setID("");
+	Missoes[3].setTexto("é Hora de por um fim a tirania de Durotan.");
+}
+
 //Inimigos
 {
 	
@@ -5616,15 +5708,6 @@ Humano Bebados[5];
 	x.setDificuldade(1);
 	while (1) 
 	{
-		x.Casas[0].ColocarItem(itens[3]);
-		x.Casas[0].ColocarItem(itens[2]);
-		x.Casas[0].ColocarItem(itens[3]);
-		x.Casas[0].ColocarItem(itens[3]);
-		x.Casas[0].ColocarItem(itens[1]);
-		x.Casas[0].ColocarItem(itens[1]);
-		x.Casas[0].ColocarItem(itens[1]);
-		x.Casas[0].ColocarItem(itens[1]);
-		x.Casas[0].ColocarItem(itens[3]);
 		system("cls");
 		cout<<"+----------------------------------------------------------------------------------------------------------------------+\n"
 	      "|                                                                                                                      |\n"
@@ -5690,15 +5773,15 @@ Humano Bebados[5];
 					break;
 					
 					case 49:
-						x.ExplicacaoGeral();
+						jogo.ExplicacaoGeral();
 					break;
 					
 					case 50:
-						x.ExplicacaoCombate();
+						jogo.ExplicacaoCombate();
 					break;
 					
 					case 51:
-						x.ExplicacaoItens();
+						jogo.ExplicacaoItens();
 					break;
 					
 					case 52:
